@@ -53,7 +53,7 @@ export function Hero() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.08 }}
-        className="mt-6 font-serif text-[clamp(2.75rem,8vw,6rem)] font-light leading-[0.95] tracking-tightest text-ink-50"
+        className="mt-6 font-serif text-[clamp(2.75rem,8vw,6rem)] font-light leading-[0.95] tracking-tightest text-fg"
       >
         Frank Zhang
       </motion.h1>
@@ -62,18 +62,18 @@ export function Hero() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="mt-6 font-mono text-sm text-ink-300 md:text-base"
+        className="mt-6 font-mono text-sm text-fg-muted md:text-base"
       >
-        <span className="text-ink-400">I am a </span>
-        <span className="text-ink-50">{display}</span>
-        <span className="ml-0.5 inline-block h-[1em] w-[1px] animate-pulse-slow bg-ink-300 align-middle" />
+        <span className="text-fg-dim">I am a </span>
+        <span className="text-fg">{display}</span>
+        <span className="ml-0.5 inline-block h-[1em] w-[1px] animate-pulse-slow bg-fg-muted align-middle" />
       </motion.p>
 
       <motion.p
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.3 }}
-        className="mt-8 max-w-2xl text-pretty text-base leading-relaxed text-ink-300 md:text-lg"
+        className="mt-8 max-w-2xl text-pretty text-base leading-relaxed text-fg-muted md:text-lg"
       >
         Currently at Harvard Graduate School of Education and cross-registered at
         MIT Media Lab. Working at the intersection of AI, learning design, and
@@ -85,14 +85,14 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.5 }}
-        className="mt-10 flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-400"
+        className="mt-10 flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-fg-dim"
       >
         <span>Harvard GSE</span>
-        <span className="text-ink-700">/</span>
+        <span className="text-hairline">/</span>
         <span>MIT Media Lab</span>
-        <span className="text-ink-700">/</span>
+        <span className="text-hairline">/</span>
         <span>UBC MBAN</span>
-        <span className="text-ink-700">/</span>
+        <span className="text-hairline">/</span>
         <span>U of Toronto</span>
       </motion.div>
     </section>

@@ -40,11 +40,11 @@ export default function AboutPage() {
       />
 
       <section className="container-prose pb-16">
-        <div className="grid grid-cols-1 gap-10 border-t border-ink-700 py-10 md:grid-cols-[200px_1fr] md:gap-10">
-          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-400">
+        <div className="grid grid-cols-1 gap-10 border-t border-hairline py-10 md:grid-cols-[200px_1fr] md:gap-10">
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-fg-dim">
             Biography
           </p>
-          <div className="space-y-5 text-base leading-relaxed text-ink-300">
+          <div className="space-y-5 text-base leading-relaxed text-fg-muted">
             <p>
               I work at the intersection of AI, learning design, and business
               analytics. My path has moved between engineering (computer vision
@@ -68,16 +68,16 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-10 border-t border-ink-700 py-10 md:grid-cols-[200px_1fr]">
-          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-400">
+        <div className="grid grid-cols-1 gap-10 border-t border-hairline py-10 md:grid-cols-[200px_1fr]">
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-fg-dim">
             Education
           </p>
           <ul className="space-y-6">
             {schools.map((s) => (
               <li key={s.id}>
-                <p className="font-serif text-lg text-ink-50">{s.school}</p>
-                <p className="mt-1 text-sm text-ink-300">{s.degree}</p>
-                <p className="mt-1 font-mono text-[11px] text-ink-500">
+                <p className="font-serif text-lg text-fg">{s.school}</p>
+                <p className="mt-1 text-sm text-fg-muted">{s.degree}</p>
+                <p className="mt-1 font-mono text-[11px] text-fg0">
                   {s.period} · {s.location}
                   {s.detail ? ` · ${s.detail}` : ''}
                 </p>
@@ -86,21 +86,21 @@ export default function AboutPage() {
           </ul>
         </div>
 
-        <div className="grid grid-cols-1 gap-10 border-t border-ink-700 py-10 md:grid-cols-[200px_1fr]">
-          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-400">
+        <div className="grid grid-cols-1 gap-10 border-t border-hairline py-10 md:grid-cols-[200px_1fr]">
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-fg-dim">
             Skills
           </p>
           <div className="space-y-6">
             {SKILLS.map((s) => (
               <div key={s.group}>
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-400">
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg-dim">
                   {s.group}
                 </p>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {s.items.map((i) => (
                     <span
                       key={i}
-                      className="rounded-full border border-ink-700 px-3 py-1 font-mono text-[11px] text-ink-300"
+                      className="rounded-full border border-hairline px-3 py-1 font-mono text-[11px] text-fg-muted"
                     >
                       {i}
                     </span>
@@ -111,30 +111,30 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-10 border-t border-ink-700 py-10 md:grid-cols-[200px_1fr]">
-          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-400">
+        <div className="grid grid-cols-1 gap-10 border-t border-hairline py-10 md:grid-cols-[200px_1fr]">
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-fg-dim">
             Contact
           </p>
-          <ul className="space-y-2 text-sm text-ink-300">
+          <ul className="space-y-2 text-sm text-fg-muted">
             <li>
-              <span className="inline-block w-20 font-mono text-[11px] uppercase tracking-[0.15em] text-ink-500">
+              <span className="inline-block w-20 font-mono text-[11px] uppercase tracking-[0.15em] text-fg0">
                 Email
               </span>
               <a
-                className="transition-colors hover:text-ink-50"
+                className="transition-colors hover:text-fg"
                 href="mailto:jiaweizhang@gse.harvard.edu"
               >
                 jiaweizhang@gse.harvard.edu
               </a>
             </li>
             <li>
-              <span className="inline-block w-20 font-mono text-[11px] uppercase tracking-[0.15em] text-ink-500">
+              <span className="inline-block w-20 font-mono text-[11px] uppercase tracking-[0.15em] text-fg0">
                 Phone
               </span>
               +1 (617) 599-0738
             </li>
             <li>
-              <span className="inline-block w-20 font-mono text-[11px] uppercase tracking-[0.15em] text-ink-500">
+              <span className="inline-block w-20 font-mono text-[11px] uppercase tracking-[0.15em] text-fg0">
                 Base
               </span>
               Cambridge, MA, US

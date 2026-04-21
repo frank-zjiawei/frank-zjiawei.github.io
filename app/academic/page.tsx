@@ -20,26 +20,26 @@ export default function AcademicPage() {
           <article
             key={s.id}
             id={s.id}
-            className="grid grid-cols-1 gap-6 border-t border-ink-700 py-10 md:grid-cols-[200px_1fr] md:gap-10"
+            className="grid grid-cols-1 gap-6 border-t border-hairline py-10 md:grid-cols-[200px_1fr] md:gap-10"
           >
             <div className="space-y-2">
-              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-400">
+              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-fg-dim">
                 {s.period}
               </p>
-              <p className="font-mono text-[11px] text-ink-500">{s.location}</p>
+              <p className="font-mono text-[11px] text-fg0">{s.location}</p>
               {s.distinction ? (
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-300">
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg-muted">
                   {s.distinction}
                 </p>
               ) : null}
             </div>
             <div>
-              <h3 className="font-serif text-2xl leading-tight text-ink-50 md:text-3xl">
+              <h3 className="font-serif text-2xl leading-tight text-fg md:text-3xl">
                 {s.school}
               </h3>
-              <p className="mt-3 text-base text-ink-300">{s.degree}</p>
+              <p className="mt-3 text-base text-fg-muted">{s.degree}</p>
               {s.detail ? (
-                <p className="mt-2 font-mono text-xs text-ink-400">{s.detail}</p>
+                <p className="mt-2 font-mono text-xs text-fg-dim">{s.detail}</p>
               ) : null}
             </div>
           </article>

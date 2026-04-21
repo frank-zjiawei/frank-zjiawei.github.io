@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
+import { ThemeToggle } from './ThemeToggle';
 
 const NAV_ITEMS = [
   { href: '/ai', label: 'AI' },
@@ -30,14 +31,14 @@ export function Nav() {
       className={clsx(
         'sticky top-0 z-40 w-full transition-all duration-300',
         scrolled
-          ? 'border-b border-ink-700 bg-ink-950/80 backdrop-blur-md'
+          ? 'border-b border-hairline bg-surface/80 backdrop-blur-md'
           : 'border-b border-transparent',
       )}
     >
       <div className="container-prose flex h-14 items-center justify-between">
         <Link
           href="/"
-          className="font-serif text-lg tracking-tightest text-ink-50 transition-opacity hover:opacity-70"
+          className="font-serif text-lg tracking-tightest text-fg transition-opacity hover:opacity-70"
           aria-label="Frank Zhang — Home"
         >
           FZ
@@ -54,7 +55,7 @@ export function Nav() {
                     href={item.href}
                     className={clsx(
                       'nav-link',
-                      active && 'text-ink-50',
+                      active && 'text-fg',
                     )}
                   >
                     {item.label}
@@ -66,7 +67,7 @@ export function Nav() {
 
           <button
             type="button"
-            className="kbd cursor-pointer transition-colors hover:border-ink-300 hover:text-ink-50"
+            className="kbd cursor-pointer transition-colors hover:border-fg-muted hover:text-fg"
             onClick={() => {
               window.dispatchEvent(new CustomEvent('open-command-menu'));
             }}
@@ -75,6 +76,8 @@ export function Nav() {
             <span className="text-[13px] leading-none">⌘</span>
             <span>K</span>
           </button>
+
+          <ThemeToggle />
         </nav>
       </div>
     </header>

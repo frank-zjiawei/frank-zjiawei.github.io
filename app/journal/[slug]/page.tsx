@@ -29,13 +29,13 @@ export default function JournalPost({ params }: { params: Params }) {
     <article className="container-prose pb-24 pt-16 md:pt-24">
       <Link
         href="/journal"
-        className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-400 transition-colors hover:text-ink-50"
+        className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-dim transition-colors hover:text-fg"
       >
         ← Journal
       </Link>
 
-      <header className="mt-10 border-b border-ink-700 pb-10">
-        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-400">
+      <header className="mt-10 border-b border-hairline pb-10">
+        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-dim">
           {new Date(post.date).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
@@ -43,14 +43,14 @@ export default function JournalPost({ params }: { params: Params }) {
           })}{' '}
           · {post.readingMinutes} min read
         </p>
-        <h1 className="mt-6 font-serif text-[clamp(2.25rem,5vw,3.75rem)] font-light leading-[1.05] tracking-tightest text-ink-50">
+        <h1 className="mt-6 font-serif text-[clamp(2.25rem,5vw,3.75rem)] font-light leading-[1.05] tracking-tightest text-fg">
           {post.title}
         </h1>
         <div className="mt-5 flex flex-wrap gap-2">
           {post.tags.map((t) => (
             <span
               key={t}
-              className="rounded-full border border-ink-700 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-ink-300"
+              className="rounded-full border border-hairline px-3 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-fg-muted"
             >
               {t}
             </span>
@@ -58,7 +58,7 @@ export default function JournalPost({ params }: { params: Params }) {
         </div>
       </header>
 
-      <div className="prose prose-invert mt-10 max-w-none prose-p:text-ink-200 prose-p:leading-relaxed prose-a:text-ink-50 prose-headings:font-serif prose-headings:text-ink-50">
+      <div className="prose mt-10 max-w-none dark:prose-invert prose-p:text-fg prose-p:leading-relaxed prose-a:text-fg prose-headings:font-serif prose-headings:text-fg">
         {paragraphs.map((p, i) => (
           <p key={i}>{p}</p>
         ))}

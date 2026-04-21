@@ -12,11 +12,11 @@ export default function GraphPage() {
     <>
       <PageHeader
         eyebrow="Map"
-        title="Knowledge Graph"
-        description="Hover a node to follow its connections. Click to open the related project, lab, or paper."
+        title="Graphic view"
+        description="Drag a node to pull on the web — connected nodes follow. Hover to trace relationships, click to open the related project, lab, or paper."
       />
       <div className="container-prose pb-24">
-        <div className="relative overflow-hidden rounded-sm border border-ink-700 bg-ink-950/40">
+        <div className="relative overflow-hidden rounded-sm border border-hairline bg-surface/40">
           <KnowledgeGraph height={720} />
         </div>
       </div>

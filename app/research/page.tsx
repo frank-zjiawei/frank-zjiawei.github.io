@@ -34,28 +34,28 @@ export default function ResearchPage() {
           <article
             key={r.id}
             id={r.id}
-            className="grid grid-cols-1 gap-6 border-t border-ink-700 py-10 md:grid-cols-[200px_1fr] md:gap-10"
+            className="grid grid-cols-1 gap-6 border-t border-hairline py-10 md:grid-cols-[200px_1fr] md:gap-10"
           >
             <div className="space-y-2 md:sticky md:top-24 md:self-start">
-              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-400">
+              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-fg-dim">
                 {r.period}
               </p>
-              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-300">
+              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-muted">
                 {r.role}
               </p>
-              <p className="font-mono text-[11px] text-ink-500">{r.location}</p>
+              <p className="font-mono text-[11px] text-fg0">{r.location}</p>
             </div>
             <div>
-              <h3 className="font-serif text-2xl leading-tight text-ink-50 md:text-3xl">
+              <h3 className="font-serif text-2xl leading-tight text-fg md:text-3xl">
                 {r.lab}
               </h3>
               <ul className="mt-6 space-y-2.5">
                 {r.bullets.map((b) => (
                   <li
                     key={b}
-                    className="flex gap-3 text-sm leading-relaxed text-ink-300"
+                    className="flex gap-3 text-sm leading-relaxed text-fg-muted"
                   >
-                    <span className="mt-2 h-px w-3 shrink-0 bg-ink-500" />
+                    <span className="mt-2 h-px w-3 shrink-0 bg-fg-faint" />
                     <span>{b}</span>
                   </li>
                 ))}
@@ -64,7 +64,7 @@ export default function ResearchPage() {
                 {r.tags.map((t) => (
                   <span
                     key={t}
-                    className="rounded-full border border-ink-700 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-ink-300"
+                    className="rounded-full border border-hairline px-3 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-fg-muted"
                   >
                     {t}
                   </span>
@@ -82,23 +82,23 @@ export default function ResearchPage() {
         </div>
 
         {years.map((y) => (
-          <div key={y} className="border-t border-ink-700 py-8">
-            <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.25em] text-ink-400">
+          <div key={y} className="border-t border-hairline py-8">
+            <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.25em] text-fg-dim">
               {y}
             </p>
             <ol className="space-y-6">
               {byYear[y].map((p) => (
                 <li key={p.id} className="grid grid-cols-[36px_1fr] gap-4">
-                  <span className="pt-1 font-mono text-[11px] text-ink-500">
+                  <span className="pt-1 font-mono text-[11px] text-fg0">
                     [{p.id}]
                   </span>
                   <div>
-                    <p className="font-serif text-lg leading-snug text-ink-50">
+                    <p className="font-serif text-lg leading-snug text-fg">
                       {p.title}
                     </p>
-                    <p className="mt-1 text-sm text-ink-400">{p.authors}</p>
+                    <p className="mt-1 text-sm text-fg-dim">{p.authors}</p>
                     {p.venue ? (
-                      <p className="mt-1 font-mono text-[11px] text-ink-500">
+                      <p className="mt-1 font-mono text-[11px] text-fg0">
                         {p.venue}
                       </p>
                     ) : null}
@@ -106,7 +106,7 @@ export default function ResearchPage() {
                       {p.tags.map((t) => (
                         <span
                           key={t}
-                          className="rounded-full border border-ink-700 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.15em] text-ink-400"
+                          className="rounded-full border border-hairline px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.15em] text-fg-dim"
                         >
                           {t}
                         </span>

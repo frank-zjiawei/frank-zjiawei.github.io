@@ -1,20 +1,15 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
-import dynamic from 'next/dynamic';
+import {
+  ComponentType,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useRouter } from 'next/navigation';
 import { graphData, type GraphNode } from '@/content/graph';
-
-const ForceGraph2D = dynamic(() => import('react-force-graph-2d'), {
-  ssr: false,
-  loading: () => (
-    <div className="flex h-full w-full items-center justify-center">
-      <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-400">
-        Initializing graph…
-      </div>
-    </div>
-  ),
-});
 
 interface GraphProps {
   height?: number;
@@ -25,17 +20,85 @@ type RFGNode = GraphNode & {
   y?: number;
   vx?: number;
   vy?: number;
-  neighbors?: Set<string>;
+  fx?: number | null;
+  fy?: number | null;
 };
+
+interface Palette {
+  fg: string;
+  fgMuted: string;
+  fgDim: string;
+  link: string;
+  linkDim: string;
+  halo: string;
+  nodeFill: string;
+}
+
+function readPalette(): Palette {
+  if (typeof window === 'undefined') {
+    return {
+      fg: '10,10,10',
+      fgMuted: '82,82,82',
+      fgDim: '115,115,115',
+      link: '10,10,10',
+      linkDim: '10,10,10',
+      halo: '10,10,10',
+      nodeFill: '10,10,10',
+    };
+  }
+  const css = getComputedStyle(document.documentElement);
+  const get = (name: string, fallback: string) =>
+    (css.getPropertyValue(name).trim() || fallback).replace(/\s+/g, ',');
+  return {
+    fg: get('--fg', '10 10 10'),
+    fgMuted: get('--fg-muted', '82 82 82'),
+    fgDim: get('--fg-dim', '115 115 115'),
+    link: get('--fg', '10 10 10'),
+    linkDim: get('--fg-dim', '115 115 115'),
+    halo: get('--accent', '10 10 10'),
+    nodeFill: get('--fg', '10 10 10'),
+  };
+}
 
 export function KnowledgeGraph({ height = 560 }: GraphProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const fgRef = useRef<any>(null);
   const router = useRouter();
 
+  const [ForceGraph2D, setForceGraph2D] =
+    useState<ComponentType<any> | null>(null);
   const [size, setSize] = useState({ width: 800, height });
   const [hoverId, setHoverId] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [palette, setPalette] = useState<Palette>(() => ({
+    fg: '10,10,10',
+    fgMuted: '82,82,82',
+    fgDim: '115,115,115',
+    link: '10,10,10',
+    linkDim: '115,115,115',
+    halo: '10,10,10',
+    nodeFill: '10,10,10',
+  }));
+
+  // Lazy-load the canvas library on the client so refs flow through cleanly.
+  useEffect(() => {
+    let cancelled = false;
+    import('react-force-graph-2d').then((mod) => {
+      if (!cancelled) setForceGraph2D(() => mod.default);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Track theme changes so colors follow the light/dark toggle.
+  useEffect(() => {
+    setPalette(readPalette());
+    const html = document.documentElement;
+    const observer = new MutationObserver(() => setPalette(readPalette()));
+    observer.observe(html, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
 
   // Precompute neighbor adjacency for hover-highlight.
   const adjacency = useMemo(() => {
@@ -49,13 +112,25 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
   }, []);
 
   // Deep-cloned data each render avoids react-force-graph mutating the source.
-  const data = useMemo(
-    () => ({
-      nodes: graphData.nodes.map((n) => ({ ...n })),
+  // Pre-seed node positions in a loose ring so the simulation has breathing
+  // room before it settles — prevents the "all piled at origin" start.
+  const data = useMemo(() => {
+    const others = graphData.nodes.filter((n) => n.group !== 'root');
+    return {
+      nodes: graphData.nodes.map((n) => {
+        if (n.group === 'root') return { ...n, x: 0, y: 0 };
+        const i = others.findIndex((o) => o.id === n.id);
+        const angle = (i / others.length) * Math.PI * 2;
+        const ring = n.group === 'domain' ? 140 : 260;
+        return {
+          ...n,
+          x: Math.cos(angle) * ring,
+          y: Math.sin(angle) * ring,
+        };
+      }),
       links: graphData.links.map((l) => ({ ...l })),
-    }),
-    [],
-  );
+    };
+  }, []);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -71,24 +146,42 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
     return () => ro.disconnect();
   }, [height]);
 
+  // Tune forces for that Obsidian-style springy web once the graph mounts.
   useEffect(() => {
-    if (!fgRef.current) return;
     const fg = fgRef.current;
-    // Tweak forces for a calm, wide layout
-    fg.d3Force?.('charge')?.strength(isMobile ? -80 : -160);
-    fg.d3Force?.('link')?.distance((l: any) => {
-      const s = typeof l.source === 'object' ? l.source.id : l.source;
-      if (s === 'frank') return 80;
-      return 42;
-    });
-    fg.d3ReheatSimulation?.();
-  }, [isMobile, data]);
+    if (!fg || !ForceGraph2D) return;
 
-  const isActive = (id: string) => {
-    if (!hoverId) return true;
-    if (id === hoverId) return true;
-    return adjacency.get(hoverId)?.has(id) ?? false;
-  };
+    const charge = fg.d3Force?.('charge');
+    if (charge) {
+      charge.strength(isMobile ? -220 : -380);
+      charge.distanceMax?.(640);
+    }
+
+    const link = fg.d3Force?.('link');
+    if (link) {
+      link.distance((l: any) => {
+        const s = typeof l.source === 'object' ? l.source.id : l.source;
+        const t = typeof l.target === 'object' ? l.target.id : l.target;
+        if (s === 'frank' || t === 'frank') return 130;
+        return 72;
+      });
+      link.strength(0.22);
+    }
+
+    const center = fg.d3Force?.('center');
+    if (center) center.strength?.(0.015);
+
+    fg.d3ReheatSimulation?.();
+  }, [isMobile, ForceGraph2D]);
+
+  const isActive = useCallback(
+    (id: string) => {
+      if (!hoverId) return true;
+      if (id === hoverId) return true;
+      return adjacency.get(hoverId)?.has(id) ?? false;
+    },
+    [hoverId, adjacency],
+  );
 
   return (
     <div
@@ -96,106 +189,136 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
       className="relative h-full w-full"
       style={{ height }}
     >
-      <ForceGraph2D
-        ref={fgRef}
-        graphData={data}
-        width={size.width}
-        height={height}
-        backgroundColor="rgba(0,0,0,0)"
-        cooldownTicks={120}
-        d3VelocityDecay={0.3}
-        enableZoomInteraction={false}
-        enablePanInteraction={!isMobile}
-        nodeRelSize={4}
-        nodeLabel={() => ''}
-        linkColor={(link: any) => {
-          const s = typeof link.source === 'object' ? link.source.id : link.source;
-          const t = typeof link.target === 'object' ? link.target.id : link.target;
-          const dim = hoverId && !(isActive(s) && isActive(t));
-          return dim ? 'rgba(244,244,245,0.06)' : 'rgba(244,244,245,0.22)';
-        }}
-        linkWidth={(link: any) => {
-          const s = typeof link.source === 'object' ? link.source.id : link.source;
-          const t = typeof link.target === 'object' ? link.target.id : link.target;
-          return hoverId && isActive(s) && isActive(t) ? 1 : 0.6;
-        }}
-        onNodeHover={(node: any) => {
-          setHoverId(node?.id ?? null);
-          if (containerRef.current) {
-            containerRef.current.style.cursor = node ? 'pointer' : 'default';
-          }
-        }}
-        onNodeClick={(node: any) => {
-          if (node.href) {
-            if (node.href.startsWith('/')) router.push(node.href);
-            else window.location.href = node.href;
-          }
-        }}
-        nodeCanvasObjectMode={() => 'replace'}
-        nodeCanvasObject={(nRaw: any, ctx, globalScale) => {
-          const n = nRaw as RFGNode;
-          const x = n.x;
-          const y = n.y;
-          if (
-            typeof x !== 'number' ||
-            typeof y !== 'number' ||
-            !Number.isFinite(x) ||
-            !Number.isFinite(y)
-          ) {
-            return;
-          }
+      {ForceGraph2D ? (
+        <ForceGraph2D
+          ref={fgRef}
+          graphData={data}
+          width={size.width}
+          height={height}
+          backgroundColor="rgba(0,0,0,0)"
+          cooldownTicks={Infinity}
+          warmupTicks={60}
+          d3AlphaDecay={0.018}
+          d3VelocityDecay={0.32}
+          enableNodeDrag
+          enableZoomInteraction={false}
+          enablePanInteraction={!isMobile}
+          nodeRelSize={4}
+          nodeLabel={() => ''}
+          linkColor={(link: any) => {
+            const s =
+              typeof link.source === 'object' ? link.source.id : link.source;
+            const t =
+              typeof link.target === 'object' ? link.target.id : link.target;
+            const dim = hoverId && !(isActive(s) && isActive(t));
+            return dim
+              ? `rgba(${palette.linkDim},0.15)`
+              : `rgba(${palette.link},0.28)`;
+          }}
+          linkWidth={(link: any) => {
+            const s =
+              typeof link.source === 'object' ? link.source.id : link.source;
+            const t =
+              typeof link.target === 'object' ? link.target.id : link.target;
+            return hoverId && isActive(s) && isActive(t) ? 1.25 : 0.75;
+          }}
+          onNodeHover={(node: any) => {
+            setHoverId(node?.id ?? null);
+            if (containerRef.current) {
+              containerRef.current.style.cursor = node ? 'grab' : 'default';
+            }
+          }}
+          onNodeDragEnd={(node: any) => {
+            if (containerRef.current) {
+              containerRef.current.style.cursor = 'grab';
+            }
+            // Release the node so the web can settle after dragging.
+            node.fx = null;
+            node.fy = null;
+          }}
+          onNodeClick={(node: any) => {
+            if (node.href) {
+              if (node.href.startsWith('/')) router.push(node.href);
+              else window.location.href = node.href;
+            }
+          }}
+          nodeCanvasObjectMode={() => 'replace'}
+          nodeCanvasObject={(nRaw: any, ctx: CanvasRenderingContext2D, globalScale: number) => {
+            const n = nRaw as RFGNode;
+            const x = n.x;
+            const y = n.y;
+            if (
+              typeof x !== 'number' ||
+              typeof y !== 'number' ||
+              !Number.isFinite(x) ||
+              !Number.isFinite(y)
+            ) {
+              return;
+            }
 
-          const active = isActive(n.id);
-          const isRoot = n.group === 'root';
-          const isDomain = n.group === 'domain';
-          const radius = (n.size ?? 6) / 1.4;
+            const active = isActive(n.id);
+            const isRoot = n.group === 'root';
+            const isDomain = n.group === 'domain';
+            const radius = (n.size ?? 6) / 1.4;
 
-          const baseAlpha = active ? 1 : 0.25;
+            const baseAlpha = active ? 1 : 0.22;
 
-          if (hoverId === n.id || isRoot) {
-            const grd = ctx.createRadialGradient(x, y, 0, x, y, radius * 4);
-            grd.addColorStop(0, `rgba(244,244,245,${isRoot ? 0.35 : 0.45})`);
-            grd.addColorStop(1, 'rgba(244,244,245,0)');
-            ctx.fillStyle = grd;
+            if (hoverId === n.id || isRoot) {
+              const grd = ctx.createRadialGradient(x, y, 0, x, y, radius * 4.5);
+              grd.addColorStop(
+                0,
+                `rgba(${palette.halo},${isRoot ? 0.3 : 0.38})`,
+              );
+              grd.addColorStop(1, `rgba(${palette.halo},0)`);
+              ctx.fillStyle = grd;
+              ctx.beginPath();
+              ctx.arc(x, y, radius * 4.5, 0, Math.PI * 2);
+              ctx.fill();
+            }
+
             ctx.beginPath();
-            ctx.arc(x, y, radius * 4, 0, Math.PI * 2);
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            if (isRoot || hoverId === n.id) {
+              ctx.fillStyle = `rgba(${palette.nodeFill},${baseAlpha})`;
+            } else {
+              ctx.fillStyle = `rgba(${palette.nodeFill},${baseAlpha * 0.12})`;
+            }
             ctx.fill();
-          }
+            ctx.lineWidth = 1 / globalScale;
+            ctx.strokeStyle = `rgba(${palette.nodeFill},${baseAlpha * (isDomain ? 0.95 : 0.6)})`;
+            ctx.stroke();
 
-          ctx.beginPath();
-          ctx.arc(x, y, radius, 0, Math.PI * 2);
-          if (isRoot || hoverId === n.id) {
-            ctx.fillStyle = `rgba(244,244,245,${baseAlpha})`;
-          } else {
-            ctx.fillStyle = `rgba(10,10,10,${baseAlpha})`;
-          }
-          ctx.fill();
-          ctx.lineWidth = 1 / globalScale;
-          ctx.strokeStyle = `rgba(244,244,245,${baseAlpha * (isDomain ? 0.9 : 0.55)})`;
-          ctx.stroke();
-
-          const fontSize = isRoot ? 11 : isDomain ? 10 : 9;
-          ctx.font = `${fontSize}px ui-sans-serif, system-ui, -apple-system`;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'top';
-          ctx.fillStyle = `rgba(244,244,245,${active ? (isRoot || isDomain ? 0.95 : 0.75) : 0.22})`;
-          ctx.fillText(n.label, x, y + radius + 4);
-        }}
-      />
+            const fontSize = isRoot ? 11 : isDomain ? 10 : 9;
+            ctx.font = `${fontSize}px ui-sans-serif, system-ui, -apple-system`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            const textColor =
+              isRoot || isDomain ? palette.fg : palette.fgMuted;
+            ctx.fillStyle = `rgba(${textColor},${active ? (isRoot || isDomain ? 0.95 : 0.72) : 0.2})`;
+            ctx.fillText(n.label, x, y + radius + 4);
+          }}
+        />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center">
+          <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-fg-dim">
+            Initializing graph…
+          </div>
+        </div>
+      )}
 
       {/* Legend */}
       <div className="pointer-events-none absolute bottom-3 left-0 right-0 flex justify-center">
-        <div className="flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-400">
+        <div className="flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.2em] text-fg-dim">
           <span className="flex items-center gap-1.5">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-ink-50" />
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-fg" />
             Root
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="inline-block h-1.5 w-1.5 rounded-full border border-ink-300" />
+            <span className="inline-block h-1.5 w-1.5 rounded-full border border-fg-muted" />
             Domain
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="inline-block h-1.5 w-1.5 rounded-full border border-ink-500" />
+            <span className="inline-block h-1.5 w-1.5 rounded-full border border-fg-faint" />
             Project · Org
           </span>
         </div>

@@ -37,7 +37,7 @@ function Counter({ value }: { value: number }) {
 
 export function StatsStrip() {
   return (
-    <section className="border-y border-ink-700">
+    <section className="border-y border-hairline">
       <div className="container-prose grid grid-cols-2 gap-y-10 py-12 md:grid-cols-4 md:py-16">
         {STATS.map((s) => (
           <div key={s.label} className="flex flex-col">

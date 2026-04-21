@@ -11,19 +11,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: {
-          50: '#fafafa',
-          100: '#f4f4f5',
-          200: '#e4e4e7',
-          300: '#a1a1aa',
-          400: '#71717a',
-          500: '#52525b',
-          600: '#3f3f46',
-          700: '#27272a',
-          800: '#18181b',
-          900: '#0a0a0a',
-          950: '#050505',
-        },
+        surface: 'rgb(var(--surface) / <alpha-value>)',
+        'surface-2': 'rgb(var(--surface-2) / <alpha-value>)',
+        fg: 'rgb(var(--fg) / <alpha-value>)',
+        'fg-muted': 'rgb(var(--fg-muted) / <alpha-value>)',
+        'fg-dim': 'rgb(var(--fg-dim) / <alpha-value>)',
+        'fg-faint': 'rgb(var(--fg-faint) / <alpha-value>)',
+        hairline: 'rgb(var(--hairline) / <alpha-value>)',
+        accent: 'rgb(var(--accent) / <alpha-value>)',
       },
       fontFamily: {
         serif: ['var(--font-serif)', 'Georgia', 'serif'],

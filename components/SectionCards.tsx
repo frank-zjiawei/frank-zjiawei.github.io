@@ -54,7 +54,7 @@ export function SectionCards() {
         </div>
         <Link
           href="/graph"
-          className="hidden shrink-0 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-300 transition-colors hover:text-ink-50 md:inline-flex"
+          className="hidden shrink-0 font-mono text-[11px] uppercase tracking-[0.2em] text-fg-muted transition-colors hover:text-fg md:inline-flex"
         >
           Open full graph ↗
         </Link>
@@ -65,22 +65,22 @@ export function SectionCards() {
           <Link key={s.href} href={s.href} className="group card-link">
             <div>
               <div className="flex items-start justify-between">
-                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-400">
+                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-fg-dim">
                   {s.eyebrow}
                 </span>
                 <ArrowUpRight
-                  className="h-4 w-4 text-ink-400 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink-50"
+                  className="h-4 w-4 text-fg-dim transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-fg"
                   strokeWidth={1.5}
                 />
               </div>
-              <h3 className="mt-6 font-serif text-2xl tracking-tight text-ink-50">
+              <h3 className="mt-6 font-serif text-2xl tracking-tight text-fg">
                 {s.title}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-ink-300">
+              <p className="mt-3 text-sm leading-relaxed text-fg-muted">
                 {s.description}
               </p>
             </div>
-            <div className="mt-8 border-t border-ink-700 pt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-400">
+            <div className="mt-8 border-t border-hairline pt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-fg-dim">
               {s.meta}
             </div>
           </Link>

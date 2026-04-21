@@ -65,6 +65,13 @@ export default function RootLayout({
       className={`${serif.variable} ${sans.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark');}}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className="font-sans">
         <div className="relative z-10 flex min-h-screen flex-col">
           <Nav />

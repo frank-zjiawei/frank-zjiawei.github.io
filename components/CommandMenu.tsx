@@ -73,27 +73,27 @@ export function CommandMenu() {
       onClick={() => setOpen(false)}
     >
       <div
-        className="fixed inset-0 bg-ink-950/80 backdrop-blur-sm"
+        className="fixed inset-0 bg-surface/80 backdrop-blur-sm"
         aria-hidden
       />
       <Command
         label="Command Menu"
-        className="relative w-full max-w-xl overflow-hidden rounded-sm border border-ink-700 bg-ink-900 shadow-2xl"
+        className="relative w-full max-w-xl overflow-hidden rounded-sm border border-hairline bg-surface-2 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <Command.Input
           placeholder="Type a command or search..."
-          className="w-full border-b border-ink-700 bg-transparent px-4 py-3.5 text-sm text-ink-50 outline-none placeholder:text-ink-400"
+          className="w-full border-b border-hairline bg-transparent px-4 py-3.5 text-sm text-fg outline-none placeholder:text-fg-dim"
         />
         <Command.List className="max-h-80 overflow-y-auto px-2 py-2">
-          <Command.Empty className="px-3 py-8 text-center font-mono text-xs text-ink-400">
+          <Command.Empty className="px-3 py-8 text-center font-mono text-xs text-fg-dim">
             No results found.
           </Command.Empty>
           {groups.map((group) => (
             <Command.Group
               key={group}
               heading={group}
-              className="[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-mono [&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-[0.2em] [&_[cmdk-group-heading]]:text-ink-400"
+              className="[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-mono [&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-[0.2em] [&_[cmdk-group-heading]]:text-fg-dim"
             >
               {ITEMS.filter((i) => i.group === group).map((item) => {
                 const Icon = item.icon;
@@ -102,9 +102,9 @@ export function CommandMenu() {
                     key={item.href}
                     value={item.label}
                     onSelect={() => go(item.href, item.external)}
-                    className="flex cursor-pointer items-center gap-3 rounded-sm px-3 py-2.5 text-sm text-ink-200 aria-selected:bg-ink-700/60 aria-selected:text-ink-50"
+                    className="flex cursor-pointer items-center gap-3 rounded-sm px-3 py-2.5 text-sm text-fg aria-selected:bg-hairline/60 aria-selected:text-fg"
                   >
-                    <Icon className="h-4 w-4 text-ink-400" strokeWidth={1.5} />
+                    <Icon className="h-4 w-4 text-fg-dim" strokeWidth={1.5} />
                     <span>{item.label}</span>
                   </Command.Item>
                 );
@@ -112,7 +112,7 @@ export function CommandMenu() {
             </Command.Group>
           ))}
         </Command.List>
-        <div className="flex items-center justify-between border-t border-ink-700 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-400">
+        <div className="flex items-center justify-between border-t border-hairline px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-fg-dim">
           <span>Navigate</span>
           <span>Esc to close</span>
         </div>
