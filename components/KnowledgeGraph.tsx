@@ -134,6 +134,17 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
         nodeCanvasObjectMode={() => 'replace'}
         nodeCanvasObject={(nRaw: any, ctx, globalScale) => {
           const n = nRaw as RFGNode;
+          const x = n.x;
+          const y = n.y;
+          if (
+            typeof x !== 'number' ||
+            typeof y !== 'number' ||
+            !Number.isFinite(x) ||
+            !Number.isFinite(y)
+          ) {
+            return;
+          }
+
           const active = isActive(n.id);
           const isRoot = n.group === 'root';
           const isDomain = n.group === 'domain';
@@ -141,27 +152,18 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
 
           const baseAlpha = active ? 1 : 0.25;
 
-          // Glow for hovered / root node
           if (hoverId === n.id || isRoot) {
-            const grd = ctx.createRadialGradient(
-              n.x!,
-              n.y!,
-              0,
-              n.x!,
-              n.y!,
-              radius * 4,
-            );
+            const grd = ctx.createRadialGradient(x, y, 0, x, y, radius * 4);
             grd.addColorStop(0, `rgba(244,244,245,${isRoot ? 0.35 : 0.45})`);
             grd.addColorStop(1, 'rgba(244,244,245,0)');
             ctx.fillStyle = grd;
             ctx.beginPath();
-            ctx.arc(n.x!, n.y!, radius * 4, 0, Math.PI * 2);
+            ctx.arc(x, y, radius * 4, 0, Math.PI * 2);
             ctx.fill();
           }
 
-          // Circle
           ctx.beginPath();
-          ctx.arc(n.x!, n.y!, radius, 0, Math.PI * 2);
+          ctx.arc(x, y, radius, 0, Math.PI * 2);
           if (isRoot || hoverId === n.id) {
             ctx.fillStyle = `rgba(244,244,245,${baseAlpha})`;
           } else {
@@ -172,13 +174,12 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
           ctx.strokeStyle = `rgba(244,244,245,${baseAlpha * (isDomain ? 0.9 : 0.55)})`;
           ctx.stroke();
 
-          // Label
           const fontSize = isRoot ? 11 : isDomain ? 10 : 9;
           ctx.font = `${fontSize}px ui-sans-serif, system-ui, -apple-system`;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'top';
           ctx.fillStyle = `rgba(244,244,245,${active ? (isRoot || isDomain ? 0.95 : 0.75) : 0.22})`;
-          ctx.fillText(n.label, n.x!, n.y! + radius + 4);
+          ctx.fillText(n.label, x, y + radius + 4);
         }}
       />
 
