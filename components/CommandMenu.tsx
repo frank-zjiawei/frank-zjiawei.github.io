@@ -1,0 +1,122 @@
+'use client';
+
+import { Command } from 'cmdk';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import {
+  Brain,
+  LineChart,
+  GraduationCap,
+  BookOpen,
+  PenLine,
+  User,
+  Network,
+  Home,
+  Mail,
+} from 'lucide-react';
+
+const ITEMS = [
+  { href: '/', label: 'Home', icon: Home, group: 'Navigate' },
+  { href: '/ai', label: 'AI Initiatives', icon: Brain, group: 'Navigate' },
+  { href: '/analytics', label: 'Business Analytics', icon: LineChart, group: 'Navigate' },
+  { href: '/academic', label: 'Academic', icon: GraduationCap, group: 'Navigate' },
+  { href: '/research', label: 'Research & Publications', icon: BookOpen, group: 'Navigate' },
+  { href: '/journal', label: 'Learning Journal', icon: PenLine, group: 'Navigate' },
+  { href: '/about', label: 'About', icon: User, group: 'Navigate' },
+  { href: '/graph', label: 'Knowledge Graph', icon: Network, group: 'Navigate' },
+  {
+    href: 'mailto:jiaweizhang@gse.harvard.edu',
+    label: 'Email Frank',
+    icon: Mail,
+    group: 'Links',
+    external: true,
+  },
+];
+
+export function CommandMenu() {
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setOpen((v) => !v);
+      }
+      if (e.key === 'Escape') setOpen(false);
+    };
+    const onOpen = () => setOpen(true);
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('open-command-menu', onOpen);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('open-command-menu', onOpen);
+    };
+  }, []);
+
+  const go = (href: string, external?: boolean) => {
+    setOpen(false);
+    if (external) {
+      window.location.href = href;
+    } else {
+      router.push(href);
+    }
+  };
+
+  if (!open) return null;
+
+  const groups = Array.from(new Set(ITEMS.map((i) => i.group)));
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-start justify-center px-4 pt-[15vh]"
+      onClick={() => setOpen(false)}
+    >
+      <div
+        className="fixed inset-0 bg-ink-950/80 backdrop-blur-sm"
+        aria-hidden
+      />
+      <Command
+        label="Command Menu"
+        className="relative w-full max-w-xl overflow-hidden rounded-sm border border-ink-700 bg-ink-900 shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Command.Input
+          placeholder="Type a command or search..."
+          className="w-full border-b border-ink-700 bg-transparent px-4 py-3.5 text-sm text-ink-50 outline-none placeholder:text-ink-400"
+        />
+        <Command.List className="max-h-80 overflow-y-auto px-2 py-2">
+          <Command.Empty className="px-3 py-8 text-center font-mono text-xs text-ink-400">
+            No results found.
+          </Command.Empty>
+          {groups.map((group) => (
+            <Command.Group
+              key={group}
+              heading={group}
+              className="[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-mono [&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-[0.2em] [&_[cmdk-group-heading]]:text-ink-400"
+            >
+              {ITEMS.filter((i) => i.group === group).map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Command.Item
+                    key={item.href}
+                    value={item.label}
+                    onSelect={() => go(item.href, item.external)}
+                    className="flex cursor-pointer items-center gap-3 rounded-sm px-3 py-2.5 text-sm text-ink-200 aria-selected:bg-ink-700/60 aria-selected:text-ink-50"
+                  >
+                    <Icon className="h-4 w-4 text-ink-400" strokeWidth={1.5} />
+                    <span>{item.label}</span>
+                  </Command.Item>
+                );
+              })}
+            </Command.Group>
+          ))}
+        </Command.List>
+        <div className="flex items-center justify-between border-t border-ink-700 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-400">
+          <span>Navigate</span>
+          <span>Esc to close</span>
+        </div>
+      </Command>
+    </div>
+  );
+}

@@ -1,0 +1,91 @@
+import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
+
+const SECTIONS = [
+  {
+    href: '/ai',
+    eyebrow: '01',
+    title: 'AI Initiatives',
+    description:
+      'YOLOv8 real-time object detection (98.55%), MIT Media Lab AI Venture, Harvard President\'s Innovation Challenge.',
+    meta: 'Engineering · Entrepreneurship',
+  },
+  {
+    href: '/analytics',
+    eyebrow: '02',
+    title: 'Business Analytics',
+    description:
+      'Data and ML work at Wyloo Metals, HireBeat, Accenture. Google Hackathon 2024 — 3rd place.',
+    meta: 'Python · SQL · R · Power BI',
+  },
+  {
+    href: '/academic',
+    eyebrow: '03',
+    title: 'Academic',
+    description:
+      'Harvard Ed.M. (Learning Design, Innovation & Technology), MIT Media Lab, UBC MBAN, University of Toronto.',
+    meta: 'Coursework · Projects',
+  },
+  {
+    href: '/research',
+    eyebrow: '04',
+    title: 'Research & Publications',
+    description:
+      'Harvard GSE LIT Lab, Tsinghua-SIGS, UsingAI. Ten publications across computer vision, operations research, and analytics.',
+    meta: '10 Papers · 3 Labs',
+  },
+  {
+    href: '/journal',
+    eyebrow: '05',
+    title: 'Learning Journal',
+    description:
+      'Essays and reflections on learning design, AI, and building things at the edges of disciplines.',
+    meta: 'Writing · Notes',
+  },
+];
+
+export function SectionCards() {
+  return (
+    <section className="container-prose py-24 md:py-32">
+      <div className="mb-14 flex items-end justify-between gap-6">
+        <div>
+          <p className="section-eyebrow">Index</p>
+          <h2 className="section-title mt-3">Selected work</h2>
+        </div>
+        <Link
+          href="/graph"
+          className="hidden shrink-0 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-300 transition-colors hover:text-ink-50 md:inline-flex"
+        >
+          Open full graph ↗
+        </Link>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        {SECTIONS.map((s) => (
+          <Link key={s.href} href={s.href} className="group card-link">
+            <div>
+              <div className="flex items-start justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-400">
+                  {s.eyebrow}
+                </span>
+                <ArrowUpRight
+                  className="h-4 w-4 text-ink-400 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink-50"
+                  strokeWidth={1.5}
+                />
+              </div>
+              <h3 className="mt-6 font-serif text-2xl tracking-tight text-ink-50">
+                {s.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-ink-300">
+                {s.description}
+              </p>
+            </div>
+            <div className="mt-8 border-t border-ink-700 pt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-400">
+              {s.meta}
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
