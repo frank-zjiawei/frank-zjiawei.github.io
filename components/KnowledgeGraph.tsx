@@ -15,6 +15,46 @@ interface GraphProps {
   height?: number;
 }
 
+type LayoutMode = 'compact' | 'sparse';
+
+const LAYOUT_PRESETS: Record<
+  LayoutMode,
+  {
+    charge: number;
+    chargeMobile: number;
+    chargeDistanceMax: number;
+    linkDistanceRoot: number;
+    linkDistance: number;
+    linkStrength: number;
+    centerStrength: number;
+    seedInnerRing: number;
+    seedOuterRing: number;
+  }
+> = {
+  compact: {
+    charge: -240,
+    chargeMobile: -140,
+    chargeDistanceMax: 520,
+    linkDistanceRoot: 90,
+    linkDistance: 52,
+    linkStrength: 0.35,
+    centerStrength: 0.04,
+    seedInnerRing: 70,
+    seedOuterRing: 130,
+  },
+  sparse: {
+    charge: -380,
+    chargeMobile: -220,
+    chargeDistanceMax: 640,
+    linkDistanceRoot: 130,
+    linkDistance: 72,
+    linkStrength: 0.22,
+    centerStrength: 0.015,
+    seedInnerRing: 140,
+    seedOuterRing: 260,
+  },
+};
+
 type RFGNode = GraphNode & {
   x?: number;
   y?: number;
@@ -70,6 +110,21 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
   const [size, setSize] = useState({ width: 800, height });
   const [hoverId, setHoverId] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [layout, setLayout] = useState<LayoutMode>('compact');
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('graph-layout') as LayoutMode | null;
+      if (stored === 'compact' || stored === 'sparse') setLayout(stored);
+    } catch {}
+  }, []);
+
+  const changeLayout = useCallback((next: LayoutMode) => {
+    setLayout(next);
+    try {
+      localStorage.setItem('graph-layout', next);
+    } catch {}
+  }, []);
   const [palette, setPalette] = useState<Palette>(() => ({
     fg: '10,10,10',
     fgMuted: '82,82,82',
@@ -112,16 +167,18 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
   }, []);
 
   // Deep-cloned data each render avoids react-force-graph mutating the source.
-  // Pre-seed node positions in a loose ring so the simulation has breathing
-  // room before it settles — prevents the "all piled at origin" start.
+  // Pre-seed node positions in a ring so the simulation has breathing room
+  // before it settles — prevents the "all piled at origin" start flicker.
   const data = useMemo(() => {
+    const preset = LAYOUT_PRESETS.compact;
     const others = graphData.nodes.filter((n) => n.group !== 'root');
     return {
       nodes: graphData.nodes.map((n) => {
         if (n.group === 'root') return { ...n, x: 0, y: 0 };
         const i = others.findIndex((o) => o.id === n.id);
         const angle = (i / others.length) * Math.PI * 2;
-        const ring = n.group === 'domain' ? 140 : 260;
+        const ring =
+          n.group === 'domain' ? preset.seedInnerRing : preset.seedOuterRing;
         return {
           ...n,
           x: Math.cos(angle) * ring,
@@ -150,11 +207,12 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
   useEffect(() => {
     const fg = fgRef.current;
     if (!fg || !ForceGraph2D) return;
+    const preset = LAYOUT_PRESETS[layout];
 
     const charge = fg.d3Force?.('charge');
     if (charge) {
-      charge.strength(isMobile ? -220 : -380);
-      charge.distanceMax?.(640);
+      charge.strength(isMobile ? preset.chargeMobile : preset.charge);
+      charge.distanceMax?.(preset.chargeDistanceMax);
     }
 
     const link = fg.d3Force?.('link');
@@ -162,17 +220,17 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
       link.distance((l: any) => {
         const s = typeof l.source === 'object' ? l.source.id : l.source;
         const t = typeof l.target === 'object' ? l.target.id : l.target;
-        if (s === 'frank' || t === 'frank') return 130;
-        return 72;
+        if (s === 'frank' || t === 'frank') return preset.linkDistanceRoot;
+        return preset.linkDistance;
       });
-      link.strength(0.22);
+      link.strength(preset.linkStrength);
     }
 
     const center = fg.d3Force?.('center');
-    if (center) center.strength?.(0.015);
+    if (center) center.strength?.(preset.centerStrength);
 
     fg.d3ReheatSimulation?.();
-  }, [isMobile, ForceGraph2D]);
+  }, [isMobile, ForceGraph2D, layout]);
 
   const isActive = useCallback(
     (id: string) => {
@@ -189,6 +247,35 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
       className="relative h-full w-full"
       style={{ height }}
     >
+      {/* Layout toggle */}
+      <div className="pointer-events-auto absolute right-3 top-3 z-10">
+        <div
+          role="group"
+          aria-label="Graph layout"
+          className="flex items-center gap-0.5 rounded-full border border-hairline bg-surface/70 p-0.5 font-mono text-[10px] uppercase tracking-[0.15em] backdrop-blur-sm"
+        >
+          {(['compact', 'sparse'] as LayoutMode[]).map((mode) => {
+            const active = layout === mode;
+            return (
+              <button
+                key={mode}
+                type="button"
+                onClick={() => changeLayout(mode)}
+                aria-pressed={active}
+                className={
+                  'rounded-full px-2.5 py-1 transition-colors ' +
+                  (active
+                    ? 'bg-fg text-surface'
+                    : 'text-fg-muted hover:text-fg')
+                }
+              >
+                {mode}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {ForceGraph2D ? (
         <ForceGraph2D
           ref={fgRef}
