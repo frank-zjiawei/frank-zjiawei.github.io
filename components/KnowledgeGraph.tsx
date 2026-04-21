@@ -15,7 +15,12 @@ interface GraphProps {
   height?: number;
 }
 
-type LayoutMode = 'compact' | 'sparse';
+type LayoutMode = 'compact' | 'zoom';
+
+const LAYOUT_LABELS: Record<LayoutMode, string> = {
+  compact: 'Compact',
+  zoom: 'Zoom in',
+};
 
 const LAYOUT_PRESETS: Record<
   LayoutMode,
@@ -31,18 +36,21 @@ const LAYOUT_PRESETS: Record<
     seedOuterRing: number;
   }
 > = {
+  // Tight, Obsidian-on-overview-mode knot — everything pulled into a
+  // single cluster, labels overlap like a dense galaxy.
   compact: {
-    charge: -240,
-    chargeMobile: -140,
-    chargeDistanceMax: 520,
-    linkDistanceRoot: 90,
-    linkDistance: 52,
-    linkStrength: 0.35,
-    centerStrength: 0.04,
-    seedInnerRing: 70,
-    seedOuterRing: 130,
+    charge: -55,
+    chargeMobile: -30,
+    chargeDistanceMax: 240,
+    linkDistanceRoot: 48,
+    linkDistance: 22,
+    linkStrength: 0.85,
+    centerStrength: 0.18,
+    seedInnerRing: 20,
+    seedOuterRing: 48,
   },
-  sparse: {
+  // Zoomed-in view — wider spread so every label is readable.
+  zoom: {
     charge: -380,
     chargeMobile: -220,
     chargeDistanceMax: 640,
@@ -114,8 +122,9 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
 
   useEffect(() => {
     try {
-      const stored = localStorage.getItem('graph-layout') as LayoutMode | null;
-      if (stored === 'compact' || stored === 'sparse') setLayout(stored);
+      const stored = localStorage.getItem('graph-layout');
+      if (stored === 'compact') setLayout('compact');
+      else if (stored === 'zoom' || stored === 'sparse') setLayout('zoom');
     } catch {}
   }, []);
 
@@ -254,7 +263,7 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
           aria-label="Graph layout"
           className="flex items-center gap-0.5 rounded-full border border-hairline bg-surface/70 p-0.5 font-mono text-[10px] uppercase tracking-[0.15em] backdrop-blur-sm"
         >
-          {(['compact', 'sparse'] as LayoutMode[]).map((mode) => {
+          {(['compact', 'zoom'] as LayoutMode[]).map((mode) => {
             const active = layout === mode;
             return (
               <button
@@ -269,7 +278,7 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
                     : 'text-fg-muted hover:text-fg')
                 }
               >
-                {mode}
+                {LAYOUT_LABELS[mode]}
               </button>
             );
           })}
