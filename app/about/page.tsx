@@ -1,33 +1,18 @@
+import Image from 'next/image';
+import Link from 'next/link';
 import { PageHeader } from '@/components/PageHeader';
-import { schools } from '@/content/education';
 
 export const metadata = {
-  title: 'About',
+  title: 'About Jiawei',
   description:
-    'About Frank (Jiawei) Zhang — Learning Designer, AI Engineer, Researcher.',
+    'About Jiawei (Frank) Zhang — Harvard GSE, MIT Media Lab. Learning designer, AI engineer, researcher, and occasional boxer.',
 };
 
-const SKILLS: { group: string; items: string[] }[] = [
-  {
-    group: 'Programming',
-    items: ['Python', 'SQL', 'R', 'Processing (Java)', 'Excel VBA', 'HTML / CSS / JS', 'Arduino'],
-  },
-  {
-    group: 'AI / ML',
-    items: ['PyTorch', 'YOLOv8', 'Agentic Systems', 'Attention', 'Fine-tuning'],
-  },
-  {
-    group: 'Data',
-    items: ['Power BI', 'Tableau', 'Looker', 'BigQuery', 'Databricks', 'MongoDB', 'CQL'],
-  },
-  {
-    group: 'Design',
-    items: ['Photoshop', 'Illustrator', 'Animate', 'Premiere', 'CorelDRAW'],
-  },
-  {
-    group: 'Certificates',
-    items: ['PMEC', 'Bloomberg BFF & BMC', 'Accenture Data Analytics'],
-  },
+const SOCIALS: { label: string; href: string; display: string }[] = [
+  { label: 'Email', href: 'mailto:frankwei312@gmail.com', display: 'frankwei312@gmail.com' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/frank-zhang-7a8944198/', display: 'linkedin.com/in/frank-zhang' },
+  { label: 'Instagram', href: 'https://www.instagram.com/frankjiaweizhang/', display: '@frankjiaweizhang' },
+  { label: 'GitHub', href: 'https://github.com/frank-zjiawei', display: 'github.com/frank-zjiawei' },
 ];
 
 export default function AboutPage() {
@@ -35,109 +20,130 @@ export default function AboutPage() {
     <>
       <PageHeader
         eyebrow="About"
-        title="Frank (Jiawei) Zhang"
-        description="I am a learning designer and AI engineer interested in how people and intelligent systems learn alongside each other. Currently at Harvard GSE, cross-registered at MIT Media Lab and Sloan."
+        title="About Jiawei"
       />
 
-      <section className="container-prose pb-16">
-        <div className="grid grid-cols-1 gap-10 border-t border-hairline py-10 md:grid-cols-[200px_1fr] md:gap-10">
-          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-fg-dim">
-            Biography
-          </p>
-          <div className="space-y-5 text-base leading-relaxed text-fg-muted">
+      <section className="container-prose pb-24">
+        {/* Portrait + lead paragraph — Zara-style intro block */}
+        <div className="grid grid-cols-1 gap-10 border-t border-hairline pt-10 md:grid-cols-[minmax(0,260px)_1fr] md:gap-14">
+          <figure className="mx-auto w-full max-w-[280px] md:mx-0">
+            <div className="relative aspect-[1/1.06] w-full overflow-hidden rounded-sm border border-hairline bg-surface-2">
+              <Image
+                src="/images/profile.png"
+                alt="Jiawei (Frank) Zhang"
+                fill
+                sizes="(min-width: 768px) 260px, 80vw"
+                className="object-cover"
+                priority
+              />
+            </div>
+            <figcaption className="mt-3 font-mono text-[10px] uppercase tracking-[0.22em] text-fg-dim">
+              Jiawei · Cambridge, MA
+            </figcaption>
+          </figure>
+
+          <div className="space-y-5 font-serif text-[17px] leading-[1.75] text-fg md:text-[18px]">
             <p>
-              I work at the intersection of AI, learning design, and business
-              analytics. My path has moved between engineering (computer vision
-              shipped in production), research (learning analytics at Harvard
-              GSE), and entrepreneurship (AI ventures shortlisted at MIT Media
-              Lab and competing at the Harvard President&apos;s Innovation
-              Challenge).
+              <span className="font-semibold">Jiawei Zhang</span>{' '}
+              <span className="font-mono text-[12px] uppercase tracking-[0.2em] text-fg-dim">
+                · Frank ·
+              </span>{' '}
+              is a learning designer and AI engineer currently pursuing an{' '}
+              <em>Ed.M. in Learning Design, Innovation, and Technology</em> at
+              Harvard Graduate School of Education, with cross‑registrations at{' '}
+              MIT Media Lab and MIT Sloan. His work lives at the intersection
+              of artificial intelligence, education, and business analytics —
+              building tools that help people learn more like themselves.
             </p>
+
             <p>
-              I was trained in business analytics at UBC Sauder and digital
-              enterprise management at the University of Toronto (High
-              Distinction). I read widely across disciplines and care deeply
-              about craft — from clean data pipelines to elegant typography.
-            </p>
-            <p>
-              Outside of work, I have served as Vice President of International
-              at UBC Sauder&apos;s MBAN Student Council, supporting 100+
-              international students through cultural transitions and community
-              events.
+              Before Harvard, he read business analytics at{' '}
+              <em>UBC Sauder</em> (Master of Business Analytics) and digital
+              enterprise management at the <em>University of Toronto</em>,
+              graduating with High Distinction. Along the way, he has shipped
+              computer‑vision models in production, built agentic systems for
+              enterprise workflows, and placed in competitions ranging from
+              the Google Hackathon to the Harvard President&apos;s Innovation
+              Challenge.
             </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-10 border-t border-hairline py-10 md:grid-cols-[200px_1fr]">
-          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-fg-dim">
-            Education
+        {/* Long-form prose — Zara-style writing block */}
+        <div className="mt-16 space-y-6 border-t border-hairline pt-10 font-serif text-[17px] leading-[1.8] text-fg md:text-[18px]">
+          <p>
+            Frank grew up in northeastern China and has since lived in Toronto,
+            Vancouver, Boston, and Cambridge. That long zig‑zag across
+            classrooms and cultures is the thread that ties his work together:
+            he is drawn to the quiet problem of <em>how humans learn things</em>{' '}
+            — especially when the thing is hard, the learner is tired, and the
+            teacher is a piece of software.
           </p>
-          <ul className="space-y-6">
-            {schools.map((s) => (
-              <li key={s.id}>
-                <p className="font-serif text-lg text-fg">{s.school}</p>
-                <p className="mt-1 text-sm text-fg-muted">{s.degree}</p>
-                <p className="mt-1 font-mono text-[11px] text-fg-faint">
-                  {s.period} · {s.location}
-                  {s.detail ? ` · ${s.detail}` : ''}
-                </p>
+
+          <p>
+            His current work at Harvard GSE&apos;s <em>LIT Lab</em> focuses on
+            how generative AI changes the shape of learning design — not just
+            the <em>content</em> students receive, but the <em>loops</em> in
+            which they practice, fail, and get feedback. At MIT Media Lab, he
+            has been shortlisted for an AI venture and continues to build
+            small, opinionated tools that try to respect a learner&apos;s
+            attention rather than consume it.
+          </p>
+
+          <p>
+            Outside of work, Frank trains in boxing, reads widely across
+            philosophy and design, and keeps a running notebook of things
+            he&apos;d like to understand better — a habit that quietly
+            informs most of what he builds.
+          </p>
+
+          <p>
+            He is always happy to hear from students, educators, researchers,
+            and builders who care about the same questions. The best way to
+            reach him is by email.
+          </p>
+        </div>
+
+        {/* Contact / social strip — under the prose, like Zara's page */}
+        <div className="mt-16 border-t border-hairline pt-10">
+          <p className="section-eyebrow mb-6">Reach Jiawei</p>
+          <ul className="space-y-3 font-serif text-[17px] text-fg">
+            {SOCIALS.map((s) => (
+              <li key={s.label} className="flex items-baseline gap-5">
+                <span className="w-24 shrink-0 font-mono text-[11px] uppercase tracking-[0.22em] text-fg-dim">
+                  {s.label}
+                </span>
+                <Link
+                  href={s.href}
+                  className="border-b border-transparent transition-colors hover:border-gold hover:text-fg"
+                  {...(s.href.startsWith('http')
+                    ? { target: '_blank', rel: 'noreferrer' }
+                    : {})}
+                >
+                  {s.display}
+                </Link>
               </li>
             ))}
-          </ul>
-        </div>
-
-        <div className="grid grid-cols-1 gap-10 border-t border-hairline py-10 md:grid-cols-[200px_1fr]">
-          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-fg-dim">
-            Skills
-          </p>
-          <div className="space-y-6">
-            {SKILLS.map((s) => (
-              <div key={s.group}>
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg-dim">
-                  {s.group}
-                </p>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {s.items.map((i) => (
-                    <span
-                      key={i}
-                      className="rounded-full border border-hairline px-3 py-1 font-mono text-[11px] text-fg-muted"
-                    >
-                      {i}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 gap-10 border-t border-hairline py-10 md:grid-cols-[200px_1fr]">
-          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-fg-dim">
-            Contact
-          </p>
-          <ul className="space-y-2 text-sm text-fg-muted">
-            <li>
-              <span className="inline-block w-20 font-mono text-[11px] uppercase tracking-[0.15em] text-fg-faint">
-                Email
+            <li className="flex items-baseline gap-5">
+              <span className="w-24 shrink-0 font-mono text-[11px] uppercase tracking-[0.22em] text-fg-dim">
+                CV
               </span>
-              <a
-                className="transition-colors hover:text-fg"
-                href="mailto:jiaweizhang@gse.harvard.edu"
-              >
-                jiaweizhang@gse.harvard.edu
-              </a>
-            </li>
-            <li>
-              <span className="inline-block w-20 font-mono text-[11px] uppercase tracking-[0.15em] text-fg-faint">
-                Phone
+              <span className="space-x-4">
+                <a
+                  href="/cv/Jiawei_Zhang_CV_EN.pdf"
+                  download
+                  className="border-b border-transparent transition-colors hover:border-gold"
+                >
+                  Download (EN)
+                </a>
+                <a
+                  href="/cv/Jiawei_Zhang_CV_CN.pdf"
+                  download
+                  className="border-b border-transparent transition-colors hover:border-gold"
+                >
+                  下载中文版
+                </a>
               </span>
-              +1 (617) 599-0738
-            </li>
-            <li>
-              <span className="inline-block w-20 font-mono text-[11px] uppercase tracking-[0.15em] text-fg-faint">
-                Base
-              </span>
-              Cambridge, MA, US
             </li>
           </ul>
         </div>

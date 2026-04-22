@@ -1,18 +1,19 @@
 import type { Metadata } from 'next';
-import { Fraunces, Inter, JetBrains_Mono } from 'next/font/google';
+import { Libre_Baskerville, Libre_Franklin, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { CommandMenu } from '@/components/CommandMenu';
 
-const serif = Fraunces({
+const serif = Libre_Baskerville({
   subsets: ['latin'],
+  weight: ['400', '700'],
+  style: ['normal', 'italic'],
   variable: '--font-serif',
   display: 'swap',
-  axes: ['opsz', 'SOFT'],
 });
 
-const sans = Inter({
+const sans = Libre_Franklin({
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',

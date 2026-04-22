@@ -39,17 +39,17 @@ export function Nav() {
           : 'border-b border-transparent',
       )}
     >
-      <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between gap-6 px-6 md:px-10">
+      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-6 px-6 md:px-10">
         <Link
           href="/"
-          className="shrink-0 font-serif text-lg tracking-tightest text-fg transition-opacity hover:opacity-70"
+          className="shrink-0 font-serif text-xl tracking-tight text-fg transition-opacity hover:opacity-70"
           aria-label="Jiawei Zhang — Home"
         >
           JZ
         </Link>
 
-        <nav className="flex min-w-0 flex-1 items-center justify-end gap-4">
-          <ul className="hidden min-w-0 items-center gap-x-4 gap-y-1 md:flex md:flex-wrap md:justify-end">
+        <nav className="flex min-w-0 flex-1 items-center justify-end gap-5">
+          <ul className="hidden min-w-0 items-center gap-x-6 gap-y-1 md:flex md:flex-wrap md:justify-end">
             {NAV_ITEMS.map((item) => {
               const active =
                 item.href === '/'
@@ -59,8 +59,9 @@ export function Nav() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
+                    data-active={active || undefined}
                     className={clsx(
-                      'whitespace-nowrap text-[13px] text-fg-muted transition-colors hover:text-fg',
+                      'nav-link whitespace-nowrap',
                       active && 'text-fg',
                     )}
                   >

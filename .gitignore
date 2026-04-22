@@ -38,7 +38,8 @@ next-env.d.ts
 .cursor/
 
 # cv backup (keep source PDFs out of public site root)
-CV/
+# IMPORTANT: leading slash anchors this to repo root, so public/cv/ is NOT ignored.
+/CV/
 
 # generated
 .turbo/

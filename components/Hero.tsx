@@ -53,7 +53,7 @@ export function Hero() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.08 }}
-        className="mt-6 font-serif text-[clamp(2.75rem,8vw,6rem)] font-light leading-[0.95] tracking-tightest text-fg"
+        className="mt-6 font-serif text-[clamp(2.5rem,7vw,5.25rem)] font-normal leading-[1.05] tracking-tight text-fg"
       >
         Jiawei Zhang
       </motion.h1>
