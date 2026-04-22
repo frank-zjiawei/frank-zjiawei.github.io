@@ -35,9 +35,25 @@ const SECTIONS = [
     meta: '10 Papers · 3 Labs',
   },
   {
-    href: '/journal',
+    href: '/harvard',
     eyebrow: '05',
-    title: 'Learning Journal',
+    title: 'Harvard',
+    description:
+      'A running notebook from Harvard GSE — Ed.M. in Learning Design, Innovation & Technology, and cross-registrations at MIT Media Lab.',
+    meta: 'Cambridge, MA · Notes',
+  },
+  {
+    href: '/boxing',
+    eyebrow: '06',
+    title: 'Boxing',
+    description:
+      'The part of the week that has nothing to do with slides. Training notes, sparring reflections, and what footwork teaches good research.',
+    meta: 'Off the desk',
+  },
+  {
+    href: '/journal',
+    eyebrow: '07',
+    title: 'Other writings',
     description:
       'Essays and reflections on learning design, AI, and building things at the edges of disciplines.',
     meta: 'Writing · Notes',
@@ -56,7 +72,7 @@ export function SectionCards() {
           href="/graph"
           className="hidden shrink-0 font-mono text-[11px] uppercase tracking-[0.2em] text-fg-muted transition-colors hover:text-fg md:inline-flex"
         >
-          Open full graph ↗
+          Open Nav Nebula ↗
         </Link>
       </div>
 

@@ -43,7 +43,7 @@ export default function ResearchPage() {
               <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-muted">
                 {r.role}
               </p>
-              <p className="font-mono text-[11px] text-fg0">{r.location}</p>
+              <p className="font-mono text-[11px] text-fg-faint">{r.location}</p>
             </div>
             <div>
               <h3 className="font-serif text-2xl leading-tight text-fg md:text-3xl">
@@ -89,7 +89,7 @@ export default function ResearchPage() {
             <ol className="space-y-6">
               {byYear[y].map((p) => (
                 <li key={p.id} className="grid grid-cols-[36px_1fr] gap-4">
-                  <span className="pt-1 font-mono text-[11px] text-fg0">
+                  <span className="pt-1 font-mono text-[11px] text-fg-faint">
                     [{p.id}]
                   </span>
                   <div>
@@ -98,7 +98,7 @@ export default function ResearchPage() {
                     </p>
                     <p className="mt-1 text-sm text-fg-dim">{p.authors}</p>
                     {p.venue ? (
-                      <p className="mt-1 font-mono text-[11px] text-fg0">
+                      <p className="mt-1 font-mono text-[11px] text-fg-faint">
                         {p.venue}
                       </p>
                     ) : null}

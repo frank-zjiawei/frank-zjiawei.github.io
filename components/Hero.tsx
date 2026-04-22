@@ -55,8 +55,19 @@ export function Hero() {
         transition={{ duration: 0.7, delay: 0.08 }}
         className="mt-6 font-serif text-[clamp(2.75rem,8vw,6rem)] font-light leading-[0.95] tracking-tightest text-fg"
       >
-        Frank Zhang
+        Jiawei Zhang
       </motion.h1>
+
+      <motion.p
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.14 }}
+        className="mt-3 font-mono text-xs tracking-[0.15em] text-fg-dim md:text-[13px]"
+        aria-label="Name pronunciation: Jee-ah-way Jahng"
+      >
+        <span className="text-fg-muted">| Jee-ah-way |</span>{' '}
+        <span className="text-fg-muted">| Jahng |</span>
+      </motion.p>
 
       <motion.p
         initial={{ opacity: 0, y: 10 }}
@@ -81,20 +92,6 @@ export function Hero() {
         meaningful things.
       </motion.p>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.5 }}
-        className="mt-10 flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-fg-dim"
-      >
-        <span>Harvard GSE</span>
-        <span className="text-hairline">/</span>
-        <span>MIT Media Lab</span>
-        <span className="text-hairline">/</span>
-        <span>UBC MBAN</span>
-        <span className="text-hairline">/</span>
-        <span>U of Toronto</span>
-      </motion.div>
     </section>
   );
 }

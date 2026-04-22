@@ -6,12 +6,12 @@ export function GraphSection() {
     <section className="container-prose pb-16 md:pb-24">
       <div className="mb-8 flex items-end justify-between gap-6">
         <div>
-          <p className="section-eyebrow">Knowledge Graph</p>
-          <h2 className="section-title mt-3">Graphic view</h2>
+          <h2 className="section-title">Nav Nebula</h2>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-fg-muted md:text-base">
             Drag a node to pull on the web — everything it touches will follow.
-            Hover to trace its connections, click to open the related project,
-            lab, or paper.
+            Hover to trace connections, click to open the related project, lab,
+            or paper. Toggle <span className="font-mono">Compact</span> and{' '}
+            <span className="font-mono">Zoom&nbsp;in</span> to change the view.
           </p>
         </div>
         <Link

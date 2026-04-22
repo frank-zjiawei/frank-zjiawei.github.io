@@ -2,9 +2,9 @@ import { PageHeader } from '@/components/PageHeader';
 import { KnowledgeGraph } from '@/components/KnowledgeGraph';
 
 export const metadata = {
-  title: 'Knowledge Graph',
+  title: 'Nav Nebula',
   description:
-    'Full-screen knowledge graph — map of projects, labs, publications, and courses.',
+    'Full-screen knowledge graph — a map of projects, labs, publications, and courses.',
 };
 
 export default function GraphPage() {
@@ -12,7 +12,7 @@ export default function GraphPage() {
     <>
       <PageHeader
         eyebrow="Map"
-        title="Graphic view"
+        title="Nav Nebula"
         description="Drag a node to pull on the web — connected nodes follow. Hover to trace relationships, click to open the related project, lab, or paper."
       />
       <div className="container-prose pb-24">

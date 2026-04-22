@@ -5,14 +5,18 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { ThemeToggle } from './ThemeToggle';
+import { CvMenu } from './CvMenu';
 
 const NAV_ITEMS = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About Jiawei' },
   { href: '/ai', label: 'AI' },
   { href: '/analytics', label: 'Analytics' },
   { href: '/research', label: 'Research' },
   { href: '/academic', label: 'Academic' },
-  { href: '/journal', label: 'Journal' },
-  { href: '/about', label: 'About' },
+  { href: '/harvard', label: 'Harvard' },
+  { href: '/boxing', label: 'Boxing' },
+  { href: '/journal', label: 'Other writings' },
 ];
 
 export function Nav() {
@@ -35,26 +39,28 @@ export function Nav() {
           : 'border-b border-transparent',
       )}
     >
-      <div className="container-prose flex h-14 items-center justify-between">
+      <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between gap-6 px-6 md:px-10">
         <Link
           href="/"
-          className="font-serif text-lg tracking-tightest text-fg transition-opacity hover:opacity-70"
-          aria-label="Frank Zhang — Home"
+          className="shrink-0 font-serif text-lg tracking-tightest text-fg transition-opacity hover:opacity-70"
+          aria-label="Jiawei Zhang — Home"
         >
-          FZ
+          JZ
         </Link>
 
-        <nav className="flex items-center gap-6">
-          <ul className="hidden items-center gap-6 md:flex">
+        <nav className="flex min-w-0 flex-1 items-center justify-end gap-4">
+          <ul className="hidden min-w-0 items-center gap-x-4 gap-y-1 md:flex md:flex-wrap md:justify-end">
             {NAV_ITEMS.map((item) => {
               const active =
-                pathname === item.href || pathname.startsWith(`${item.href}/`);
+                item.href === '/'
+                  ? pathname === '/'
+                  : pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
                 <li key={item.href}>
                   <Link
                     href={item.href}
                     className={clsx(
-                      'nav-link',
+                      'whitespace-nowrap text-[13px] text-fg-muted transition-colors hover:text-fg',
                       active && 'text-fg',
                     )}
                   >
@@ -65,19 +71,23 @@ export function Nav() {
             })}
           </ul>
 
-          <button
-            type="button"
-            className="kbd cursor-pointer transition-colors hover:border-fg-muted hover:text-fg"
-            onClick={() => {
-              window.dispatchEvent(new CustomEvent('open-command-menu'));
-            }}
-            aria-label="Open command menu"
-          >
-            <span className="text-[13px] leading-none">⌘</span>
-            <span>K</span>
-          </button>
+          <div className="flex shrink-0 items-center gap-3">
+            <CvMenu />
 
-          <ThemeToggle />
+            <button
+              type="button"
+              className="kbd cursor-pointer transition-colors hover:border-fg-muted hover:text-fg"
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent('open-command-menu'));
+              }}
+              aria-label="Open command menu"
+            >
+              <span className="text-[13px] leading-none">⌘</span>
+              <span>K</span>
+            </button>
+
+            <ThemeToggle />
+          </div>
         </nav>
       </div>
     </header>

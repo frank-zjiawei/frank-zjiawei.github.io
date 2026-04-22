@@ -13,7 +13,7 @@ export function ProjectEntry({ project }: { project: Project }) {
         <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-muted">
           {project.role}
         </p>
-        <p className="font-mono text-[11px] text-fg0">{project.location}</p>
+        <p className="font-mono text-[11px] text-fg-faint">{project.location}</p>
       </div>
 
       <div>

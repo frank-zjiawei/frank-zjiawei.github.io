@@ -3,8 +3,9 @@ import { PageHeader } from '@/components/PageHeader';
 import { posts } from '@/content/journal';
 
 export const metadata = {
-  title: 'Journal',
-  description: 'Essays and reflections on learning design, AI, and building.',
+  title: 'Other writings',
+  description:
+    'Essays, reflections, and other writings on learning design, AI, and building things at the edges.',
 };
 
 export default function JournalIndex() {
@@ -15,8 +16,8 @@ export default function JournalIndex() {
   return (
     <>
       <PageHeader
-        eyebrow="05 / Journal"
-        title="Learning Journal"
+        eyebrow="Essays · Reflections"
+        title="Other writings"
         description="Slow notes on learning design, AI, and building things at the edges of disciplines."
       />
       <div className="container-prose pb-24">
@@ -44,7 +45,7 @@ export default function JournalIndex() {
                   <div className="mt-4 flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-[0.15em] text-fg-dim">
                     <span>{p.readingMinutes} min read</span>
                     {p.tags.map((t) => (
-                      <span key={t} className="text-fg0">
+                      <span key={t} className="text-fg-faint">
                         · {t}
                       </span>
                     ))}

@@ -26,7 +26,7 @@ export default function AcademicPage() {
               <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-fg-dim">
                 {s.period}
               </p>
-              <p className="font-mono text-[11px] text-fg0">{s.location}</p>
+              <p className="font-mono text-[11px] text-fg-faint">{s.location}</p>
               {s.distinction ? (
                 <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg-muted">
                   {s.distinction}

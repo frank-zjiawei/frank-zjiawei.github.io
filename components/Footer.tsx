@@ -1,11 +1,14 @@
-import Link from 'next/link';
+const EMAIL = 'frankwei312@gmail.com';
+const INSTAGRAM = 'https://www.instagram.com/frankjiaweizhang/';
+const LINKEDIN = 'https://www.linkedin.com/in/frank-zhang-7a8944198/';
+const GITHUB = 'https://github.com/frank-zjiawei';
 
 export function Footer() {
   return (
     <footer className="border-t border-hairline py-10">
       <div className="container-prose flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
         <div className="space-y-1">
-          <p className="font-serif text-lg text-fg">Frank Zhang</p>
+          <p className="font-serif text-lg text-fg">Jiawei Zhang</p>
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-dim">
             Cambridge, MA · {new Date().getFullYear()}
           </p>
@@ -13,7 +16,7 @@ export function Footer() {
         <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-xs text-fg-muted">
           <li>
             <a
-              href="mailto:jiaweizhang@gse.harvard.edu"
+              href={`mailto:${EMAIL}`}
               className="transition-colors hover:text-fg"
             >
               Email
@@ -21,7 +24,27 @@ export function Footer() {
           </li>
           <li>
             <a
-              href="https://github.com/"
+              href={INSTAGRAM}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-fg"
+            >
+              Instagram
+            </a>
+          </li>
+          <li>
+            <a
+              href={LINKEDIN}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-fg"
+            >
+              LinkedIn
+            </a>
+          </li>
+          <li>
+            <a
+              href={GITHUB}
               target="_blank"
               rel="noopener noreferrer"
               className="transition-colors hover:text-fg"
@@ -31,18 +54,21 @@ export function Footer() {
           </li>
           <li>
             <a
-              href="https://www.linkedin.com/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/cv/Jiawei_Zhang_CV_EN.pdf"
+              download
               className="transition-colors hover:text-fg"
             >
-              LinkedIn
+              CV · EN
             </a>
           </li>
           <li>
-            <Link href="/about" className="transition-colors hover:text-fg">
-              CV
-            </Link>
+            <a
+              href="/cv/Jiawei_Zhang_CV_CN.pdf"
+              download
+              className="transition-colors hover:text-fg"
+            >
+              CV · 中文
+            </a>
           </li>
         </ul>
       </div>

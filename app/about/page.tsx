@@ -77,7 +77,7 @@ export default function AboutPage() {
               <li key={s.id}>
                 <p className="font-serif text-lg text-fg">{s.school}</p>
                 <p className="mt-1 text-sm text-fg-muted">{s.degree}</p>
-                <p className="mt-1 font-mono text-[11px] text-fg0">
+                <p className="mt-1 font-mono text-[11px] text-fg-faint">
                   {s.period} · {s.location}
                   {s.detail ? ` · ${s.detail}` : ''}
                 </p>
@@ -117,7 +117,7 @@ export default function AboutPage() {
           </p>
           <ul className="space-y-2 text-sm text-fg-muted">
             <li>
-              <span className="inline-block w-20 font-mono text-[11px] uppercase tracking-[0.15em] text-fg0">
+              <span className="inline-block w-20 font-mono text-[11px] uppercase tracking-[0.15em] text-fg-faint">
                 Email
               </span>
               <a
@@ -128,13 +128,13 @@ export default function AboutPage() {
               </a>
             </li>
             <li>
-              <span className="inline-block w-20 font-mono text-[11px] uppercase tracking-[0.15em] text-fg0">
+              <span className="inline-block w-20 font-mono text-[11px] uppercase tracking-[0.15em] text-fg-faint">
                 Phone
               </span>
               +1 (617) 599-0738
             </li>
             <li>
-              <span className="inline-block w-20 font-mono text-[11px] uppercase tracking-[0.15em] text-fg0">
+              <span className="inline-block w-20 font-mono text-[11px] uppercase tracking-[0.15em] text-fg-faint">
                 Base
               </span>
               Cambridge, MA, US
