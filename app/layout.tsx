@@ -4,6 +4,7 @@ import './globals.css';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { CommandMenu } from '@/components/CommandMenu';
+import { ConstructionBanner } from '@/components/ConstructionBanner';
 
 const serif = Libre_Baskerville({
   subsets: ['latin'],
@@ -75,6 +76,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans">
         <div className="relative z-10 flex min-h-screen flex-col">
+          <ConstructionBanner />
           <Nav />
           <main className="flex-1">{children}</main>
           <Footer />
