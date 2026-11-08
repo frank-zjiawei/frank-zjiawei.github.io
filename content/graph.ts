@@ -34,7 +34,9 @@ export const graphData: { nodes: GraphNode[]; links: GraphLink[] } = {
 
     { id: 'harvard-gse', label: 'Harvard GSE Lab', group: 'org', href: '/research#harvard-gse' },
     { id: 'tsinghua', label: 'Tsinghua SIGS', group: 'org', href: '/research#tsinghua' },
-    { id: 'papers', label: '10 Publications', group: 'publication', href: '/research#publications' },
+    { id: 'papers', label: 'Publications', group: 'publication', href: '/research#publications' },
+    { id: 'acm-mm', label: 'ACM MM First Prize', group: 'publication', href: '/research#publications' },
+    { id: 'ivmsp', label: 'IVMSP Best Paper', group: 'publication', href: '/research#publications' },
 
     { id: 'harvard', label: 'Harvard Ed.M.', group: 'org', href: '/academic#harvard' },
     { id: 'mit', label: 'MIT Media Lab', group: 'org', href: '/academic#mit' },
@@ -62,6 +64,8 @@ export const graphData: { nodes: GraphNode[]; links: GraphLink[] } = {
     { source: 'research', target: 'papers' },
     { source: 'research', target: 'oldpilot' },
     { source: 'research', target: 'yolov8' },
+    { source: 'papers', target: 'acm-mm' },
+    { source: 'papers', target: 'ivmsp' },
 
     { source: 'design', target: 'harvard' },
     { source: 'design', target: 'mit' },

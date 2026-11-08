@@ -1,32 +1,52 @@
+import Image from 'next/image';
 import { PageHeader } from '@/components/PageHeader';
 import { research } from '@/content/research';
-import { publications } from '@/content/publications';
+import {
+  publications,
+  STATUS_LABEL,
+  type Publication,
+  type PublicationStatus,
+} from '@/content/publications';
 
 export const metadata = {
   title: 'Research & Publications',
   description:
-    'Research positions at Harvard GSE, Tsinghua-SIGS, and UsingAI, plus ten publications across computer vision, operations research, and analytics.',
+    'Research at Harvard GSE, Tsinghua-SIGS, and UsingAI — including ACM Multimedia 2026 First Prize and IVMSP 2026 Best Paper Runner-Up.',
 };
 
-export default function ResearchPage() {
-  const byYear = publications.reduce<Record<number, typeof publications>>(
-    (acc, p) => {
-      acc[p.year] ||= [];
-      acc[p.year].push(p);
+const STATUS_ORDER: PublicationStatus[] = [
+  'published',
+  'under-review',
+  'in-preparation',
+  'working-paper',
+];
+
+function groupByStatus(items: Publication[]) {
+  const map = STATUS_ORDER.reduce(
+    (acc, s) => {
+      acc[s] = [];
       return acc;
     },
-    {},
+    {} as Record<PublicationStatus, Publication[]>,
   );
-  const years = Object.keys(byYear)
-    .map(Number)
-    .sort((a, b) => b - a);
+  for (const p of items) map[p.status].push(p);
+  return STATUS_ORDER.filter((s) => map[s].length > 0).map((s) => ({
+    status: s,
+    items: map[s],
+  }));
+}
+
+export default function ResearchPage() {
+  const groups = groupByStatus(publications);
+  const publishedCount = publications.filter((p) => p.status === 'published').length;
+  const awardCount = publications.filter((p) => p.award).length;
 
   return (
     <>
       <PageHeader
         eyebrow="04 / Research"
         title="Research & Publications"
-        description="Research labs, projects, and ten publications spanning deep learning, operations research, and data-driven analytics for behavior and finance."
+        description={`Labs, papers, and awards — ${publishedCount} published, with ${awardCount} conference awards, plus manuscripts under review and in preparation.`}
       />
 
       <section className="container-prose pb-8">
@@ -77,32 +97,95 @@ export default function ResearchPage() {
 
       <section id="publications" className="container-prose pb-24 pt-12">
         <div className="mb-10">
-          <p className="section-eyebrow">Publications · {publications.length}</p>
-          <h2 className="section-title mt-3">Selected writings & papers</h2>
+          <p className="section-eyebrow">
+            Publications · {publications.length}
+          </p>
+          <h2 className="section-title mt-3">Papers & manuscripts</h2>
         </div>
 
-        {years.map((y) => (
-          <div key={y} className="border-t border-hairline py-8">
+        {groups.map(({ status, items }) => (
+          <div key={status} className="border-t border-hairline py-8">
             <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.25em] text-fg-dim">
-              {y}
+              {STATUS_LABEL[status]}
             </p>
-            <ol className="space-y-6">
-              {byYear[y].map((p) => (
+            <ol className="space-y-10">
+              {items.map((p) => (
                 <li key={p.id} className="grid grid-cols-[36px_1fr] gap-4">
                   <span className="pt-1 font-mono text-[11px] text-fg-faint">
                     [{p.id}]
                   </span>
                   <div>
-                    <p className="font-serif text-lg leading-snug text-fg">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span
+                        className={
+                          status === 'published'
+                            ? 'rounded-full border border-gold/50 bg-gold/10 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.15em] text-fg'
+                            : 'rounded-full border border-hairline px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.15em] text-fg-dim'
+                        }
+                      >
+                        {STATUS_LABEL[status]}
+                      </span>
+                      {p.award ? (
+                        <span className="rounded-full border border-gold/60 bg-gold/15 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.15em] text-fg">
+                          {p.award}
+                        </span>
+                      ) : null}
+                      <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-fg-faint">
+                        {p.year}
+                      </span>
+                    </div>
+
+                    <p className="mt-3 font-serif text-lg leading-snug text-fg md:text-xl">
                       {p.title}
                     </p>
                     <p className="mt-1 text-sm text-fg-dim">{p.authors}</p>
                     {p.venue ? (
-                      <p className="mt-1 font-mono text-[11px] text-fg-faint">
+                      <p className="mt-1 font-mono text-[11px] leading-relaxed text-fg-faint">
                         {p.venue}
                       </p>
                     ) : null}
-                    <div className="mt-3 flex flex-wrap gap-2">
+
+                    {(p.pdf || p.awardImage) && (
+                      <div className="mt-3 flex flex-wrap items-center gap-4">
+                        {p.pdf ? (
+                          <a
+                            href={p.pdf}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="font-mono text-[11px] uppercase tracking-[0.18em] text-fg-muted transition-colors hover:text-fg"
+                          >
+                            PDF ↗
+                          </a>
+                        ) : null}
+                        {p.awardImage ? (
+                          <a
+                            href={p.awardImage}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="font-mono text-[11px] uppercase tracking-[0.18em] text-fg-muted transition-colors hover:text-fg"
+                          >
+                            Certificate ↗
+                          </a>
+                        ) : null}
+                      </div>
+                    )}
+
+                    {p.awardImage ? (
+                      <figure className="mt-5 max-w-md overflow-hidden rounded-sm border border-hairline bg-surface-2">
+                        <Image
+                          src={p.awardImage}
+                          alt={`${p.award ?? 'Award'} certificate for ${p.title}`}
+                          width={900}
+                          height={600}
+                          className="h-auto w-full object-cover"
+                        />
+                        <figcaption className="border-t border-hairline px-3 py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-fg-dim">
+                          {p.award}
+                        </figcaption>
+                      </figure>
+                    ) : null}
+
+                    <div className="mt-4 flex flex-wrap gap-2">
                       {p.tags.map((t) => (
                         <span
                           key={t}

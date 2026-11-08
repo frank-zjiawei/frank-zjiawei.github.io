@@ -31,8 +31,8 @@ const SECTIONS = [
     eyebrow: '04',
     title: 'Research & Publications',
     description:
-      'Harvard GSE LIT Lab, Tsinghua-SIGS, UsingAI. Ten publications across computer vision, operations research, and analytics.',
-    meta: '10 Papers · 3 Labs',
+      'Harvard GSE LIT Lab, Tsinghua-SIGS, UsingAI. ACM MM 2026 First Prize · IVMSP 2026 Best Paper Runner-Up.',
+    meta: '8 Papers · 2 Awards',
   },
   {
     href: '/harvard',
