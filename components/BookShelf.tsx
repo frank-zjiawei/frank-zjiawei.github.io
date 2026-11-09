@@ -13,7 +13,7 @@ import {
 const STATUS_ORDER: PublicationStatus[] = [
   'published',
   'under-review',
-  'in-preparation',
+  'ready-to-submit',
   'working-paper',
 ];
 

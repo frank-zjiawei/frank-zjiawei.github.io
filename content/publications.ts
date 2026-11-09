@@ -1,7 +1,7 @@
 export type PublicationStatus =
   | 'published'
   | 'under-review'
-  | 'in-preparation'
+  | 'ready-to-submit'
   | 'working-paper';
 
 export interface Publication {
@@ -50,8 +50,7 @@ export const publications: Publication[] = [
     title:
       'ActiveVideoAgent: Agent-Driven Spatio-Temporal Indexing for Long Video Reasoning',
     shortTitle: 'ActiveVideoAgent',
-    venue:
-      'IEEE IVMSP 2026, Shenzhen, China',
+    venue: 'IEEE IVMSP 2026, Shenzhen, China',
     status: 'published',
     award: 'Best Paper Runner-Up',
     pdf: '/papers/ActiveVideoAgent_IVMSP2026.pdf',
@@ -73,7 +72,12 @@ export const publications: Publication[] = [
     shortTitle: 'Makerspace Self-Efficacy',
     venue: 'Under review · Learning and Individual Differences',
     status: 'under-review',
+    pdf: '/papers/Makerspace_SelfEfficacy_UnderReview.pdf',
     cover: '/images/papers/makerspace-cover.jpg',
+    figures: [
+      '/images/papers/makerspace-fig1.jpg',
+      '/images/papers/makerspace-fig2.jpg',
+    ],
     tags: ['Learning Analytics', 'Self-efficacy'],
     coverTone: 'forest',
   },
@@ -87,25 +91,57 @@ export const publications: Publication[] = [
     shortTitle: 'LifeMenu',
     venue: 'Under review · EMNLP 2026 System Demo',
     status: 'under-review',
+    pdf: '/papers/LifeMenu_EMNLP2026_UnderReview.pdf',
     cover: '/images/papers/lifemenu-cover.jpg',
+    figures: [
+      '/images/papers/lifemenu-fig1.jpg',
+      '/images/papers/lifemenu-fig2.jpg',
+    ],
     tags: ['NLP', 'Recommendation'],
     coverTone: 'clay',
   },
   {
     id: 5,
+    year: 2026,
+    authors: 'J. W. Zhang et al.',
+    title:
+      'Distributed Acoustic Sensing for Integrated Sensing and Communication: Event Classification under Field Constraints',
+    shortTitle: 'DAS Sensing',
+    venue: 'Under review · Tsinghua-SIGS × industry collaboration',
+    status: 'under-review',
+    tags: ['DAS', 'Sensing', 'Signal Processing'],
+    coverTone: 'slate',
+  },
+  {
+    id: 6,
     year: 2027,
     authors: 'J. W. Zhang et al.',
     title:
       'Projective Probing: Measuring Generative Fixation and Session-Level Diversity in Aligned Language Models',
     shortTitle: 'Projective Probing',
-    venue: 'In preparation · ACL 2027',
-    status: 'in-preparation',
+    venue: 'Manuscript ready to submit · ACL 2027',
+    status: 'ready-to-submit',
+    pdf: '/papers/Projective_Probing_ACL2027_Ready.pdf',
     cover: '/images/papers/probing-cover.jpg',
     tags: ['LLMs', 'Evaluation'],
     coverTone: 'wine',
   },
   {
-    id: 6,
+    id: 7,
+    year: 2027,
+    authors: 'Anonymous ACL submission',
+    title:
+      'Probability-Augmented Flowchart Prompting: A Bayesian Approach to Uncertainty-Aware Agent Workflows',
+    shortTitle: 'PAFP',
+    venue: 'Manuscript ready to submit · ACL',
+    status: 'ready-to-submit',
+    pdf: '/papers/PAFP_ACL_Ready.pdf',
+    cover: '/images/papers/pafp-cover.jpg',
+    tags: ['Agents', 'Bayesian', 'Prompting'],
+    coverTone: 'navy',
+  },
+  {
+    id: 8,
     year: 2024,
     authors: 'J. W. Zhang',
     title:
@@ -116,7 +152,7 @@ export const publications: Publication[] = [
     coverTone: 'ink',
   },
   {
-    id: 7,
+    id: 9,
     year: 2024,
     authors: 'J. W. Zhang, X. Zhang, X. Lyu, Y. Yang, Y. Wang, and Z. Gu',
     title:
@@ -127,7 +163,7 @@ export const publications: Publication[] = [
     coverTone: 'navy',
   },
   {
-    id: 8,
+    id: 10,
     year: 2023,
     authors: 'J. W. Zhang, X. Shen, Y. Wang, and Y. Wang',
     title:
@@ -142,6 +178,6 @@ export const publications: Publication[] = [
 export const STATUS_LABEL: Record<PublicationStatus, string> = {
   published: 'Published',
   'under-review': 'Under review',
-  'in-preparation': 'In preparation',
+  'ready-to-submit': 'Ready to submit',
   'working-paper': 'Working paper',
 };

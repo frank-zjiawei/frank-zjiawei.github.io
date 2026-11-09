@@ -10,7 +10,7 @@ interface Stat {
 }
 
 const STATS: Stat[] = [
-  { value: 8, label: 'Publications' },
+  { value: 10, label: 'Publications' },
   { value: 3, label: 'Research Labs' },
   { value: 3, label: 'Awards · Competitions' },
   { value: 4, label: 'Universities' },
