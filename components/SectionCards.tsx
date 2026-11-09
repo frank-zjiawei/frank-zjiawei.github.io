@@ -29,10 +29,10 @@ const SECTIONS = [
   {
     href: '/research',
     eyebrow: '04',
-    title: 'Research & Publications',
+    title: 'Research',
     description:
-      'Harvard GSE LIT Lab, Tsinghua-SIGS, UsingAI. ACM MM 2026 First Prize · IVMSP 2026 Best Paper Runner-Up.',
-    meta: '8 Papers · 2 Awards',
+      'A bookshelf of papers — ACM MM 2026 First Prize · IVMSP 2026 Best Paper Runner-Up. Click a volume for PDF and figures.',
+    meta: 'Shelf · 8 volumes',
   },
   {
     href: '/harvard',

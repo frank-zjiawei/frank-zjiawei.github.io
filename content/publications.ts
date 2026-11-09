@@ -9,12 +9,18 @@ export interface Publication {
   year: number;
   authors: string;
   title: string;
+  /** Short title shown on the book cover */
+  shortTitle: string;
   venue?: string;
   status: PublicationStatus;
   award?: string;
   pdf?: string;
   awardImage?: string;
+  cover?: string;
+  figures?: string[];
   tags: string[];
+  /** Soft accent for typographic covers when no figure cover exists */
+  coverTone?: 'ink' | 'wine' | 'forest' | 'slate' | 'clay' | 'navy';
 }
 
 export const publications: Publication[] = [
@@ -25,12 +31,16 @@ export const publications: Publication[] = [
       'H. Zhou, S. Li, J. Qin, J. W. Zhang, Z. Di, L. Jia, and G. Wang',
     title:
       'Multi-Agent Collaborative Learning with Multimodal Foundation Models for Cross-Modal AVI Assessment',
+    shortTitle: 'Multi-Agent AVI Assessment',
     venue: 'ACM Multimedia 2026 · AVI Grand Challenge',
     status: 'published',
     award: 'First Prize',
     pdf: '/papers/MultiAgent_AVI_ACMMM2026.pdf',
     awardImage: '/images/awards/acm-mm-2026-first-prize.jpg',
-    tags: ['Multimodal', 'Multi-Agent', 'AVI Assessment'],
+    cover: '/images/papers/avi-cover.jpg',
+    figures: ['/images/papers/avi-fig2.jpg'],
+    tags: ['Multimodal', 'Multi-Agent', 'AVI'],
+    coverTone: 'navy',
   },
   {
     id: 2,
@@ -39,13 +49,20 @@ export const publications: Publication[] = [
       'X. Guo, L. Jia, J. W. Zhang, Z. Li, J. Qin, L. Zhang, Z. Di, and G. Wang',
     title:
       'ActiveVideoAgent: Agent-Driven Spatio-Temporal Indexing for Long Video Reasoning',
+    shortTitle: 'ActiveVideoAgent',
     venue:
-      'IEEE 15th Image, Video, and Multidimensional Signal Processing Workshop (IVMSP 2026), Shenzhen, China',
+      'IEEE IVMSP 2026, Shenzhen, China',
     status: 'published',
-    award: 'Best Paper Runner-Up Award',
+    award: 'Best Paper Runner-Up',
     pdf: '/papers/ActiveVideoAgent_IVMSP2026.pdf',
     awardImage: '/images/awards/ivmsp-2026-best-paper-runner-up.jpg',
+    cover: '/images/papers/ava-cover.jpg',
+    figures: [
+      '/images/papers/ava-fig2.jpg',
+      '/images/papers/ava-fig3.jpg',
+    ],
     tags: ['Video QA', 'Agents', 'RAG'],
+    coverTone: 'slate',
   },
   {
     id: 3,
@@ -53,9 +70,12 @@ export const publications: Publication[] = [
     authors: 'J. W. Zhang, J. Basmaci, and B. Schneider',
     title:
       'Individual Differences in Makerspace Learning: Pose-Based Student Profiles and Their Relation to Self-Efficacy',
-    venue: 'Manuscript under review at Learning and Individual Differences, 2026',
+    shortTitle: 'Makerspace Self-Efficacy',
+    venue: 'Under review · Learning and Individual Differences',
     status: 'under-review',
-    tags: ['Learning Analytics', 'Self-efficacy', 'Makerspace'],
+    cover: '/images/papers/makerspace-cover.jpg',
+    tags: ['Learning Analytics', 'Self-efficacy'],
+    coverTone: 'forest',
   },
   {
     id: 4,
@@ -64,9 +84,12 @@ export const publications: Publication[] = [
       'X. Chang, J. W. Zhang, S. Yu, Z. Ma, F. Hao, Z. Su, G. Wang, and D. Jiang',
     title:
       'LifeMenu: A Lifestyle-Medicine-Oriented System for Menu-Grounded Restaurant Ordering',
-    venue: 'Submitted to EMNLP 2026 System Demonstration Track · Under review',
+    shortTitle: 'LifeMenu',
+    venue: 'Under review · EMNLP 2026 System Demo',
     status: 'under-review',
-    tags: ['NLP', 'Recommendation', 'System Demo'],
+    cover: '/images/papers/lifemenu-cover.jpg',
+    tags: ['NLP', 'Recommendation'],
+    coverTone: 'clay',
   },
   {
     id: 5,
@@ -74,9 +97,12 @@ export const publications: Publication[] = [
     authors: 'J. W. Zhang et al.',
     title:
       'Projective Probing: Measuring Generative Fixation and Session-Level Diversity in Aligned Language Models',
-    venue: 'Manuscript in preparation for ACL 2027',
+    shortTitle: 'Projective Probing',
+    venue: 'In preparation · ACL 2027',
     status: 'in-preparation',
-    tags: ['LLMs', 'Evaluation', 'Diversity'],
+    cover: '/images/papers/probing-cover.jpg',
+    tags: ['LLMs', 'Evaluation'],
+    coverTone: 'wine',
   },
   {
     id: 6,
@@ -84,8 +110,10 @@ export const publications: Publication[] = [
     authors: 'J. W. Zhang',
     title:
       'Optimizing Supply Chain Hubs for Global Humanitarian Logistics Using Network Flow and Linear Programming',
+    shortTitle: 'Supply Chain Hubs',
     status: 'working-paper',
-    tags: ['Operations Research', 'Optimization'],
+    tags: ['Operations Research'],
+    coverTone: 'ink',
   },
   {
     id: 7,
@@ -93,8 +121,10 @@ export const publications: Publication[] = [
     authors: 'J. W. Zhang, X. Zhang, X. Lyu, Y. Yang, Y. Wang, and Z. Gu',
     title:
       'Optimizing U.S. Investment Portfolios Using CAPM and Linear Programming: A Debt-to-Equity Analysis Across Industries',
+    shortTitle: 'Portfolio Optimization',
     status: 'working-paper',
-    tags: ['Finance', 'Optimization'],
+    tags: ['Finance'],
+    coverTone: 'navy',
   },
   {
     id: 8,
@@ -102,8 +132,10 @@ export const publications: Publication[] = [
     authors: 'J. W. Zhang, X. Shen, Y. Wang, and Y. Wang',
     title:
       'Optimizing Coffee Bean Sales Strategy for B2C Company Bean Symphony through Data Analytics and Visualization',
+    shortTitle: 'Bean Symphony',
     status: 'working-paper',
-    tags: ['Data Analytics', 'Visualization'],
+    tags: ['Data Analytics'],
+    coverTone: 'clay',
   },
 ];
 
