@@ -17,7 +17,7 @@ export default function ResearchPage() {
       <PageHeader
         eyebrow="04 / Research"
         title="Research"
-        description={`A bookshelf of publications — ${published} published papers, ${awards} conference awards. Click a volume to open the abstract, figures, and PDF. Research roles live on the CV.`}
+        description={`A bookshelf of publications — ${published} published papers, ${awards} conference awards. Click a volume and its page slides open from the right. Research roles live on the CV.`}
       />
 
       <section id="publications" className="container-prose pb-24">
