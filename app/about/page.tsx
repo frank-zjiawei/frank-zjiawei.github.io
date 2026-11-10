@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { schools } from '@/content/education';
+import { PlaceGallery } from '@/components/PlaceGallery';
 
 export const metadata = {
   title: 'About Me',
@@ -82,6 +83,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <PlaceGallery eyebrow="Places" title="Campuses & cities" />
 
       <section id="education" className="container-prose pb-16">
         <div className="border-t border-hairline pt-12">

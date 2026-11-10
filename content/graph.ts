@@ -13,34 +13,28 @@ export interface GraphLink {
   target: string;
 }
 
+/** Lean hub map — three domains, a few landmarks each. */
 export const graphData: { nodes: GraphNode[]; links: GraphLink[] } = {
   nodes: [
-    { id: 'frank', label: 'Jiawei', group: 'root', size: 16 },
+    { id: 'frank', label: 'Jiawei', group: 'root', size: 18 },
 
-    { id: 'about', label: 'About Me', group: 'domain', href: '/about', size: 11 },
-    { id: 'experience', label: 'Experience', group: 'domain', href: '/experience', size: 11 },
-    { id: 'research', label: 'Papers', group: 'domain', href: '/research', size: 11 },
-
-    { id: 'yolov8', label: 'YOLOv8 98.55%', group: 'project', href: '/experience#yolov8' },
-    { id: 'mit-venture', label: 'MIT AI Venture', group: 'project', href: '/experience#mit-venture' },
-    { id: 'harvard-ilab', label: 'Harvard i-Lab', group: 'project', href: '/experience#harvard-ilab' },
-    { id: 'foundry', label: 'Business School Foundry', group: 'project', href: '/experience#hbs-foundry' },
-    { id: 'lit', label: 'Ed School LIT Lab', group: 'org', href: '/experience#hgse-lit' },
-
-    { id: 'wyloo', label: 'Wyloo Metals', group: 'org', href: '/experience#wyloo' },
-    { id: 'hirebeat', label: 'HireBeat', group: 'org', href: '/experience#hirebeat' },
-    { id: 'accenture', label: 'Accenture', group: 'org', href: '/experience#accenture' },
-    { id: 'google-hack', label: 'Google Hackathon', group: 'project', href: '/experience#google-hackathon' },
-
-    { id: 'papers', label: 'Publications', group: 'publication', href: '/research' },
-    { id: 'acm-mm', label: 'ACM MM First Prize', group: 'publication', href: '/research#paper-1' },
-    { id: 'ivmsp', label: 'IVMSP Best Paper', group: 'publication', href: '/research#paper-2' },
-    { id: 'boxing', label: 'Boxing', group: 'project', href: '/about/interests' },
+    { id: 'about', label: 'About Me', group: 'domain', href: '/about', size: 13 },
+    { id: 'experience', label: 'Experience', group: 'domain', href: '/experience', size: 13 },
+    { id: 'research', label: 'Papers', group: 'domain', href: '/research', size: 13 },
 
     { id: 'harvard', label: 'Harvard Ed.M.', group: 'org', href: '/about#harvard' },
     { id: 'mit', label: 'MIT', group: 'org', href: '/about#mit' },
-    { id: 'ubc', label: 'UBC MBAN', group: 'org', href: '/about#ubc' },
-    { id: 'uoft', label: 'U of Toronto', group: 'org', href: '/about#uoft' },
+    { id: 'ubc', label: 'UBC · Vancouver', group: 'org', href: '/about#ubc' },
+    { id: 'uoft', label: 'Toronto', group: 'org', href: '/about#uoft' },
+    { id: 'boxing', label: 'Boxing', group: 'project', href: '/about/interests' },
+
+    { id: 'lit', label: 'LIT Lab', group: 'org', href: '/experience#hgse-lit' },
+    { id: 'foundry', label: 'Business School Foundry', group: 'project', href: '/experience#hbs-foundry' },
+    { id: 'ilab', label: 'Innovation Lab', group: 'project', href: '/experience#harvard-ilab' },
+    { id: 'yolov8', label: 'YOLOv8 98.55%', group: 'project', href: '/experience#yolov8' },
+
+    { id: 'acm-mm', label: 'ACM MM First Prize', group: 'publication', href: '/research#paper-1' },
+    { id: 'ivmsp', label: 'IVMSP Best Paper', group: 'publication', href: '/research#paper-2' },
   ],
   links: [
     { source: 'frank', target: 'about' },
@@ -55,21 +49,15 @@ export const graphData: { nodes: GraphNode[]; links: GraphLink[] } = {
 
     { source: 'experience', target: 'lit' },
     { source: 'experience', target: 'foundry' },
+    { source: 'experience', target: 'ilab' },
     { source: 'experience', target: 'yolov8' },
-    { source: 'experience', target: 'mit-venture' },
-    { source: 'experience', target: 'harvard-ilab' },
-    { source: 'experience', target: 'wyloo' },
-    { source: 'experience', target: 'hirebeat' },
-    { source: 'experience', target: 'accenture' },
-    { source: 'experience', target: 'google-hack' },
 
-    { source: 'research', target: 'papers' },
-    { source: 'papers', target: 'acm-mm' },
-    { source: 'papers', target: 'ivmsp' },
+    { source: 'research', target: 'acm-mm' },
+    { source: 'research', target: 'ivmsp' },
 
     { source: 'harvard', target: 'lit' },
     { source: 'harvard', target: 'foundry' },
-    { source: 'mit', target: 'mit-venture' },
-    { source: 'ubc', target: 'google-hack' },
+    { source: 'harvard', target: 'ilab' },
+    { source: 'mit', target: 'ilab' },
   ],
 };

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { Project } from '@/content/projects';
 
 export function ProjectEntry({ project }: { project: Project }) {
@@ -14,6 +15,18 @@ export function ProjectEntry({ project }: { project: Project }) {
           {project.role}
         </p>
         <p className="font-mono text-[11px] text-fg-faint">{project.location}</p>
+        {project.link ? (
+          <p className="pt-2">
+            <Link
+              href={project.link.href}
+              target="_blank"
+              rel="noreferrer"
+              className="border-b border-gold/50 font-mono text-[11px] uppercase tracking-[0.14em] text-fg transition-colors hover:border-gold"
+            >
+              {project.link.label} ↗
+            </Link>
+          </p>
+        ) : null}
       </div>
 
       <div>

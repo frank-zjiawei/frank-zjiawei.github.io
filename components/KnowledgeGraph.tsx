@@ -49,17 +49,17 @@ const LAYOUT_PRESETS: Record<
     seedInnerRing: 70,
     seedOuterRing: 130,
   },
-  // Wider spread for readable labels.
+  // Wider, calmer spread for readable labels.
   zoom: {
-    charge: -420,
-    chargeMobile: -260,
-    chargeDistanceMax: 720,
-    linkDistanceRoot: 150,
-    linkDistance: 96,
-    linkStrength: 0.18,
-    centerStrength: 0.012,
-    seedInnerRing: 160,
-    seedOuterRing: 280,
+    charge: -380,
+    chargeMobile: -240,
+    chargeDistanceMax: 680,
+    linkDistanceRoot: 140,
+    linkDistance: 108,
+    linkStrength: 0.22,
+    centerStrength: 0.02,
+    seedInnerRing: 140,
+    seedOuterRing: 250,
   },
 };
 
@@ -239,7 +239,7 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
     if (center) center.strength?.(preset.centerStrength);
 
     // Collision radius ≈ node + label footprint so text does not stack.
-    const collidePad = layout === 'compact' ? 10 : 16;
+    const collidePad = layout === 'compact' ? 14 : 22;
     fg.d3Force?.(
       'collide',
       forceCollide((n: any) => {

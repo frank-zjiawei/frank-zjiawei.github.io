@@ -141,3 +141,112 @@ body::before {
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(var(--fg-dim));
 }
+
+/* —— Nav Nebula orb —— */
+.nebula-orb {
+  border: none;
+  background: transparent;
+  padding: 0;
+  filter: drop-shadow(0 18px 28px rgba(20, 30, 70, 0.28));
+}
+.nebula-orb__glow {
+  position: absolute;
+  inset: -18%;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(120, 170, 255, 0.55),
+    rgba(70, 100, 220, 0.22) 42%,
+    transparent 70%
+  );
+  opacity: 0.85;
+  animation: nebula-pulse 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+.nebula-orb__ring {
+  position: absolute;
+  inset: 6%;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    inset 0 0 0 1px rgba(40, 70, 160, 0.15),
+    0 0 24px rgba(90, 140, 255, 0.35);
+  pointer-events: none;
+}
+.nebula-orb__core {
+  position: absolute;
+  inset: 12%;
+  border-radius: 9999px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 18%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.95), transparent 28%),
+    radial-gradient(circle at 62% 70%, rgba(40, 70, 180, 0.55), transparent 55%),
+    linear-gradient(155deg, #d8e6ff 0%, #6e8fd6 38%, #2a3f8f 72%, #121a3a 100%);
+  box-shadow:
+    inset 0 -10px 22px rgba(10, 16, 40, 0.45),
+    inset 0 8px 16px rgba(255, 255, 255, 0.35),
+    0 8px 20px rgba(20, 30, 70, 0.35);
+  overflow: hidden;
+}
+.nebula-orb__shine {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 70% 80%, rgba(255, 210, 120, 0.25), transparent 40%),
+    radial-gradient(circle at 20% 85%, rgba(120, 220, 255, 0.2), transparent 35%);
+  pointer-events: none;
+}
+.nebula-orb__label {
+  position: relative;
+  z-index: 1;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+}
+.nebula-orb--hint .nebula-orb__glow {
+  animation: nebula-pulse-strong 1.4s ease-in-out infinite;
+}
+.nebula-orb--hint .nebula-orb__ring {
+  animation: nebula-ring 1.6s ease-out infinite;
+}
+@keyframes nebula-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+@keyframes nebula-pulse-strong {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 1;
+  }
+}
+@keyframes nebula-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+:root.dark .nebula-orb {
+  filter: drop-shadow(0 18px 32px rgba(0, 0, 0, 0.55));
+}

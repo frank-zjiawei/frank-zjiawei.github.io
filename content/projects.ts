@@ -30,6 +30,10 @@ export const projects: Project[] = [
       'Supporting deployment of faculty-led AI learning tools and ongoing classroom data collection.',
     ],
     stack: ['Learning Analytics', 'MMLA', 'Python', 'Clustering'],
+    link: {
+      href: 'https://www.gse.harvard.edu/',
+      label: 'Harvard Graduate School of Education',
+    },
   },
   {
     id: 'hbs-foundry',
@@ -47,6 +51,10 @@ export const projects: Project[] = [
       'Built pipeline data models and stage-conversion funnels used in board reporting across partner universities.',
     ],
     stack: ['Analytics', 'BD', 'Research design', 'Pipelines'],
+    link: {
+      href: 'https://www.hbs.edu/',
+      label: 'Harvard Business School',
+    },
   },
   {
     id: 'wyloo',
@@ -65,6 +73,7 @@ export const projects: Project[] = [
     ],
     stack: ['Python', 'Databricks', 'Agile / JIRA'],
     metric: '+50% operational efficiency',
+    link: { href: 'https://www.wyloo.com/', label: 'Wyloo Metals' },
   },
   {
     id: 'hirebeat',
@@ -83,6 +92,7 @@ export const projects: Project[] = [
     ],
     stack: ['Power BI', 'SQL', 'Agile / JIRA'],
     metric: '-15% turnover · -30% review time',
+    link: { href: 'https://www.hirebeat.co/', label: 'HireBeat' },
   },
   {
     id: 'accenture',
@@ -101,6 +111,7 @@ export const projects: Project[] = [
     ],
     stack: ['SQL', 'Power BI', 'Data modeling'],
     metric: '-40% manual processing',
+    link: { href: 'https://www.accenture.com/', label: 'Accenture' },
   },
   {
     id: 'yolov8',
@@ -137,6 +148,7 @@ export const projects: Project[] = [
       'Drove integration of agentic systems with user research loops.',
     ],
     stack: ['Agentic systems', 'Prototyping', 'User research'],
+    link: { href: 'https://www.media.mit.edu/', label: 'MIT Media Lab' },
   },
   {
     id: 'harvard-ilab',
@@ -154,6 +166,10 @@ export const projects: Project[] = [
       'Coordinated timelines and decision-making across disciplines.',
     ],
     stack: ['Product strategy', 'Prototyping', 'Pitching'],
+    link: {
+      href: 'https://innovationlabs.harvard.edu/',
+      label: 'Harvard Innovation Labs',
+    },
   },
   {
     id: 'google-hackathon',
@@ -172,5 +188,6 @@ export const projects: Project[] = [
     ],
     stack: ['BigQuery', 'Gemini', 'Google Analytics', 'Looker'],
     metric: '3rd place — team lead',
+    link: { href: 'https://about.google/', label: 'Google' },
   },
 ];
