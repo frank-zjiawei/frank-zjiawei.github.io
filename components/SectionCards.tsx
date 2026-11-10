@@ -32,7 +32,7 @@ const SECTIONS = [
     title: 'Research',
     description:
       'A bookshelf of papers — ACM MM 2026 First Prize · IVMSP 2026 Best Paper Runner-Up. Click a volume for PDF and figures.',
-    meta: 'Shelf · 10 volumes',
+    meta: 'Shelf · 11 volumes',
   },
   {
     href: '/harvard',

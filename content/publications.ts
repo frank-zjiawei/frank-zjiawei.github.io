@@ -32,7 +32,8 @@ export const publications: Publication[] = [
     title:
       'Multi-Agent Collaborative Learning with Multimodal Foundation Models for Cross-Modal AVI Assessment',
     shortTitle: 'Multi-Agent AVI Assessment',
-    venue: 'ACM Multimedia 2026 · AVI Grand Challenge',
+    venue:
+      'Accepted at NeuroMM 2026 (ACM Multimedia 2026 Workshop) · AVI Grand Challenge',
     status: 'published',
     award: 'First Prize',
     pdf: '/papers/MultiAgent_AVI_ACMMM2026.pdf',
@@ -66,11 +67,49 @@ export const publications: Publication[] = [
   {
     id: 3,
     year: 2026,
+    authors:
+      'H. Tan, Y. Pu, Z. Sun, G. Wang, L. Jia, Z. Di, L. Zheng, Z. Hu, R. Hong, S. Cui, J. W. Zhang, et al.',
+    title:
+      'Dynamics-Inspired Dual-Representation Learning for Distributed Acoustic Sensing Event Classification',
+    shortTitle: 'DAS Dual-Representation',
+    venue: 'Under review · DSIS 2026 (Paper ID D097)',
+    status: 'under-review',
+    pdf: '/papers/DAS_DualRepresentation_DSIS2026.pdf',
+    cover: '/images/papers/das-dual-cover.jpg',
+    figures: [
+      '/images/papers/das-dual-fig1.jpg',
+      '/images/papers/das-dual-fig2.jpg',
+    ],
+    tags: ['DAS', 'Physics-guided', 'Cross-attention'],
+    coverTone: 'slate',
+  },
+  {
+    id: 4,
+    year: 2026,
+    authors:
+      'H. Tan, Y. Pu, Z. Sun, G. Wang, L. Jia, Z. Di, L. Zheng, Z. Hu, R. Hong, S. Cui, J. W. Zhang, et al.',
+    title:
+      'Multi-Scale Signal Feature Fusion and Autoregressive Decoding for Event Classification in Distributed Acoustic Sensing',
+    shortTitle: 'DAS Multi-Scale Fusion',
+    venue: 'Under review · DSIS 2026',
+    status: 'under-review',
+    pdf: '/papers/DAS_MultiScale_GCTransformer_DSIS2026.pdf',
+    cover: '/images/papers/das-multiscale-cover.jpg',
+    figures: [
+      '/images/papers/das-multiscale-fig1.jpg',
+      '/images/papers/das-multiscale-fig2.jpg',
+    ],
+    tags: ['DAS', 'Transformer', 'Signal Fusion'],
+    coverTone: 'navy',
+  },
+  {
+    id: 5,
+    year: 2026,
     authors: 'J. W. Zhang, J. Basmaci, and B. Schneider',
     title:
       'Individual Differences in Makerspace Learning: Pose-Based Student Profiles and Their Relation to Self-Efficacy',
     shortTitle: 'Makerspace Self-Efficacy',
-    venue: 'Under review · Learning and Individual Differences',
+    venue: 'Under review · Computers & Education',
     status: 'under-review',
     pdf: '/papers/Makerspace_SelfEfficacy_UnderReview.pdf',
     cover: '/images/papers/makerspace-cover.jpg',
@@ -82,7 +121,7 @@ export const publications: Publication[] = [
     coverTone: 'forest',
   },
   {
-    id: 4,
+    id: 6,
     year: 2026,
     authors:
       'X. Chang, J. W. Zhang, S. Yu, Z. Ma, F. Hao, Z. Su, G. Wang, and D. Jiang',
@@ -101,19 +140,7 @@ export const publications: Publication[] = [
     coverTone: 'clay',
   },
   {
-    id: 5,
-    year: 2026,
-    authors: 'J. W. Zhang et al.',
-    title:
-      'Distributed Acoustic Sensing for Integrated Sensing and Communication: Event Classification under Field Constraints',
-    shortTitle: 'DAS Sensing',
-    venue: 'Under review · Tsinghua-SIGS × industry collaboration',
-    status: 'under-review',
-    tags: ['DAS', 'Sensing', 'Signal Processing'],
-    coverTone: 'slate',
-  },
-  {
-    id: 6,
+    id: 7,
     year: 2027,
     authors: 'J. W. Zhang et al.',
     title:
@@ -127,7 +154,7 @@ export const publications: Publication[] = [
     coverTone: 'wine',
   },
   {
-    id: 7,
+    id: 8,
     year: 2027,
     authors: 'Anonymous ACL submission',
     title:
@@ -141,7 +168,7 @@ export const publications: Publication[] = [
     coverTone: 'navy',
   },
   {
-    id: 8,
+    id: 9,
     year: 2024,
     authors: 'J. W. Zhang',
     title:
@@ -152,7 +179,7 @@ export const publications: Publication[] = [
     coverTone: 'ink',
   },
   {
-    id: 9,
+    id: 10,
     year: 2024,
     authors: 'J. W. Zhang, X. Zhang, X. Lyu, Y. Yang, Y. Wang, and Z. Gu',
     title:
@@ -163,7 +190,7 @@ export const publications: Publication[] = [
     coverTone: 'navy',
   },
   {
-    id: 10,
+    id: 11,
     year: 2023,
     authors: 'J. W. Zhang, X. Shen, Y. Wang, and Y. Wang',
     title:
