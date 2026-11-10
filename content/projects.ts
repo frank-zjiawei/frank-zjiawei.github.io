@@ -1,6 +1,6 @@
 export interface Project {
   id: string;
-  category: 'ai' | 'analytics';
+  category: 'current' | 'ai' | 'analytics';
   title: string;
   org: string;
   role: string;
@@ -14,6 +14,40 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    id: 'hgse-lit',
+    category: 'current',
+    title: 'Learning analytics & AI tools for makerspace learning',
+    org: 'Harvard GSE · Learning Innovation and Technology Lab',
+    role: 'Researcher',
+    location: 'Cambridge, MA',
+    period: 'Feb 2026 – Present',
+    summary:
+      'Building multimodal learning analytics for makerspace cohorts and supporting design-based research around AI learning tools in classroom settings.',
+    highlights: [
+      'Unified pose, peer-interaction, survey, and reflection data across three semesters into student-level profiles.',
+      "Operationalized Bandura's sources of self-efficacy into behavioral and survey indicators.",
+      'Supporting deployment of faculty-led AI learning tools and ongoing classroom data collection.',
+    ],
+    stack: ['Learning Analytics', 'MMLA', 'Python', 'Clustering'],
+  },
+  {
+    id: 'hbs-foundry',
+    category: 'current',
+    title: 'Founder signals, evaluation, and B2B pipeline analytics',
+    org: 'Harvard Business School · Foundry',
+    role: 'Business Analytics & BD Member',
+    location: 'Boston, MA',
+    period: 'Jul 2026 – Present',
+    summary:
+      'Business analytics and business development for an AI-native venture-building platform — founder evaluation research, self-efficacy studies, and partnership data infrastructure.',
+    highlights: [
+      'Collaborate with Prof. Tom Eisenmann on founder-signal research in the Catalyst accelerator.',
+      'Design evaluation of founders’ self-efficacy and learning across AI-assisted venture-building workflows.',
+      'Built pipeline data models and stage-conversion funnels used in board reporting across partner universities.',
+    ],
+    stack: ['Analytics', 'BD', 'Research design', 'Pipelines'],
+  },
   {
     id: 'yolov8',
     category: 'ai',

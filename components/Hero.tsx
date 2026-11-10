@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const ROLES = [
+  'Researcher at HGSE LIT Lab',
+  'Analytics & BD at HBS Foundry',
   'Learning Designer',
-  'AI Engineer',
-  'Researcher',
 ];
 
 export function Hero() {
@@ -86,10 +86,9 @@ export function Hero() {
         transition={{ duration: 0.6, delay: 0.3 }}
         className="mt-8 max-w-2xl text-pretty text-base leading-relaxed text-fg-muted md:text-lg"
       >
-        Currently at Harvard Graduate School of Education and cross-registered at
-        MIT Media Lab. Working at the intersection of AI, learning design, and
-        business analytics — with a decade of curiosity about how people build
-        meaningful things.
+        Researcher at Harvard GSE LIT Lab. Business Analytics & BD member at
+        Harvard Business School Foundry. Cross-registered at MIT. Working at the
+        intersection of AI, learning design, and analytics.
       </motion.p>
 
     </section>

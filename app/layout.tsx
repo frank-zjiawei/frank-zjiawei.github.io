@@ -29,18 +29,18 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://frank-zjiawei.github.io'),
   title: {
-    default: 'Jiawei Zhang — Learning Designer · AI Engineer · Researcher',
+    default: 'Jiawei Zhang — Researcher · Analytics · Learning Design',
     template: '%s — Jiawei Zhang',
   },
   description:
-    'Personal site of Jiawei Zhang. Harvard GSE · MIT Media Lab. Research and projects at the intersection of AI, learning design, and business analytics.',
+    'Personal site of Jiawei Zhang. Researcher at Harvard GSE LIT Lab · Business Analytics & BD at HBS Foundry · MIT cross-registered.',
   keywords: [
     'Jiawei Zhang',
     'Frank Zhang',
     'Harvard GSE',
-    'MIT Media Lab',
+    'HBS Foundry',
+    'MIT',
     'Learning Design',
-    'AI Engineer',
     'Business Analytics',
     'Portfolio',
   ],
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Jiawei Zhang',
     description:
-      'Learning Designer · AI Engineer · Researcher. Harvard GSE · MIT Media Lab.',
+      'Researcher at HGSE LIT Lab · Analytics & BD at HBS Foundry.',
     type: 'website',
   },
   twitter: {

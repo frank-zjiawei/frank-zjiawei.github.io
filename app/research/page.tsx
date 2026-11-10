@@ -3,7 +3,7 @@ import { BookShelf } from '@/components/BookShelf';
 import { publications } from '@/content/publications';
 
 export const metadata = {
-  title: 'Research',
+  title: 'Papers',
   description:
     'A shelf of papers — ACM Multimedia 2026 First Prize, IVMSP 2026 Best Paper Runner-Up, and manuscripts under review.',
 };
@@ -15,9 +15,9 @@ export default function ResearchPage() {
   return (
     <>
       <PageHeader
-        eyebrow="04 / Research"
-        title="Research"
-        description={`A bookshelf of publications — ${published} published papers, ${awards} conference awards. Click a volume and its page slides open from the right. Research roles live on the CV.`}
+        eyebrow="Papers"
+        title="Papers"
+        description={`A bookshelf of publications — ${published} published, ${awards} conference awards. Click a volume and its page slides open from the right.`}
       />
 
       <section id="publications" className="container-prose pb-24">

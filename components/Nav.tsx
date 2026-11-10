@@ -9,14 +9,9 @@ import { CvMenu } from './CvMenu';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Home' },
-  { href: '/about', label: 'About Jiawei' },
-  { href: '/ai', label: 'AI' },
-  { href: '/analytics', label: 'Analytics' },
-  { href: '/research', label: 'Research' },
-  { href: '/academic', label: 'Academic' },
-  { href: '/harvard', label: 'Harvard' },
-  { href: '/boxing', label: 'Boxing' },
-  { href: '/journal', label: 'Other writings' },
+  { href: '/about', label: 'About Me' },
+  { href: '/experience', label: 'Experience' },
+  { href: '/research', label: 'Papers' },
 ];
 
 export function Nav() {

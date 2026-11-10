@@ -4,11 +4,8 @@ import { Command } from 'cmdk';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
-  Brain,
-  LineChart,
-  GraduationCap,
   BookOpen,
-  PenLine,
+  Briefcase,
   User,
   Network,
   Home,
@@ -17,20 +14,15 @@ import {
   Linkedin,
   Github,
   FileDown,
-  School,
   Dumbbell,
 } from 'lucide-react';
 
 const ITEMS = [
   { href: '/', label: 'Home', icon: Home, group: 'Navigate' },
-  { href: '/about', label: 'About Jiawei', icon: User, group: 'Navigate' },
-  { href: '/ai', label: 'AI Initiatives', icon: Brain, group: 'Navigate' },
-  { href: '/analytics', label: 'Business Analytics', icon: LineChart, group: 'Navigate' },
-  { href: '/research', label: 'Research & Publications', icon: BookOpen, group: 'Navigate' },
-  { href: '/academic', label: 'Academic', icon: GraduationCap, group: 'Navigate' },
-  { href: '/harvard', label: 'Harvard', icon: School, group: 'Navigate' },
-  { href: '/boxing', label: 'Boxing', icon: Dumbbell, group: 'Navigate' },
-  { href: '/journal', label: 'Other writings', icon: PenLine, group: 'Navigate' },
+  { href: '/about', label: 'About Me', icon: User, group: 'Navigate' },
+  { href: '/about/interests', label: 'Interests · Boxing', icon: Dumbbell, group: 'Navigate' },
+  { href: '/experience', label: 'Experience', icon: Briefcase, group: 'Navigate' },
+  { href: '/research', label: 'Papers', icon: BookOpen, group: 'Navigate' },
   { href: '/graph', label: 'Nav Nebula (full graph)', icon: Network, group: 'Navigate' },
   {
     href: '/cv/Jiawei_Zhang_CV_EN.pdf',

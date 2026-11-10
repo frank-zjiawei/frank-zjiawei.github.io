@@ -3,60 +3,28 @@ import { ArrowUpRight } from 'lucide-react';
 
 const SECTIONS = [
   {
-    href: '/ai',
+    href: '/about',
     eyebrow: '01',
-    title: 'AI Initiatives',
+    title: 'About Me',
     description:
-      'YOLOv8 real-time object detection (98.55%), MIT Media Lab AI Venture, Harvard President\'s Innovation Challenge.',
-    meta: 'Engineering · Entrepreneurship',
+      'Academic path from Toronto to Cambridge — HGSE LIT Lab, HBS Foundry, MIT, and the interests that keep the rest honest.',
+    meta: 'Story · Education · Interests',
   },
   {
-    href: '/analytics',
+    href: '/experience',
     eyebrow: '02',
-    title: 'Business Analytics',
+    title: 'Experience',
     description:
-      'Data and ML work at Wyloo Metals, HireBeat, Accenture. Google Hackathon 2024 — 3rd place.',
-    meta: 'Python · SQL · R · Power BI',
-  },
-  {
-    href: '/academic',
-    eyebrow: '03',
-    title: 'Academic',
-    description:
-      'Harvard Ed.M. (Learning Design, Innovation & Technology), MIT Media Lab, UBC MBAN, University of Toronto.',
-    meta: 'Coursework · Projects',
+      'AI engineering, ventures, and business analytics — YOLOv8, MIT Media Lab, Foundry, Wyloo, HireBeat, Accenture, Google Hackathon.',
+    meta: 'AI · Analytics · Ventures',
   },
   {
     href: '/research',
-    eyebrow: '04',
-    title: 'Research',
+    eyebrow: '03',
+    title: 'Papers',
     description:
-      'A bookshelf of papers — ACM MM 2026 First Prize · IVMSP 2026 Best Paper Runner-Up. Click a volume for PDF and figures.',
-    meta: 'Shelf · 11 volumes',
-  },
-  {
-    href: '/harvard',
-    eyebrow: '05',
-    title: 'Harvard',
-    description:
-      'A running notebook from Harvard GSE — Ed.M. in Learning Design, Innovation & Technology, and cross-registrations at MIT Media Lab.',
-    meta: 'Cambridge, MA · Notes',
-  },
-  {
-    href: '/boxing',
-    eyebrow: '06',
-    title: 'Boxing',
-    description:
-      'The part of the week that has nothing to do with slides. Training notes, sparring reflections, and what footwork teaches good research.',
-    meta: 'Off the desk',
-  },
-  {
-    href: '/journal',
-    eyebrow: '07',
-    title: 'Other writings',
-    description:
-      'Essays and reflections on learning design, AI, and building things at the edges of disciplines.',
-    meta: 'Writing · Notes',
+      'A bookshelf of publications — ACM MM First Prize, IVMSP Best Paper Runner-Up, and manuscripts under review.',
+    meta: 'Shelf · PDFs · Figures',
   },
 ];
 
@@ -76,7 +44,7 @@ export function SectionCards() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {SECTIONS.map((s) => (
           <Link key={s.href} href={s.href} className="group card-link">
             <div>
