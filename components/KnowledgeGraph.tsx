@@ -9,6 +9,7 @@ import {
   useState,
 } from 'react';
 import { useRouter } from 'next/navigation';
+import { forceCollide } from 'd3-force-3d';
 import { graphData, type GraphNode } from '@/content/graph';
 
 interface GraphProps {
@@ -36,30 +37,29 @@ const LAYOUT_PRESETS: Record<
     seedOuterRing: number;
   }
 > = {
-  // Tight, Obsidian-on-overview-mode knot — everything pulled into a
-  // single cluster, labels overlap like a dense galaxy.
+  // Dense cluster, but collide keeps labels from stacking.
   compact: {
-    charge: -55,
-    chargeMobile: -30,
-    chargeDistanceMax: 240,
-    linkDistanceRoot: 48,
-    linkDistance: 22,
-    linkStrength: 0.85,
-    centerStrength: 0.18,
-    seedInnerRing: 20,
-    seedOuterRing: 48,
+    charge: -160,
+    chargeMobile: -110,
+    chargeDistanceMax: 360,
+    linkDistanceRoot: 90,
+    linkDistance: 56,
+    linkStrength: 0.55,
+    centerStrength: 0.08,
+    seedInnerRing: 70,
+    seedOuterRing: 130,
   },
-  // Zoomed-in view — wider spread so every label is readable.
+  // Wider spread for readable labels.
   zoom: {
-    charge: -380,
-    chargeMobile: -220,
-    chargeDistanceMax: 640,
-    linkDistanceRoot: 130,
-    linkDistance: 72,
-    linkStrength: 0.22,
-    centerStrength: 0.015,
-    seedInnerRing: 140,
-    seedOuterRing: 260,
+    charge: -420,
+    chargeMobile: -260,
+    chargeDistanceMax: 720,
+    linkDistanceRoot: 150,
+    linkDistance: 96,
+    linkStrength: 0.18,
+    centerStrength: 0.012,
+    seedInnerRing: 160,
+    seedOuterRing: 280,
   },
 };
 
@@ -118,7 +118,7 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
   const [size, setSize] = useState({ width: 800, height });
   const [hoverId, setHoverId] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [layout, setLayout] = useState<LayoutMode>('compact');
+  const [layout, setLayout] = useState<LayoutMode>('zoom');
 
   useEffect(() => {
     try {
@@ -237,6 +237,17 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
 
     const center = fg.d3Force?.('center');
     if (center) center.strength?.(preset.centerStrength);
+
+    // Collision radius ≈ node + label footprint so text does not stack.
+    const collidePad = layout === 'compact' ? 10 : 16;
+    fg.d3Force?.(
+      'collide',
+      forceCollide((n: any) => {
+        const label = String(n.label ?? '');
+        const base = (n.size ?? 6) / 1.4 + collidePad;
+        return base + Math.min(28, label.length * 1.6);
+      }).strength(0.9).iterations(3),
+    );
 
     fg.d3ReheatSimulation?.();
   }, [isMobile, ForceGraph2D, layout]);

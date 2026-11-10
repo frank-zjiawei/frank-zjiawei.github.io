@@ -1,6 +1,6 @@
 export interface Project {
   id: string;
-  category: 'current' | 'ai' | 'analytics';
+  category: 'professional' | 'project';
   title: string;
   org: string;
   role: string;
@@ -16,9 +16,9 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 'hgse-lit',
-    category: 'current',
+    category: 'professional',
     title: 'Learning analytics & AI tools for makerspace learning',
-    org: 'Harvard GSE · Learning Innovation and Technology Lab',
+    org: 'Harvard Graduate School of Education · Learning Innovation and Technology Lab',
     role: 'Researcher',
     location: 'Cambridge, MA',
     period: 'Feb 2026 – Present',
@@ -33,7 +33,7 @@ export const projects: Project[] = [
   },
   {
     id: 'hbs-foundry',
-    category: 'current',
+    category: 'professional',
     title: 'Founder signals, evaluation, and B2B pipeline analytics',
     org: 'Harvard Business School · Foundry',
     role: 'Business Analytics & BD Member',
@@ -49,8 +49,62 @@ export const projects: Project[] = [
     stack: ['Analytics', 'BD', 'Research design', 'Pipelines'],
   },
   {
+    id: 'wyloo',
+    category: 'professional',
+    title: 'Document architecture & meeting automation for enterprise search',
+    org: 'Wyloo Metals',
+    role: 'Data Analyst Co-op',
+    location: 'Toronto, CA',
+    period: 'May 2024 – Aug 2024',
+    summary:
+      'Oversaw document architecture for enterprise chatbot and search initiatives, delivered an MVP plan, and built Python automation for meetings.',
+    highlights: [
+      'Delivered MVP plan with resource allocation and risk mitigation.',
+      'Python-based meeting documentation automation → 50% efficiency gain.',
+      'Resolved data quality issues in Databricks with cross-functional teams.',
+    ],
+    stack: ['Python', 'Databricks', 'Agile / JIRA'],
+    metric: '+50% operational efficiency',
+  },
+  {
+    id: 'hirebeat',
+    category: 'professional',
+    title: 'HR analytics & performance review tool',
+    org: 'HireBeat',
+    role: 'Business & Data Analyst Intern',
+    location: 'New York, US',
+    period: 'Jul 2023 – Nov 2023',
+    summary:
+      'Built Power BI dashboards tracking engagement and turnover, and shipped a self-assessment feature that cut review cycle time by 30%.',
+    highlights: [
+      '-15% employee turnover via targeted retention signals.',
+      '-30% review cycle time through self-assessment tool.',
+      '-25% onboarding time with a digital checklist.',
+    ],
+    stack: ['Power BI', 'SQL', 'Agile / JIRA'],
+    metric: '-15% turnover · -30% review time',
+  },
+  {
+    id: 'accenture',
+    category: 'professional',
+    title: 'Sales BI dashboard & enterprise data warehouse',
+    org: 'Accenture Strategy & Consulting',
+    role: 'Business Analyst Intern',
+    location: 'Shanghai, China',
+    period: 'May 2022 – Jul 2022',
+    summary:
+      'Built a sales performance dashboard and helped design a client-facing data warehouse with proper SCDs.',
+    highlights: [
+      'SQL + Power BI dashboard → 40% reduction in manual processing.',
+      'Defined fact/dimension tables and Type 1 & 2 slowly changing dimensions.',
+      'Accelerated BI adoption across departments.',
+    ],
+    stack: ['SQL', 'Power BI', 'Data modeling'],
+    metric: '-40% manual processing',
+  },
+  {
     id: 'yolov8',
-    category: 'ai',
+    category: 'project',
     title: 'Improved YOLOv8 for real-time object detection',
     org: 'UsingAI',
     role: 'AI Engineer',
@@ -69,7 +123,7 @@ export const projects: Project[] = [
   },
   {
     id: 'mit-venture',
-    category: 'ai',
+    category: 'project',
     title: 'AI Venture — shortlisted at MIT Media Lab Demo Day',
     org: 'MIT Media Lab · AI Venture Studio',
     role: 'Team Lead',
@@ -86,14 +140,14 @@ export const projects: Project[] = [
   },
   {
     id: 'harvard-ilab',
-    category: 'ai',
-    title: 'Harvard President\'s Innovation Challenge — AI venture',
+    category: 'project',
+    title: "Harvard President's Innovation Challenge — AI venture",
     org: 'Harvard Innovation Lab',
     role: 'Team Lead',
     location: 'Cambridge, MA',
     period: 'Dec 2025 – Present',
     summary:
-      'Leading a cross-disciplinary team (engineers, finance, design) on an AI-driven innovation entering the Harvard President\'s Innovation Challenge.',
+      "Leading a cross-disciplinary team (engineers, finance, design) on an AI-driven innovation entering the Harvard President's Innovation Challenge.",
     highlights: [
       'Defined problem scope, user needs, and venture positioning.',
       'Drove concept development from framing to prototype to pitch.',
@@ -102,62 +156,8 @@ export const projects: Project[] = [
     stack: ['Product strategy', 'Prototyping', 'Pitching'],
   },
   {
-    id: 'wyloo',
-    category: 'analytics',
-    title: 'Document architecture & meeting automation for enterprise search',
-    org: 'Wyloo Metals',
-    role: 'Data Analyst Co-op',
-    location: 'Toronto, CA',
-    period: 'May 2024 – Aug 2024',
-    summary:
-      'Oversaw document architecture for enterprise chatbot and search initiatives, delivered an MVP plan, and built Python automation for meetings.',
-    highlights: [
-      'Delivered MVP plan with resource allocation and risk mitigation.',
-      'Python-based meeting documentation automation → 50% efficiency gain.',
-      'Resolved data quality issues in Databricks with cross-functional teams.',
-    ],
-    stack: ['Python', 'Databricks', 'Agile / JIRA'],
-    metric: '+50% operational efficiency',
-  },
-  {
-    id: 'hirebeat',
-    category: 'analytics',
-    title: 'HR analytics & performance review tool',
-    org: 'HireBeat',
-    role: 'Business & Data Analyst Intern',
-    location: 'New York, US',
-    period: 'Jul 2023 – Nov 2023',
-    summary:
-      'Built Power BI dashboards tracking engagement and turnover, and shipped a self-assessment feature that cut review cycle time by 30%.',
-    highlights: [
-      '-15% employee turnover via targeted retention signals.',
-      '-30% review cycle time through self-assessment tool.',
-      '-25% onboarding time with a digital checklist.',
-    ],
-    stack: ['Power BI', 'SQL', 'Agile / JIRA'],
-    metric: '-15% turnover · -30% review time',
-  },
-  {
-    id: 'accenture',
-    category: 'analytics',
-    title: 'Sales BI dashboard & enterprise data warehouse',
-    org: 'Accenture Strategy & Consulting',
-    role: 'Business Analyst Intern',
-    location: 'Shanghai, China',
-    period: 'May 2022 – Jul 2022',
-    summary:
-      'Built a sales performance dashboard and helped design a client-facing data warehouse with proper SCDs.',
-    highlights: [
-      'SQL + Power BI dashboard → 40% reduction in manual processing.',
-      'Defined fact/dimension tables and Type 1 & 2 slowly changing dimensions.',
-      'Accelerated BI adoption across departments.',
-    ],
-    stack: ['SQL', 'Power BI', 'Data modeling'],
-    metric: '-40% manual processing',
-  },
-  {
     id: 'google-hackathon',
-    category: 'analytics',
+    category: 'project',
     title: 'Google Hackathon 2024 — 3rd place',
     org: 'Google · Vancouver',
     role: 'Team Lead',

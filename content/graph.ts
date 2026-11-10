@@ -24,8 +24,8 @@ export const graphData: { nodes: GraphNode[]; links: GraphLink[] } = {
     { id: 'yolov8', label: 'YOLOv8 98.55%', group: 'project', href: '/experience#yolov8' },
     { id: 'mit-venture', label: 'MIT AI Venture', group: 'project', href: '/experience#mit-venture' },
     { id: 'harvard-ilab', label: 'Harvard i-Lab', group: 'project', href: '/experience#harvard-ilab' },
-    { id: 'foundry', label: 'HBS Foundry', group: 'project', href: '/experience#hbs-foundry' },
-    { id: 'lit', label: 'HGSE LIT Lab', group: 'org', href: '/experience#hgse-lit' },
+    { id: 'foundry', label: 'Business School Foundry', group: 'project', href: '/experience#hbs-foundry' },
+    { id: 'lit', label: 'Ed School LIT Lab', group: 'org', href: '/experience#hgse-lit' },
 
     { id: 'wyloo', label: 'Wyloo Metals', group: 'org', href: '/experience#wyloo' },
     { id: 'hirebeat', label: 'HireBeat', group: 'org', href: '/experience#hirebeat' },
@@ -37,10 +37,10 @@ export const graphData: { nodes: GraphNode[]; links: GraphLink[] } = {
     { id: 'ivmsp', label: 'IVMSP Best Paper', group: 'publication', href: '/research#paper-2' },
     { id: 'boxing', label: 'Boxing', group: 'project', href: '/about/interests' },
 
-    { id: 'harvard', label: 'Harvard Ed.M.', group: 'org', href: '/about#cambridge' },
-    { id: 'mit', label: 'MIT', group: 'org', href: '/about#cambridge' },
-    { id: 'ubc', label: 'UBC MBAN', group: 'org', href: '/about#vancouver' },
-    { id: 'uoft', label: 'U of Toronto', group: 'org', href: '/about#toronto' },
+    { id: 'harvard', label: 'Harvard Ed.M.', group: 'org', href: '/about#harvard' },
+    { id: 'mit', label: 'MIT', group: 'org', href: '/about#mit' },
+    { id: 'ubc', label: 'UBC MBAN', group: 'org', href: '/about#ubc' },
+    { id: 'uoft', label: 'U of Toronto', group: 'org', href: '/about#uoft' },
   ],
   links: [
     { source: 'frank', target: 'about' },

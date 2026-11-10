@@ -80,7 +80,7 @@ body::before {
   }
 
   .nav-link {
-    @apply relative inline-block py-1 text-[15px] text-fg-muted transition-colors hover:text-fg;
+    @apply relative inline-block py-1 text-[16px] text-fg-muted transition-colors hover:text-fg md:text-[17px];
   }
 
   /* soft gold underline on hover — grows from left */

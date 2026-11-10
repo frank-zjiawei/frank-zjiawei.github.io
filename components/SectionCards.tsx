@@ -7,41 +7,33 @@ const SECTIONS = [
     eyebrow: '01',
     title: 'About Me',
     description:
-      'Academic path from Toronto to Cambridge — HGSE LIT Lab, HBS Foundry, MIT, and the interests that keep the rest honest.',
-    meta: 'Story · Education · Interests',
+      'Education and current work — Harvard Graduate School of Education LIT Lab, Harvard Business School Foundry, and interests beyond the desk.',
+    meta: 'Education · Interests',
   },
   {
     href: '/experience',
     eyebrow: '02',
     title: 'Experience',
     description:
-      'AI engineering, ventures, and business analytics — YOLOv8, MIT Media Lab, Foundry, Wyloo, HireBeat, Accenture, Google Hackathon.',
-    meta: 'AI · Analytics · Ventures',
+      'Professional roles and selected projects — research, analytics, AI engineering, and ventures.',
+    meta: 'Professional · Projects',
   },
   {
     href: '/research',
     eyebrow: '03',
     title: 'Papers',
     description:
-      'A bookshelf of publications — ACM MM First Prize, IVMSP Best Paper Runner-Up, and manuscripts under review.',
-    meta: 'Shelf · PDFs · Figures',
+      'A bookshelf of publications — awards, under-review manuscripts, and PDFs with figures.',
+    meta: 'Shelf · PDFs',
   },
 ];
 
 export function SectionCards() {
   return (
     <section className="container-prose py-24 md:py-32">
-      <div className="mb-14 flex items-end justify-between gap-6">
-        <div>
-          <p className="section-eyebrow">Index</p>
-          <h2 className="section-title mt-3">Selected work</h2>
-        </div>
-        <Link
-          href="/graph"
-          className="hidden shrink-0 font-mono text-[11px] uppercase tracking-[0.2em] text-fg-muted transition-colors hover:text-fg md:inline-flex"
-        >
-          Open Nav Nebula ↗
-        </Link>
+      <div className="mb-14">
+        <p className="section-eyebrow">Index</p>
+        <h2 className="section-title mt-3">Explore</h2>
       </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">

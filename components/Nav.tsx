@@ -34,17 +34,17 @@ export function Nav() {
           : 'border-b border-transparent',
       )}
     >
-      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-6 px-6 md:px-10">
+      <div className="mx-auto flex h-[4.5rem] w-full max-w-7xl items-center justify-between gap-6 px-6 md:px-10">
         <Link
           href="/"
-          className="shrink-0 font-serif text-xl tracking-tight text-fg transition-opacity hover:opacity-70"
+          className="shrink-0 font-serif text-[1.35rem] tracking-tight text-fg transition-opacity hover:opacity-70"
           aria-label="Jiawei Zhang — Home"
         >
           JZ
         </Link>
 
-        <nav className="flex min-w-0 flex-1 items-center justify-end gap-5">
-          <ul className="hidden min-w-0 items-center gap-x-6 gap-y-1 md:flex md:flex-wrap md:justify-end">
+        <nav className="flex min-w-0 flex-1 items-center justify-end gap-6">
+          <ul className="hidden min-w-0 items-center gap-x-7 gap-y-1 md:flex md:flex-wrap md:justify-end">
             {NAV_ITEMS.map((item) => {
               const active =
                 item.href === '/'

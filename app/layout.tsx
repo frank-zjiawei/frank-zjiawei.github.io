@@ -5,6 +5,7 @@ import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { CommandMenu } from '@/components/CommandMenu';
 import { ConstructionBanner } from '@/components/ConstructionBanner';
+import { NebulaFab } from '@/components/NebulaFab';
 
 const serif = Libre_Baskerville({
   subsets: ['latin'],
@@ -33,12 +34,12 @@ export const metadata: Metadata = {
     template: '%s — Jiawei Zhang',
   },
   description:
-    'Personal site of Jiawei Zhang. Researcher at Harvard GSE LIT Lab · Business Analytics & BD at HBS Foundry · MIT cross-registered.',
+    'Personal site of Jiawei Zhang. Researcher at the Harvard Graduate School of Education LIT Lab · Business Analytics & BD at Harvard Business School Foundry.',
   keywords: [
     'Jiawei Zhang',
     'Frank Zhang',
-    'Harvard GSE',
-    'HBS Foundry',
+    'Harvard Graduate School of Education',
+    'Harvard Business School Foundry',
     'MIT',
     'Learning Design',
     'Business Analytics',
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Jiawei Zhang',
     description:
-      'Researcher at HGSE LIT Lab · Analytics & BD at HBS Foundry.',
+      'Researcher at the Harvard Graduate School of Education · Analytics & BD at Harvard Business School Foundry.',
     type: 'website',
   },
   twitter: {
@@ -81,6 +82,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </div>
+        <NebulaFab />
         <CommandMenu />
       </body>
     </html>
