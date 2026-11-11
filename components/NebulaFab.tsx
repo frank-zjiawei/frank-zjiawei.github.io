@@ -21,7 +21,7 @@ const KnowledgeGraph = dynamic(
 
 type Corner = 'tl' | 'tr' | 'bl' | 'br';
 
-const SIZE = 96;
+const SIZE = 104;
 const MARGIN = 24;
 const STORAGE_KEY = 'nebula-corner';
 const HINT_KEY = 'nebula-hint-seen';
@@ -198,7 +198,7 @@ export function NebulaFab() {
         title="Site map — drag to a corner"
         className={clsx(
           'nebula-orb fixed z-40 touch-none select-none',
-          dragging ? 'cursor-grabbing' : 'cursor-grab',
+          dragging ? 'cursor-grabbing nebula-orb--dragging' : 'cursor-grab',
           showHint && 'nebula-orb--hint',
         )}
         style={{
@@ -212,11 +212,91 @@ export function NebulaFab() {
         }}
       >
         <span className="nebula-orb__shadow" aria-hidden />
-        <span className="nebula-orb__core" aria-hidden>
-          <span className="nebula-orb__grain" />
-          <span className="nebula-orb__shine" />
+        <span className="nebula-orb__lift" aria-hidden>
+          <span className="nebula-orb__sphere">
+            <span className="nebula-orb__atmosphere" />
+            <span className="nebula-orb__globe" aria-hidden>
+              <svg viewBox="0 0 100 100" className="nebula-orb__svg">
+                <defs>
+                  <clipPath id="nebula-clip">
+                    <circle cx="50" cy="50" r="46" />
+                  </clipPath>
+                  <radialGradient id="nebula-fill" cx="32%" cy="28%" r="70%">
+                    <stop offset="0%" stopColor="#f7f1e6" stopOpacity="0.95" />
+                    <stop offset="42%" stopColor="#c4b39a" stopOpacity="0.9" />
+                    <stop offset="78%" stopColor="#6e6356" stopOpacity="0.95" />
+                    <stop offset="100%" stopColor="#2f2a25" />
+                  </radialGradient>
+                </defs>
+                <g clipPath="url(#nebula-clip)">
+                  <circle cx="50" cy="50" r="46" fill="url(#nebula-fill)" />
+                  <g className="nebula-orb__latlong">
+                    <ellipse
+                      cx="50"
+                      cy="50"
+                      rx="46"
+                      ry="18"
+                      fill="none"
+                      stroke="rgba(255,248,236,0.28)"
+                      strokeWidth="0.6"
+                    />
+                    <ellipse
+                      cx="50"
+                      cy="50"
+                      rx="46"
+                      ry="32"
+                      fill="none"
+                      stroke="rgba(255,248,236,0.18)"
+                      strokeWidth="0.55"
+                    />
+                    <ellipse
+                      cx="50"
+                      cy="50"
+                      rx="18"
+                      ry="46"
+                      fill="none"
+                      stroke="rgba(255,248,236,0.22)"
+                      strokeWidth="0.55"
+                    />
+                    <ellipse
+                      cx="50"
+                      cy="50"
+                      rx="32"
+                      ry="46"
+                      fill="none"
+                      stroke="rgba(184,137,62,0.28)"
+                      strokeWidth="0.55"
+                    />
+                    <path
+                      d="M4 50 H96"
+                      fill="none"
+                      stroke="rgba(255,248,236,0.2)"
+                      strokeWidth="0.5"
+                    />
+                  </g>
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="46"
+                    fill="url(#nebula-fill)"
+                    opacity="0.22"
+                    style={{ mixBlendMode: 'soft-light' }}
+                  />
+                </g>
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="46.6"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.35)"
+                  strokeWidth="0.8"
+                />
+              </svg>
+            </span>
+            <span className="nebula-orb__specular" />
+            <span className="nebula-orb__glass" />
+          </span>
         </span>
-        <span className="nebula-orb__rim" aria-hidden />
       </button>
 
       {open ? (
