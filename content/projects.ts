@@ -4,7 +4,13 @@
  *
  * `id` doubles as the URL anchor (/experience#<id>) and is referenced by the
  * navigation graph in content/graph.ts — keep ids stable when editing.
+ *
+ * Each entry leads with its organisation (`orgId`, looked up in
+ * content/orgs.ts for the name and logo) and, where there is one, the lab or
+ * programme within it (`unit`). `title` describes the work itself.
  */
+
+import type { OrgId } from './orgs';
 
 export type ExperienceCategory = 'research' | 'professional' | 'leadership';
 
@@ -14,11 +20,25 @@ export interface ExperienceLink {
   label: string;
 }
 
+export interface ExperienceFigure {
+  src: string;
+  /** Short label printed under the thumbnail. */
+  caption: string;
+  /** Where the thumbnail leads, usually the paper it comes from. */
+  href: string;
+}
+
 export interface Project {
   id: string;
   category: ExperienceCategory;
   title: string;
-  org: string;
+  orgId: OrgId;
+  /** Lab, programme, or team within the organisation. */
+  unit?: string;
+  /** Small logo shown beside the unit name. */
+  unitLogo?: string;
+  /** When set, the lab / programme name is a clickable accent pill. */
+  unitHref?: string;
   role: string;
   location: string;
   period: string;
@@ -26,6 +46,8 @@ export interface Project {
   highlights: string[];
   stack: string[];
   metric?: string;
+  /** Figures from the resulting papers, shown as thumbnails. */
+  figures?: ExperienceFigure[];
   links?: ExperienceLink[];
 }
 
@@ -41,7 +63,10 @@ export const projects: Project[] = [
     id: 'hgse-lit',
     category: 'research',
     title: 'Multimodal learning analytics and an AI Teaching Fellow for makerspace learning',
-    org: 'Harvard Graduate School of Education · Learning Innovation and Technology Lab',
+    orgId: 'harvard-gse',
+    unit: 'Learning Innovation and Technology Lab',
+    unitLogo: '/images/logos/lit-lab.png',
+    unitHref: 'https://lit.gse.harvard.edu/',
     role: 'Research Assistant',
     location: 'Cambridge, MA',
     period: 'Feb 2026 – Present',
@@ -60,6 +85,18 @@ export const projects: Project[] = [
       'LLM feedback',
       'Python · R',
     ],
+    figures: [
+      {
+        src: '/images/papers/makerspace-profiles.jpg',
+        caption: 'Pose-based learner profiles',
+        href: '/research#paper-5',
+      },
+      {
+        src: '/images/papers/makerspace-fig1.jpg',
+        caption: 'Weekly trajectories by profile',
+        href: '/research#paper-5',
+      },
+    ],
     links: [
       { href: '/research#paper-5', label: 'Read the paper' },
       { href: 'https://lit.gse.harvard.edu/', label: 'LIT Lab' },
@@ -69,7 +106,7 @@ export const projects: Project[] = [
     id: 'tsinghua-sigs',
     category: 'research',
     title: 'Multimodal decision agents and long-video reasoning',
-    org: 'Tsinghua Shenzhen International Graduate School',
+    orgId: 'tsinghua-sigs',
     role: 'Research Assistant',
     location: 'Shenzhen, China',
     period: 'Sept 2024 – Aug 2025',
@@ -82,6 +119,18 @@ export const projects: Project[] = [
       'Co-authored four papers with lab collaborators on long-video reasoning (IEEE IVMSP 2026 Best Paper Runner-Up), multimodal interview assessment (ACM Multimedia 2026 Grand Challenge First Prize), and distributed acoustic sensing.',
     ],
     stack: ['Multimodal agents', 'Video reasoning', 'Optimization', 'Field testing'],
+    figures: [
+      {
+        src: '/images/papers/ava-fig2.jpg',
+        caption: 'ActiveVideoAgent · Best Paper Runner-Up',
+        href: '/research#paper-2',
+      },
+      {
+        src: '/images/papers/avi-fig2.jpg',
+        caption: 'AVI assessment · First Prize',
+        href: '/research#paper-1',
+      },
+    ],
     links: [
       { href: '/research#paper-2', label: 'ActiveVideoAgent' },
       { href: '/research#paper-1', label: 'AVI assessment' },
@@ -92,7 +141,7 @@ export const projects: Project[] = [
     id: 'yolov8',
     category: 'research',
     title: 'Improved YOLOv8 for real-time object detection',
-    org: 'UsingAI',
+    orgId: 'usingai',
     role: 'AI Engineer',
     location: 'Shenzhen, China',
     period: 'Aug 2024 – Mar 2025',
@@ -113,7 +162,9 @@ export const projects: Project[] = [
     id: 'hbs-foundry',
     category: 'professional',
     title: 'Founder signals, evaluation research, and partnership analytics',
-    org: 'Harvard Business School · Foundry',
+    orgId: 'hbs',
+    unit: 'Foundry',
+    unitHref: 'https://hbsfoundry.org/',
     role: 'Business Development & Research Analytics Fellow',
     location: 'Boston, MA',
     period: '2026 – Present',
@@ -131,7 +182,7 @@ export const projects: Project[] = [
     id: 'wyloo',
     category: 'professional',
     title: 'Document architecture and meeting automation for enterprise search',
-    org: 'Wyloo Metals',
+    orgId: 'wyloo',
     role: 'Data Analyst Co-op',
     location: 'Toronto, ON',
     period: 'May 2024 – Aug 2024',
@@ -149,7 +200,7 @@ export const projects: Project[] = [
     id: 'hirebeat',
     category: 'professional',
     title: 'HR analytics and a performance-review tool',
-    org: 'HireBeat',
+    orgId: 'hirebeat',
     role: 'Business & Data Analyst Intern',
     location: 'New York, NY',
     period: 'Jul 2023 – Nov 2023',
@@ -168,7 +219,8 @@ export const projects: Project[] = [
     id: 'accenture',
     category: 'professional',
     title: 'Sales dashboard and enterprise data warehouse',
-    org: 'Accenture Strategy & Consulting',
+    orgId: 'accenture',
+    unit: 'Strategy & Consulting',
     role: 'Business Analyst Intern',
     location: 'Shanghai, China',
     period: 'May 2022 – Jul 2022',
@@ -186,8 +238,9 @@ export const projects: Project[] = [
   {
     id: 'harvard-ilab',
     category: 'leadership',
-    title: 'Harvard President’s Innovation Challenge — semi-finalist',
-    org: 'Harvard Innovation Labs',
+    title: 'An AI-driven innovation project, from problem framing to pitch',
+    orgId: 'harvard-ilab',
+    unit: 'President’s Innovation Challenge',
     role: 'Team Lead',
     location: 'Cambridge, MA',
     period: 'Dec 2025 – Present',
@@ -206,8 +259,9 @@ export const projects: Project[] = [
   {
     id: 'mit-venture',
     category: 'leadership',
-    title: 'MIT Media Lab AI Venture Demo Day — shortlisted',
-    org: 'MIT Media Lab · AI Venture Studio',
+    title: 'An AI venture, from concept to public demo',
+    orgId: 'mit-media-lab',
+    unit: 'AI Venture Studio · Demo Day',
     role: 'Team Lead',
     location: 'Cambridge, MA',
     period: 'Aug 2024 – Dec 2025',
@@ -224,8 +278,8 @@ export const projects: Project[] = [
   {
     id: 'google-hackathon',
     category: 'leadership',
-    title: 'Google Hackathon 2024 — third place',
-    org: 'Google · Vancouver',
+    title: 'Real-time e-commerce analytics dashboard on Google Cloud',
+    orgId: 'google-hackathon',
     role: 'Team Lead',
     location: 'Vancouver, BC',
     period: 'Jan 2023 – Mar 2024',
@@ -243,7 +297,8 @@ export const projects: Project[] = [
     id: 'ubc-council',
     category: 'leadership',
     title: 'Supporting 100+ international students through their transition',
-    org: 'UBC Sauder Student Council · Master of Business Analytics',
+    orgId: 'ubc',
+    unit: 'Sauder Student Council · Master of Business Analytics',
     role: 'Vice President of International',
     location: 'Vancouver, BC',
     period: 'Aug 2023 – May 2024',

@@ -105,7 +105,7 @@ function readPalette(): Palette {
     fgDim: get('--fg-dim', '115 115 115'),
     link: get('--fg', '10 10 10'),
     linkDim: get('--fg-dim', '115 115 115'),
-    halo: get('--accent', '10 10 10'),
+    halo: get('--fg', '10 10 10'),
     nodeFill: get('--fg', '10 10 10'),
   };
 }

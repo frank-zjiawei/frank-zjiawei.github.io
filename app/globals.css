@@ -11,7 +11,11 @@
   --fg-dim: 115 115 115;
   --fg-faint: 163 163 163;
   --hairline: 229 229 229;
-  --accent: 17 17 17;
+  /* One accent, used sparingly: links, awards, and the active page. A deep
+     green picked up from the doors in the portrait. To change it site-wide,
+     edit these two lines and the pair in the dark theme below. */
+  --accent: 15 110 86;
+  --accent-fg: 255 255 255;
   --shadow: 17 17 17;
   /* brightness of the light pool under the glass orb */
   --orb-caustic: 0.9;
@@ -26,7 +30,8 @@
   --fg-dim: 125 125 125;
   --fg-faint: 82 82 82;
   --hairline: 42 42 42;
-  --accent: 245 245 245;
+  --accent: 94 214 170;
+  --accent-fg: 10 10 10;
   --shadow: 0 0 0;
   --orb-caustic: 0.1;
 }
@@ -85,15 +90,15 @@ body::before {
     @apply relative inline-block py-1 text-[16px] text-fg-muted transition-colors hover:text-fg md:text-[17px];
   }
 
-  /* underline on hover — grows from left */
+  /* accent underline on hover and on the current page — grows from left */
   .nav-link::after {
     content: '';
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    height: 1.5px;
-    background-color: rgb(var(--fg));
+    height: 2px;
+    background-color: rgb(var(--accent));
     transform: scaleX(0);
     transform-origin: left center;
     transition: transform 260ms ease;
@@ -123,9 +128,29 @@ body::before {
     @apply font-mono text-[10px] uppercase tracking-[0.25em] text-fg-dim;
   }
 
-  /* text link: underline appears on hover */
+  /* small navigational link ("All papers →"): accent on hover */
   .link-quiet {
-    @apply border-b border-transparent pb-px transition-colors hover:border-fg hover:text-fg;
+    @apply border-b border-transparent pb-px transition-colors hover:border-accent hover:text-accent;
+  }
+
+  /* link inside running text */
+  .link-inline {
+    @apply rounded-sm text-accent underline decoration-accent/35 underline-offset-[3px] transition-colors hover:bg-accent/10 hover:decoration-accent;
+  }
+
+  /* standalone link, drawn as a tinted pill so it reads as something to click */
+  .link-pill {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3.5 py-1.5 text-[13px] font-medium leading-none text-accent transition-colors hover:bg-accent hover:text-accent-fg;
+  }
+
+  /* result or award worth noticing */
+  .badge-accent {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-2.5 py-1 text-[12px] font-medium leading-none text-accent;
+  }
+
+  /* neutral tag (methods, tools) */
+  .chip {
+    @apply rounded-md border border-hairline bg-surface-2 px-2.5 py-1.5 text-[12px] leading-none text-fg-muted;
   }
 
   .card-link {

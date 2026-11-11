@@ -26,7 +26,7 @@ export function Hero() {
               <span key={interest} className="whitespace-nowrap">
                 {interest}
                 {i < shown.length - 1 ? (
-                  <span className="ml-3 text-fg-faint">·</span>
+                  <span className="ml-3 text-accent">·</span>
                 ) : null}
               </span>
             ))}
@@ -78,12 +78,12 @@ export function Hero() {
             <a
               href={profile.cv.en}
               download
-              className="inline-flex items-center gap-2 rounded-full border border-hairline px-5 py-2.5 text-sm font-medium text-fg transition-colors hover:border-fg"
+              className="inline-flex items-center gap-2 rounded-full border border-hairline px-5 py-2.5 text-sm font-medium text-fg transition-colors hover:border-accent hover:text-accent"
             >
               <Download className="h-4 w-4 text-fg-dim" strokeWidth={1.75} />
               CV
             </a>
-            <span className="flex items-center gap-x-5 font-mono text-[11px] uppercase tracking-[0.16em] text-fg-muted sm:pl-2">
+            <span className="flex items-center gap-x-5 font-mono text-[11px] uppercase tracking-[0.16em] text-accent sm:pl-2">
               <a
                 href={profile.links.scholar}
                 target="_blank"

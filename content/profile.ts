@@ -4,6 +4,8 @@
  * Facts follow the current CV; edit the wording here, not in the components.
  */
 
+import type { OrgId } from './orgs';
+
 export const profile = {
   name: 'Jiawei Zhang',
   preferredName: 'Frank',
@@ -116,5 +118,77 @@ export const honors: Honor[] = [
     title: 'High Distinction',
     detail: 'University of Toronto · Dean’s List Scholar, 2021–2023',
     year: '2023',
+  },
+];
+
+export interface Affiliation {
+  /** Looked up in content/orgs.ts for the name and logo. */
+  orgId: OrgId;
+  /** One short line, always visible under the logo. */
+  role: string;
+  /** Shown in the hover card. */
+  detail: string;
+  period: string;
+  href: string;
+  cta: string;
+}
+
+/**
+ * The logo bar on the home page: places Jiawei has studied or worked.
+ * Competitions and events do not belong here.
+ */
+export const affiliations: Affiliation[] = [
+  {
+    orgId: 'harvard-gse',
+    role: 'Ed.M. · Research Assistant',
+    detail:
+      'Ed.M. in Learning Design, Innovation, and Technology. Research Assistant in the Learning Innovation and Technology Lab.',
+    period: '2025 – Present',
+    href: '/experience#hgse-lit',
+    cta: 'Research',
+  },
+  {
+    orgId: 'mit',
+    role: 'Cross-registered',
+    detail:
+      'Cross-registered at MIT Media Lab AI Venture Studio and MIT Sloan School of Management.',
+    period: '2025 – 26',
+    href: '/about#mit',
+    cta: 'Education',
+  },
+  {
+    orgId: 'hbs',
+    role: 'Fellow, Foundry',
+    detail:
+      'Business Development & Research Analytics Fellow at Foundry, working with Prof. Tom Eisenmann.',
+    period: '2026 – Present',
+    href: '/experience#hbs-foundry',
+    cta: 'Experience',
+  },
+  {
+    orgId: 'tsinghua-sigs',
+    role: 'Research Assistant',
+    detail:
+      'Research Assistant on spatiotemporal multimodal decision agents and long-video reasoning.',
+    period: '2024 – 25',
+    href: '/experience#tsinghua-sigs',
+    cta: 'Research',
+  },
+  {
+    orgId: 'ubc',
+    role: 'Master of Business Analytics',
+    detail: 'Master of Business Analytics, UBC Sauder School of Business.',
+    period: '2023 – 24',
+    href: '/about#ubc',
+    cta: 'Education',
+  },
+  {
+    orgId: 'uoft',
+    role: 'Honours B.A.',
+    detail:
+      'Honours Bachelor of Arts with High Distinction, Specialist in Digital Enterprise Management.',
+    period: '2019 – 23',
+    href: '/about#uoft',
+    cta: 'Education',
   },
 ];

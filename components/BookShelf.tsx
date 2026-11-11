@@ -63,8 +63,8 @@ function BookCover({
         className={clsx(
           'relative aspect-[2/3] w-full overflow-hidden rounded-[2px] border bg-surface-2 shadow-[4px_6px_18px_rgba(0,0,0,0.12)] transition-[box-shadow,border-color] duration-300',
           selected
-            ? 'border-fg shadow-[6px_10px_24px_rgba(0,0,0,0.18)]'
-            : 'border-hairline group-hover:border-fg/40',
+            ? 'border-accent shadow-[6px_10px_24px_rgba(0,0,0,0.18)]'
+            : 'border-hairline group-hover:border-accent/60',
         )}
       >
         <span
@@ -108,7 +108,7 @@ function BookCover({
         ) : null}
 
         {pub.award ? (
-          <span className="absolute right-2 top-2 max-w-[70%] truncate rounded-sm bg-fg px-1.5 py-0.5 font-mono text-[8px] uppercase tracking-[0.12em] text-surface">
+          <span className="absolute right-2 top-2 max-w-[70%] truncate rounded-sm bg-accent px-1.5 py-0.5 font-mono text-[8px] uppercase tracking-[0.12em] text-accent-fg">
             {pub.award}
           </span>
         ) : null}
@@ -117,7 +117,7 @@ function BookCover({
       <span
         aria-hidden
         className={clsx(
-          'mx-auto mt-3 h-[2px] w-10 origin-center bg-fg transition-transform duration-300',
+          'mx-auto mt-3 h-[2px] w-10 origin-center bg-accent transition-transform duration-300',
           selected ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100',
         )}
       />
@@ -220,14 +220,14 @@ function BookPagePanel({
                   className={clsx(
                     'rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.15em]',
                     pub.status === 'published'
-                      ? 'border-fg/40 bg-fg/5 text-fg'
+                      ? 'border-accent/40 bg-accent/10 text-accent'
                       : 'border-hairline text-fg-dim',
                   )}
                 >
                   {STATUS_LABEL[pub.status]}
                 </span>
                 {pub.award ? (
-                  <span className="rounded-full border border-fg bg-fg px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.15em] text-surface">
+                  <span className="rounded-full border border-accent bg-accent px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.15em] text-accent-fg">
                     {pub.award}
                   </span>
                 ) : null}
@@ -254,7 +254,7 @@ function BookPagePanel({
                     href={pub.pdf}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 border border-fg px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.18em] text-fg transition-colors hover:bg-fg hover:text-surface"
+                    className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.18em] text-accent-fg transition-opacity hover:opacity-85"
                   >
                     Open paper PDF
                     <span aria-hidden>↗</span>

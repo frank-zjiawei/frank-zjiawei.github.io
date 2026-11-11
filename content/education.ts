@@ -1,5 +1,9 @@
+import type { OrgId } from './orgs';
+
 export interface School {
   id: string;
+  /** Looked up in content/orgs.ts for the logo. */
+  orgId: OrgId;
   school: string;
   /** Short name for compact lists */
   shortSchool: string;
@@ -15,6 +19,7 @@ export interface School {
 export const schools: School[] = [
   {
     id: 'harvard',
+    orgId: 'harvard-gse',
     school: 'Harvard Graduate School of Education',
     shortSchool: 'Harvard University',
     degree: 'Ed.M. in Learning Design, Innovation, and Technology',
@@ -25,6 +30,7 @@ export const schools: School[] = [
   },
   {
     id: 'mit',
+    orgId: 'mit',
     school: 'Massachusetts Institute of Technology (MIT)',
     shortSchool: 'MIT',
     degree:
@@ -36,6 +42,7 @@ export const schools: School[] = [
   },
   {
     id: 'ubc',
+    orgId: 'ubc',
     school: 'UBC Sauder School of Business',
     shortSchool: 'University of British Columbia',
     degree: 'Master of Business Analytics',
@@ -46,6 +53,7 @@ export const schools: School[] = [
   },
   {
     id: 'uoft',
+    orgId: 'uoft',
     school: 'University of Toronto',
     shortSchool: 'University of Toronto',
     degree:

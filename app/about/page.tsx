@@ -2,7 +2,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { schools } from '@/content/education';
 import { honors, profile } from '@/content/profile';
+import { Award } from 'lucide-react';
 import { PlaceGallery } from '@/components/PlaceGallery';
+import { OrgLogo } from '@/components/OrgLogo';
+import { getOrg } from '@/content/orgs';
 
 export const metadata = {
   title: 'About Me',
@@ -33,8 +36,7 @@ const CONTACTS: { label: string; href: string; display: string }[] = [
   },
 ];
 
-const inlineLink =
-  'border-b border-fg/30 text-fg transition-colors hover:border-fg';
+const inlineLink = 'link-inline';
 
 function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
@@ -144,7 +146,7 @@ export default function AboutPage() {
                 {profile.interests.map((interest) => (
                   <li
                     key={interest}
-                    className="rounded-full border border-hairline px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-fg"
+                    className="rounded-full bg-accent/10 px-3.5 py-1.5 text-[13px] font-medium leading-none text-accent"
                   >
                     {interest}
                   </li>
@@ -152,11 +154,11 @@ export default function AboutPage() {
               </ul>
             </div>
 
-            <div className="flex flex-wrap gap-x-6 gap-y-3 pt-3 font-mono text-[12px] uppercase tracking-[0.16em]">
-              <Link href="/experience/" className={inlineLink}>
+            <div className="flex flex-wrap gap-2 pt-3">
+              <Link href="/experience/" className="link-pill">
                 Research experience →
               </Link>
-              <a href={profile.cv.en} download className={inlineLink}>
+              <a href={profile.cv.en} download className="link-pill">
                 Download CV ↓
               </a>
             </div>
@@ -172,19 +174,22 @@ export default function AboutPage() {
               <li
                 key={s.id}
                 id={s.id}
-                className="grid scroll-mt-28 grid-cols-1 gap-2 border-t border-hairline py-6 md:grid-cols-[200px_1fr] md:gap-10"
+                className="flex scroll-mt-28 items-start gap-4 border-t border-hairline py-6 md:gap-5"
               >
-                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-fg-dim">
-                  {s.period}
-                </p>
-                <div>
-                  <p className="font-serif text-xl text-fg md:text-2xl">
-                    {s.school}
-                  </p>
-                  <p className="mt-2 text-sm leading-relaxed text-fg-muted md:text-base">
+                <OrgLogo org={getOrg(s.orgId)} size={64} className="mt-0.5" />
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-col gap-x-6 gap-y-1 md:flex-row md:items-baseline md:justify-between">
+                    <p className="font-serif text-[1.4rem] leading-tight text-fg md:text-[1.7rem]">
+                      {s.school}
+                    </p>
+                    <p className="shrink-0 font-mono text-[11px] uppercase tracking-[0.16em] text-fg-dim">
+                      {s.period}
+                    </p>
+                  </div>
+                  <p className="mt-2 text-[15px] leading-relaxed text-fg md:text-base">
                     {s.degree}
                   </p>
-                  <p className="mt-2 font-mono text-[11px] text-fg-dim">
+                  <p className="mt-1.5 text-[13px] leading-relaxed text-fg-muted">
                     {[s.location, s.detail, s.distinction]
                       .filter(Boolean)
                       .join(' · ')}
@@ -203,8 +208,14 @@ export default function AboutPage() {
             {honors.map((h) => (
               <li
                 key={h.title}
-                className="grid grid-cols-[1fr_auto] items-baseline gap-x-6 border-b border-hairline py-4"
+                className="grid grid-cols-[auto_1fr_auto] items-center gap-x-4 border-b border-hairline py-4"
               >
+                <span
+                  aria-hidden
+                  className="grid h-9 w-9 place-items-center rounded-full bg-accent/10 text-accent"
+                >
+                  <Award className="h-[18px] w-[18px]" strokeWidth={1.6} />
+                </span>
                 <div>
                   <p className="font-serif text-lg leading-snug text-fg">
                     {h.title}
@@ -255,7 +266,7 @@ export default function AboutPage() {
             <p className="mt-5">
               <Link
                 href="/about/interests/"
-                className={`${inlineLink} font-mono text-[12px] uppercase tracking-[0.16em]`}
+                className="link-pill"
               >
                 Interests · Boxing →
               </Link>
