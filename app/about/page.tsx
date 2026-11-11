@@ -134,8 +134,8 @@ export default function AboutPage() {
               .
             </p>
             <p>
-              I am also a Business Development &amp; Research Analytics Fellow
-              at Harvard Business School Foundry, where I work with Prof. Tom
+              I am also a Business Development &amp; Research Analyst at
+              Harvard Business School Foundry, where I work with Prof. Tom
               Eisenmann on identifying early signals of high-potential
               founders, including when and why AI and human reviewers disagree.
             </p>

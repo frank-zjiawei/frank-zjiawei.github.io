@@ -40,7 +40,7 @@ const registry = {
   },
   mit: {
     name: 'Massachusetts Institute of Technology',
-    short: 'MIT',
+    short: 'AI Venture Studio',
     logo: '/images/logos/mit.svg',
   },
   'mit-media-lab': {
@@ -51,7 +51,7 @@ const registry = {
   },
   'tsinghua-sigs': {
     name: 'Tsinghua Shenzhen International Graduate School',
-    short: 'Tsinghua SIGS',
+    short: '数据与信息学院',
     logo: '/images/logos/tsinghua.png',
   },
   ubc: {

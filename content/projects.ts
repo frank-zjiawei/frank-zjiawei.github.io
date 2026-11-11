@@ -165,7 +165,7 @@ export const projects: Project[] = [
     orgId: 'hbs',
     unit: 'Foundry',
     unitHref: 'https://hbsfoundry.org/',
-    role: 'Business Development & Research Analytics Fellow',
+    role: 'Business Development & Research Analyst',
     location: 'Boston, MA',
     period: '2026 – Present',
     summary:

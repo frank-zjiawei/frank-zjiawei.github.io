@@ -140,7 +140,7 @@ export interface Affiliation {
 export const affiliations: Affiliation[] = [
   {
     orgId: 'harvard-gse',
-    role: 'Ed.M. · Research Assistant',
+    role: 'Ed.M. · Learning Design, Innovation & Technology\nLIT Lab · Research Assistant',
     detail:
       'Ed.M. in Learning Design, Innovation, and Technology. Research Assistant in the Learning Innovation and Technology Lab.',
     period: '2025 – Present',
@@ -149,18 +149,18 @@ export const affiliations: Affiliation[] = [
   },
   {
     orgId: 'mit',
-    role: 'Cross-registered',
+    role: 'Media Lab · AI Venture Studio · Sloan',
     detail:
-      'Cross-registered at MIT Media Lab AI Venture Studio and MIT Sloan School of Management.',
+      'Media Lab AI Venture Studio and MIT Sloan School of Management.',
     period: '2025 – 26',
     href: '/about#mit',
     cta: 'Education',
   },
   {
     orgId: 'hbs',
-    role: 'Fellow, Foundry',
+    role: 'Business Development & Research Analyst · Foundry',
     detail:
-      'Business Development & Research Analytics Fellow at Foundry, working with Prof. Tom Eisenmann.',
+      'Business Development & Research Analyst at Foundry, working with Prof. Tom Eisenmann.',
     period: '2026 – Present',
     href: '/experience#hbs-foundry',
     cta: 'Experience',
@@ -169,7 +169,7 @@ export const affiliations: Affiliation[] = [
     orgId: 'tsinghua-sigs',
     role: 'Research Assistant',
     detail:
-      'Research Assistant on spatiotemporal multimodal decision agents and long-video reasoning.',
+      'Research Assistant at the School of Data and Information (数据与信息学院) on spatiotemporal multimodal decision agents and long-video reasoning.',
     period: '2024 – 25',
     href: '/experience#tsinghua-sigs',
     cta: 'Research',

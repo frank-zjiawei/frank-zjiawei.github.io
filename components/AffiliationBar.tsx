@@ -38,7 +38,7 @@ export function AffiliationBar() {
                     <span className="block text-[13px] font-medium leading-snug text-fg transition-colors group-hover:text-accent">
                       {org.short}
                     </span>
-                    <span className="mt-0.5 block text-[12px] leading-snug text-fg-muted">
+                    <span className="mt-0.5 block whitespace-pre-line text-[12px] leading-snug text-fg-muted">
                       {a.role}
                     </span>
                   </span>
