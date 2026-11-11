@@ -14,6 +14,8 @@ import { graphData, type GraphNode } from '@/content/graph';
 
 interface GraphProps {
   height?: number;
+  /** Called when a node link is followed (e.g. to close a surrounding dialog). */
+  onNavigate?: () => void;
 }
 
 type LayoutMode = 'compact' | 'zoom';
@@ -108,7 +110,7 @@ function readPalette(): Palette {
   };
 }
 
-export function KnowledgeGraph({ height = 560 }: GraphProps) {
+export function KnowledgeGraph({ height = 560, onNavigate }: GraphProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const fgRef = useRef<any>(null);
   const router = useRouter();
@@ -344,10 +346,27 @@ export function KnowledgeGraph({ height = 560 }: GraphProps) {
             node.fy = null;
           }}
           onNodeClick={(node: any) => {
-            if (node.href) {
-              if (node.href.startsWith('/')) router.push(node.href);
-              else window.location.href = node.href;
+            if (!node.href) return;
+            onNavigate?.();
+            if (!node.href.startsWith('/')) {
+              window.location.href = node.href;
+              return;
             }
+            // A link to another anchor on the page we are already on: set the
+            // hash natively so `hashchange` fires. (router.push uses
+            // pushState, which does not, so tabs and panels keyed on the hash
+            // would never hear about it.)
+            const [path, hash] = node.href.split('#');
+            const trim = (p: string) => p.replace(/\/+$/, '') || '/';
+            if (hash && trim(path) === trim(window.location.pathname)) {
+              if (window.location.hash === `#${hash}`) {
+                window.dispatchEvent(new HashChangeEvent('hashchange'));
+              } else {
+                window.location.hash = hash;
+              }
+              return;
+            }
+            router.push(node.href);
           }}
           nodeCanvasObjectMode={() => 'replace'}
           nodeCanvasObject={(nRaw: any, ctx: CanvasRenderingContext2D, globalScale: number) => {

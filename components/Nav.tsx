@@ -25,8 +25,14 @@ export function Nav() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  const isActive = (href: string) =>
+    href === '/'
+      ? pathname === '/'
+      : pathname === href || pathname.startsWith(`${href}/`);
+
   return (
     <header
+      data-site-nav
       className={clsx(
         'sticky top-0 z-40 w-full transition-all duration-300',
         scrolled
@@ -34,7 +40,7 @@ export function Nav() {
           : 'border-b border-transparent',
       )}
     >
-      <div className="mx-auto flex h-[4.5rem] w-full max-w-7xl items-center justify-between gap-6 px-6 md:px-10">
+      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-6 px-6 md:h-[4.5rem] md:px-10">
         <Link
           href="/"
           className="shrink-0 font-serif text-[1.35rem] tracking-tight text-fg transition-opacity hover:opacity-70"
@@ -43,28 +49,25 @@ export function Nav() {
           JZ
         </Link>
 
-        <nav className="flex min-w-0 flex-1 items-center justify-end gap-6">
+        <nav
+          aria-label="Primary"
+          className="flex min-w-0 flex-1 items-center justify-end gap-6"
+        >
           <ul className="hidden min-w-0 items-center gap-x-7 gap-y-1 md:flex md:flex-wrap md:justify-end">
-            {NAV_ITEMS.map((item) => {
-              const active =
-                item.href === '/'
-                  ? pathname === '/'
-                  : pathname === item.href || pathname.startsWith(`${item.href}/`);
-              return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    data-active={active || undefined}
-                    className={clsx(
-                      'nav-link whitespace-nowrap',
-                      active && 'text-fg',
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              );
-            })}
+            {NAV_ITEMS.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  data-active={isActive(item.href) || undefined}
+                  className={clsx(
+                    'nav-link whitespace-nowrap',
+                    isActive(item.href) && 'text-fg',
+                  )}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
 
           <div className="flex shrink-0 items-center gap-3">
@@ -72,7 +75,7 @@ export function Nav() {
 
             <button
               type="button"
-              className="kbd cursor-pointer transition-colors hover:border-fg-muted hover:text-fg"
+              className="kbd hidden cursor-pointer transition-colors hover:border-fg-muted hover:text-fg md:inline-flex"
               onClick={() => {
                 window.dispatchEvent(new CustomEvent('open-command-menu'));
               }}
@@ -86,6 +89,27 @@ export function Nav() {
           </div>
         </nav>
       </div>
+
+      {/* Small screens: the same links as a second row, so navigation never
+          depends on a keyboard shortcut. */}
+      <nav aria-label="Pages" className="md:hidden">
+        <ul className="mx-auto flex w-full max-w-7xl items-center gap-x-6 overflow-x-auto px-6 pb-3">
+          {NAV_ITEMS.map((item) => (
+            <li key={item.href} className="shrink-0">
+              <Link
+                href={item.href}
+                data-active={isActive(item.href) || undefined}
+                className={clsx(
+                  'nav-link whitespace-nowrap !text-[15px]',
+                  isActive(item.href) && 'text-fg',
+                )}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </header>
   );
 }

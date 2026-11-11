@@ -12,6 +12,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+import { createOrb, type Orb, type OrbTheme } from '@/lib/orb';
 
 const KnowledgeGraph = dynamic(
   () =>
@@ -21,31 +22,48 @@ const KnowledgeGraph = dynamic(
 
 type Corner = 'tl' | 'tr' | 'bl' | 'br';
 
-const SIZE = 104;
-const MARGIN = 24;
+const MARGIN = 20;
+const DRAG_THRESHOLD = 5;
 const STORAGE_KEY = 'nebula-corner';
 const HINT_KEY = 'nebula-hint-seen';
 
-function cornerToPos(corner: Corner, vw: number, vh: number) {
-  const x = corner === 'tl' || corner === 'bl' ? MARGIN : vw - SIZE - MARGIN;
-  const y = corner === 'tl' || corner === 'tr' ? MARGIN : vh - SIZE - MARGIN;
-  // keep below sticky nav on top corners
-  const topSafe = corner === 'tl' || corner === 'tr' ? Math.max(MARGIN, 88) : y;
+const orbSize = (vw: number) => (vw < 640 ? 88 : 104);
+
+const currentTheme = (): OrbTheme =>
+  document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+
+/**
+ * How far down the top corners must sit to clear the site header. Measured
+ * rather than hard-coded: the nav is taller on phones (links wrap to a second
+ * row), and the banner above it adds height at the top of the page.
+ */
+function topClearance() {
+  const nav = document.querySelector<HTMLElement>('[data-site-nav]');
+  if (!nav) return 96;
+  const banner = nav.previousElementSibling as HTMLElement | null;
+  return (banner?.offsetHeight ?? 0) + nav.offsetHeight + 12;
+}
+
+function cornerToPos(corner: Corner, vw: number, vh: number, size: number) {
+  const left = corner === 'tl' || corner === 'bl';
+  const top = corner === 'tl' || corner === 'tr';
   return {
-    x: corner === 'tl' || corner === 'bl' ? MARGIN : vw - SIZE - MARGIN,
-    y: topSafe,
+    x: left ? MARGIN : vw - size - MARGIN,
+    y: top ? topClearance() : vh - size - MARGIN,
   };
 }
 
-function nearestCorner(x: number, y: number, vw: number, vh: number): Corner {
-  const cx = x + SIZE / 2;
-  const cy = y + SIZE / 2;
-  const left = cx < vw / 2;
-  const top = cy < vh / 2;
-  if (top && left) return 'tl';
-  if (top && !left) return 'tr';
-  if (!top && left) return 'bl';
-  return 'br';
+function nearestCorner(
+  x: number,
+  y: number,
+  vw: number,
+  vh: number,
+  size: number,
+): Corner {
+  const left = x + size / 2 < vw / 2;
+  const top = y + size / 2 < vh / 2;
+  if (top) return left ? 'tl' : 'tr';
+  return left ? 'bl' : 'br';
 }
 
 export function NebulaFab() {
@@ -56,31 +74,43 @@ export function NebulaFab() {
   const [open, setOpen] = useState(false);
   const [corner, setCorner] = useState<Corner>('br');
   const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [size, setSize] = useState(104);
   const [dragging, setDragging] = useState(false);
   const [ready, setReady] = useState(false);
   const [showHint, setShowHint] = useState(false);
+
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const orbRef = useRef<Orb | null>(null);
+  const openRef = useRef(false);
   const dragRef = useRef<{
     pointerId: number;
+    // pointer offset inside the orb, and where the pointer went down
     ox: number;
     oy: number;
+    startX: number;
+    startY: number;
+    lastX: number;
     moved: boolean;
   } | null>(null);
 
   const placeCorner = useCallback((c: Corner) => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
+    const s = orbSize(vw);
+    setSize(s);
     setCorner(c);
-    setPos(cornerToPos(c, vw, vh));
+    setPos(cornerToPos(c, vw, vh, s));
     try {
       localStorage.setItem(STORAGE_KEY, c);
     } catch {}
   }, []);
 
+  // Restore the last corner the visitor parked the orb in.
   useEffect(() => {
     if (onGraphPage) return;
     let initial: Corner = 'br';
     try {
-      const stored = localStorage.getItem(STORAGE_KEY) as Corner | null;
+      const stored = localStorage.getItem(STORAGE_KEY);
       if (stored === 'tl' || stored === 'tr' || stored === 'bl' || stored === 'br') {
         initial = stored;
       }
@@ -96,7 +126,54 @@ export function NebulaFab() {
     return () => window.removeEventListener('resize', onResize);
   }, [ready, corner, placeCorner]);
 
-  // Soft “look here” hint on first home visit
+  // The orb only animates while it can be seen: not behind the open map, not
+  // in a background tab, and not for visitors who prefer reduced motion.
+  const syncOrbPlayback = useCallback(() => {
+    const orb = orbRef.current;
+    if (!orb) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || document.hidden || openRef.current) orb.stop();
+    else orb.start();
+  }, []);
+
+  useEffect(() => {
+    if (!ready || onGraphPage || !canvasRef.current) return;
+    const orb = createOrb(canvasRef.current, {
+      size: orbSize(window.innerWidth),
+      theme: currentTheme(),
+    });
+    orbRef.current = orb;
+    if (!orb) return;
+
+    syncOrbPlayback();
+    const themeObserver = new MutationObserver(() => orb.setTheme(currentTheme()));
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    document.addEventListener('visibilitychange', syncOrbPlayback);
+    motion.addEventListener('change', syncOrbPlayback);
+
+    return () => {
+      themeObserver.disconnect();
+      document.removeEventListener('visibilitychange', syncOrbPlayback);
+      motion.removeEventListener('change', syncOrbPlayback);
+      orb.destroy();
+      orbRef.current = null;
+    };
+  }, [ready, onGraphPage, syncOrbPlayback]);
+
+  useEffect(() => {
+    orbRef.current?.setSize(size);
+  }, [size]);
+
+  useEffect(() => {
+    openRef.current = open;
+    syncOrbPlayback();
+  }, [open, syncOrbPlayback]);
+
+  // A quiet "this is interactive" hint on the first visit to the home page.
   useEffect(() => {
     if (!isHome || onGraphPage) return;
     try {
@@ -108,7 +185,7 @@ export function NebulaFab() {
       try {
         localStorage.setItem(HINT_KEY, '1');
       } catch {}
-    }, 5200);
+    }, 6000);
     return () => clearTimeout(t);
   }, [isHome, onGraphPage]);
 
@@ -126,60 +203,87 @@ export function NebulaFab() {
     };
   }, [open]);
 
-  const onPointerDown = (e: ReactPointerEvent<HTMLButtonElement>) => {
-    e.currentTarget.setPointerCapture(e.pointerId);
-    dragRef.current = {
-      pointerId: e.pointerId,
-      ox: e.clientX - pos.x,
-      oy: e.clientY - pos.y,
-      moved: false,
-    };
-    setDragging(true);
+  const dismissHint = () => {
     setShowHint(false);
     try {
       localStorage.setItem(HINT_KEY, '1');
     } catch {}
   };
 
+  const onPointerDown = (e: ReactPointerEvent<HTMLButtonElement>) => {
+    if (e.button !== 0) return;
+    // Capture keeps the drag alive when the pointer outruns the orb. It can
+    // throw if the pointer is already gone; the drag still works without it.
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {}
+    dragRef.current = {
+      pointerId: e.pointerId,
+      ox: e.clientX - pos.x,
+      oy: e.clientY - pos.y,
+      startX: e.clientX,
+      startY: e.clientY,
+      lastX: e.clientX,
+      moved: false,
+    };
+    setDragging(true);
+    dismissHint();
+  };
+
   const onPointerMove = (e: ReactPointerEvent<HTMLButtonElement>) => {
+    const orb = orbRef.current;
     const d = dragRef.current;
-    if (!d || d.pointerId !== e.pointerId) return;
-    const nx = e.clientX - d.ox;
-    const ny = e.clientY - d.oy;
-    if (Math.hypot(nx - pos.x, ny - pos.y) > 4) d.moved = true;
+
+    if (!d || d.pointerId !== e.pointerId) {
+      // Hovering: the globe leans toward the cursor.
+      const rect = e.currentTarget.getBoundingClientRect();
+      orb?.setPointer(
+        (e.clientX - rect.left - rect.width / 2) / (rect.width / 2),
+        (e.clientY - rect.top - rect.height / 2) / (rect.height / 2),
+      );
+      return;
+    }
+
+    if (
+      Math.hypot(e.clientX - d.startX, e.clientY - d.startY) > DRAG_THRESHOLD
+    ) {
+      d.moved = true;
+    }
+    // Dragging sideways spins the globe, like turning it by hand.
+    orb?.kick((e.clientX - d.lastX) * 0.05);
+    d.lastX = e.clientX;
+
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     setPos({
-      x: Math.min(Math.max(8, nx), vw - SIZE - 8),
-      y: Math.min(Math.max(8, ny), vh - SIZE - 8),
+      x: Math.min(Math.max(8, e.clientX - d.ox), vw - size - 8),
+      y: Math.min(Math.max(8, e.clientY - d.oy), vh - size - 8),
     });
   };
 
   const onPointerUp = (e: ReactPointerEvent<HTMLButtonElement>) => {
     const d = dragRef.current;
     if (!d || d.pointerId !== e.pointerId) return;
-    const moved = d.moved;
     dragRef.current = null;
     setDragging(false);
-    const next = nearestCorner(pos.x, pos.y, window.innerWidth, window.innerHeight);
-    placeCorner(next);
-    if (!moved) setOpen(true);
+    placeCorner(
+      nearestCorner(pos.x, pos.y, window.innerWidth, window.innerHeight, size),
+    );
+    if (!d.moved && e.type === 'pointerup') setOpen(true);
   };
 
   if (onGraphPage || !ready) return null;
 
+  const hintOnRight = corner === 'tl' || corner === 'bl';
+
   return (
     <>
-      {/* hint bubble */}
       {showHint && !open ? (
         <div
-          className="pointer-events-none fixed z-[45] w-[150px] rounded-xl border border-hairline bg-surface/95 px-3 py-2 text-center shadow-[0_8px_24px_rgba(var(--shadow),0.12)] backdrop-blur-md"
+          className="pointer-events-none fixed z-[45] w-[156px] rounded-xl border border-hairline bg-surface/95 px-3 py-2 text-center shadow-[0_8px_24px_rgba(var(--shadow),0.12)] backdrop-blur-md"
           style={{
-            left:
-              corner === 'tr' || corner === 'br'
-                ? Math.max(12, pos.x - 48)
-                : pos.x,
-            top: Math.max(12, pos.y - 56),
+            left: hintOnRight ? pos.x : Math.max(12, pos.x + size - 156),
+            top: Math.max(12, pos.y - 50),
           }}
         >
           <p className="text-[11px] leading-snug text-fg-muted">
@@ -194,108 +298,39 @@ export function NebulaFab() {
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
+        onPointerEnter={() => orbRef.current?.setHover(true)}
+        onPointerLeave={() => {
+          orbRef.current?.setHover(false);
+          orbRef.current?.setPointer(0, 0);
+        }}
+        onFocus={() => orbRef.current?.setHover(true)}
+        onBlur={() => orbRef.current?.setHover(false)}
+        // Pointer presses are handled above; this covers Enter / Space.
+        onClick={(e) => {
+          if (e.detail === 0) setOpen(true);
+        }}
         aria-label="Open site map — drag to move"
-        title="Site map — drag to a corner"
+        aria-haspopup="dialog"
+        title="Site map"
         className={clsx(
           'nebula-orb fixed z-40 touch-none select-none',
-          dragging ? 'cursor-grabbing nebula-orb--dragging' : 'cursor-grab',
+          dragging ? 'nebula-orb--dragging cursor-grabbing' : 'cursor-grab',
           showHint && 'nebula-orb--hint',
         )}
         style={{
-          width: SIZE,
-          height: SIZE,
+          width: size,
+          height: size,
           left: pos.x,
           top: pos.y,
           transition: dragging
             ? 'none'
-            : 'left 320ms cubic-bezier(0.22,1,0.36,1), top 320ms cubic-bezier(0.22,1,0.36,1)',
+            : 'left 380ms cubic-bezier(0.22,1,0.36,1), top 380ms cubic-bezier(0.22,1,0.36,1)',
         }}
       >
         <span className="nebula-orb__shadow" aria-hidden />
         <span className="nebula-orb__lift" aria-hidden>
-          <span className="nebula-orb__sphere">
-            <span className="nebula-orb__atmosphere" />
-            <span className="nebula-orb__globe" aria-hidden>
-              <svg viewBox="0 0 100 100" className="nebula-orb__svg">
-                <defs>
-                  <clipPath id="nebula-clip">
-                    <circle cx="50" cy="50" r="46" />
-                  </clipPath>
-                  <radialGradient id="nebula-fill" cx="32%" cy="28%" r="70%">
-                    <stop offset="0%" stopColor="#f7f1e6" stopOpacity="0.95" />
-                    <stop offset="42%" stopColor="#c4b39a" stopOpacity="0.9" />
-                    <stop offset="78%" stopColor="#6e6356" stopOpacity="0.95" />
-                    <stop offset="100%" stopColor="#2f2a25" />
-                  </radialGradient>
-                </defs>
-                <g clipPath="url(#nebula-clip)">
-                  <circle cx="50" cy="50" r="46" fill="url(#nebula-fill)" />
-                  <g className="nebula-orb__latlong">
-                    <ellipse
-                      cx="50"
-                      cy="50"
-                      rx="46"
-                      ry="18"
-                      fill="none"
-                      stroke="rgba(255,248,236,0.28)"
-                      strokeWidth="0.6"
-                    />
-                    <ellipse
-                      cx="50"
-                      cy="50"
-                      rx="46"
-                      ry="32"
-                      fill="none"
-                      stroke="rgba(255,248,236,0.18)"
-                      strokeWidth="0.55"
-                    />
-                    <ellipse
-                      cx="50"
-                      cy="50"
-                      rx="18"
-                      ry="46"
-                      fill="none"
-                      stroke="rgba(255,248,236,0.22)"
-                      strokeWidth="0.55"
-                    />
-                    <ellipse
-                      cx="50"
-                      cy="50"
-                      rx="32"
-                      ry="46"
-                      fill="none"
-                      stroke="rgba(184,137,62,0.28)"
-                      strokeWidth="0.55"
-                    />
-                    <path
-                      d="M4 50 H96"
-                      fill="none"
-                      stroke="rgba(255,248,236,0.2)"
-                      strokeWidth="0.5"
-                    />
-                  </g>
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="46"
-                    fill="url(#nebula-fill)"
-                    opacity="0.22"
-                    style={{ mixBlendMode: 'soft-light' }}
-                  />
-                </g>
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="46.6"
-                  fill="none"
-                  stroke="rgba(255,255,255,0.35)"
-                  strokeWidth="0.8"
-                />
-              </svg>
-            </span>
-            <span className="nebula-orb__specular" />
-            <span className="nebula-orb__glass" />
-          </span>
+          <span className="nebula-orb__ping" />
+          <canvas ref={canvasRef} className="nebula-orb__canvas" />
         </span>
       </button>
 
@@ -343,7 +378,7 @@ export function NebulaFab() {
               </div>
             </header>
             <div className="min-h-0 flex-1 bg-surface">
-              <KnowledgeGraph height={640} />
+              <KnowledgeGraph height={640} onNavigate={() => setOpen(false)} />
             </div>
           </div>
         </div>

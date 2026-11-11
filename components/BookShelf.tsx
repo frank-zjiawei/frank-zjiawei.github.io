@@ -173,8 +173,12 @@ function BookPagePanel({
         aria-modal="true"
         aria-label={pub ? pub.shortTitle : 'Paper detail'}
         className={clsx(
-          'relative z-10 flex h-full w-full max-w-xl flex-col border-l border-[#d6cbb8] bg-[rgb(var(--surface))] shadow-[-24px_0_60px_rgba(28,25,23,0.18)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:max-w-[34rem]',
-          open ? 'translate-x-0' : 'translate-x-full',
+          'relative z-10 flex h-full w-full max-w-xl flex-col border-l border-[#d6cbb8] bg-[rgb(var(--surface))] transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:max-w-[34rem]',
+          // The shadow belongs to the open page only: while the page is parked
+          // off-screen, its shadow would otherwise spill back onto the shelf.
+          open
+            ? 'translate-x-0 shadow-[-24px_0_60px_rgba(28,25,23,0.18)]'
+            : 'translate-x-full shadow-none',
         )}
         style={{
           transformOrigin: 'left center',
@@ -329,11 +333,17 @@ export function BookShelf() {
   };
 
   useEffect(() => {
-    const hash = window.location.hash.replace('#', '');
-    if (hash.startsWith('paper-')) {
-      const id = Number(hash.replace('paper-', ''));
-      if (publications.some((p) => p.id === id)) setSelectedId(id);
-    }
+    const openFromHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash.startsWith('paper-')) {
+        const id = Number(hash.replace('paper-', ''));
+        if (publications.some((p) => p.id === id)) setSelectedId(id);
+      }
+    };
+    openFromHash();
+    // also follow links to a paper made while already on this page
+    window.addEventListener('hashchange', openFromHash);
+    return () => window.removeEventListener('hashchange', openFromHash);
   }, []);
 
   return (
