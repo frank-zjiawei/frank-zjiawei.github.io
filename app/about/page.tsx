@@ -64,7 +64,7 @@ export default function AboutPage() {
                 alt="Jiawei Zhang standing in front of green doors"
                 fill
                 sizes="260px"
-                className="object-cover object-[52%_30%]"
+                className="object-cover object-[52%_50%]"
                 priority
               />
             </div>

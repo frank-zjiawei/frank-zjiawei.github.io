@@ -102,13 +102,13 @@ export function Hero() {
         {/* Comes after the text in source order, so on a phone the words
             lead and the photo follows; on wide screens it sits to the right. */}
         <figure style={delay(200)} className="rise">
-          <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl border border-hairline bg-surface-2 md:aspect-[4/5]">
+          <div className="relative aspect-[4/5] w-full max-w-[260px] overflow-hidden rounded-2xl border border-hairline bg-surface-2 md:max-w-none">
             <Image
               src="/images/portrait.jpg"
               alt="Jiawei Zhang standing in front of green doors"
               fill
-              sizes="(min-width: 768px) 280px, 100vw"
-              className="object-cover object-[52%_30%]"
+              sizes="(min-width: 768px) 280px, 260px"
+              className="object-cover object-[52%_50%]"
               priority
             />
           </div>
