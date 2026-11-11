@@ -149,9 +149,9 @@ export const affiliations: Affiliation[] = [
   },
   {
     orgId: 'mit',
-    role: 'Media Lab · AI Venture Studio · Sloan',
+    role: 'Media Lab · AI Venture Studio\nSloan School of Management',
     detail:
-      'Media Lab AI Venture Studio and MIT Sloan School of Management.',
+      'MIT Media Lab AI Venture Studio and MIT Sloan School of Management.',
     period: '2025 – 26',
     href: '/about#mit',
     cta: 'Education',
@@ -167,9 +167,9 @@ export const affiliations: Affiliation[] = [
   },
   {
     orgId: 'tsinghua-sigs',
-    role: 'Research Assistant',
+    role: 'School of Data and Information · Research Assistant',
     detail:
-      'Research Assistant at the School of Data and Information (数据与信息学院) on spatiotemporal multimodal decision agents and long-video reasoning.',
+      'Research Assistant at the School of Data and Information, Tsinghua Shenzhen International Graduate School, on spatiotemporal multimodal decision agents and long-video reasoning.',
     period: '2024 – 25',
     href: '/experience#tsinghua-sigs',
     cta: 'Research',
@@ -184,7 +184,7 @@ export const affiliations: Affiliation[] = [
   },
   {
     orgId: 'uoft',
-    role: 'Honours B.A.',
+    role: 'Honours B.A. · Specialist in Digital Enterprise Management',
     detail:
       'Honours Bachelor of Arts with High Distinction, Specialist in Digital Enterprise Management.',
     period: '2019 – 23',

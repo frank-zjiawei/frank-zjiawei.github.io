@@ -51,7 +51,7 @@ const registry = {
   },
   'tsinghua-sigs': {
     name: 'Tsinghua Shenzhen International Graduate School',
-    short: '数据与信息学院',
+    short: 'Tsinghua SIGS',
     logo: '/images/logos/tsinghua.png',
   },
   ubc: {
