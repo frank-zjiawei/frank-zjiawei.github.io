@@ -41,7 +41,7 @@ function Entry({ pub, note }: { pub: Publication; note?: string }) {
       >
         <div className="min-w-0">
           <h3 className="text-pretty font-serif text-lg leading-snug text-fg md:text-[1.3rem]">
-            <span className="bg-gradient-to-r from-gold/70 to-gold/70 bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 group-hover:bg-[length:100%_1px]">
+            <span className="bg-gradient-to-r from-fg to-fg bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 group-hover:bg-[length:100%_1px]">
               {pub.title}
             </span>
           </h3>
@@ -51,7 +51,7 @@ function Entry({ pub, note }: { pub: Publication; note?: string }) {
         </div>
         <div className="md:text-right">
           {badge ? (
-            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-gold">
+            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-fg">
               {badge}
             </p>
           ) : null}

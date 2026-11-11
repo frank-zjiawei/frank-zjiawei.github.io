@@ -26,7 +26,7 @@ export function Hero() {
               <span key={interest} className="whitespace-nowrap">
                 {interest}
                 {i < shown.length - 1 ? (
-                  <span className="ml-3 text-gold">·</span>
+                  <span className="ml-3 text-fg-faint">·</span>
                 ) : null}
               </span>
             ))}
@@ -78,7 +78,7 @@ export function Hero() {
             <a
               href={profile.cv.en}
               download
-              className="inline-flex items-center gap-2 rounded-full border border-hairline px-5 py-2.5 text-sm font-medium text-fg transition-colors hover:border-gold"
+              className="inline-flex items-center gap-2 rounded-full border border-hairline px-5 py-2.5 text-sm font-medium text-fg transition-colors hover:border-fg"
             >
               <Download className="h-4 w-4 text-fg-dim" strokeWidth={1.75} />
               CV

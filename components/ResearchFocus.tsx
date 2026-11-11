@@ -14,7 +14,7 @@ export function ResearchFocus() {
         <ol className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
           {researchThreads.map((thread, i) => (
             <li key={thread.id} className="flex flex-col border-t border-fg/80 pt-5">
-              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold">
+              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-fg-dim">
                 {String(i + 1).padStart(2, '0')}
               </p>
               <h3 className="mt-3 font-serif text-xl leading-snug text-fg">
@@ -27,7 +27,7 @@ export function ResearchFocus() {
                 href={thread.link.href}
                 className="group mt-5 inline-flex items-baseline gap-1.5 text-[13px] leading-snug text-fg"
               >
-                <span className="border-b border-gold/60 pb-px transition-colors group-hover:border-gold">
+                <span className="border-b border-fg/30 pb-px transition-colors group-hover:border-fg">
                   {thread.link.label}
                 </span>
                 <span

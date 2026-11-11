@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Project } from '@/content/projects';
 
 const linkClass =
-  'border-b border-gold/50 font-mono text-[11px] uppercase tracking-[0.14em] text-fg transition-colors hover:border-gold';
+  'border-b border-fg/30 font-mono text-[11px] uppercase tracking-[0.14em] text-fg transition-colors hover:border-fg';
 
 export function ProjectEntry({ project }: { project: Project }) {
   return (

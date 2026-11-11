@@ -330,7 +330,10 @@ export function NebulaFab() {
         <span className="nebula-orb__shadow" aria-hidden />
         <span className="nebula-orb__lift" aria-hidden>
           <span className="nebula-orb__ping" />
-          <canvas ref={canvasRef} className="nebula-orb__canvas" />
+          <span className="nebula-orb__body">
+            <span className="nebula-orb__glass" />
+            <canvas ref={canvasRef} className="nebula-orb__canvas" />
+          </span>
         </span>
       </button>
 

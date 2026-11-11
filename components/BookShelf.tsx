@@ -63,8 +63,8 @@ function BookCover({
         className={clsx(
           'relative aspect-[2/3] w-full overflow-hidden rounded-[2px] border bg-surface-2 shadow-[4px_6px_18px_rgba(0,0,0,0.12)] transition-[box-shadow,border-color] duration-300',
           selected
-            ? 'border-gold shadow-[6px_10px_24px_rgba(0,0,0,0.18)]'
-            : 'border-hairline group-hover:border-gold/50',
+            ? 'border-fg shadow-[6px_10px_24px_rgba(0,0,0,0.18)]'
+            : 'border-hairline group-hover:border-fg/40',
         )}
       >
         <span
@@ -108,7 +108,7 @@ function BookCover({
         ) : null}
 
         {pub.award ? (
-          <span className="absolute right-2 top-2 max-w-[70%] truncate rounded-sm bg-gold/95 px-1.5 py-0.5 font-mono text-[8px] uppercase tracking-[0.12em] text-[#1c1917]">
+          <span className="absolute right-2 top-2 max-w-[70%] truncate rounded-sm bg-fg px-1.5 py-0.5 font-mono text-[8px] uppercase tracking-[0.12em] text-surface">
             {pub.award}
           </span>
         ) : null}
@@ -117,7 +117,7 @@ function BookCover({
       <span
         aria-hidden
         className={clsx(
-          'mx-auto mt-3 h-[2px] w-10 origin-center bg-gold transition-transform duration-300',
+          'mx-auto mt-3 h-[2px] w-10 origin-center bg-fg transition-transform duration-300',
           selected ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100',
         )}
       />
@@ -162,7 +162,7 @@ function BookPagePanel({
         aria-label="Close paper"
         onClick={onClose}
         className={clsx(
-          'absolute inset-0 bg-[#1c1917]/35 backdrop-blur-[2px] transition-opacity duration-300',
+          'absolute inset-0 bg-black/40 backdrop-blur-[2px] transition-opacity duration-300',
           open ? 'opacity-100' : 'opacity-0',
         )}
       />
@@ -173,7 +173,7 @@ function BookPagePanel({
         aria-modal="true"
         aria-label={pub ? pub.shortTitle : 'Paper detail'}
         className={clsx(
-          'relative z-10 flex h-full w-full max-w-xl flex-col border-l border-[#d6cbb8] bg-[rgb(var(--surface))] transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:max-w-[34rem]',
+          'relative z-10 flex h-full w-full max-w-xl flex-col border-l border-hairline bg-[rgb(var(--surface))] transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:max-w-[34rem]',
           // The shadow belongs to the open page only: while the page is parked
           // off-screen, its shadow would otherwise spill back onto the shelf.
           open
@@ -187,11 +187,11 @@ function BookPagePanel({
         {/* binding / gutter — reads as the book hinge */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#b8a88c]/55 via-[#e8dfd0]/35 to-transparent"
+          className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-black/[0.08] via-black/[0.03] to-transparent"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 w-px bg-[#c4b59a]/80"
+          className="pointer-events-none absolute inset-y-0 left-0 w-px bg-hairline"
         />
 
         <header className="relative z-10 flex items-start justify-between gap-4 border-b border-hairline px-6 py-5 pl-10 md:px-8 md:pl-12">
@@ -220,14 +220,14 @@ function BookPagePanel({
                   className={clsx(
                     'rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.15em]',
                     pub.status === 'published'
-                      ? 'border-gold/50 bg-gold/10 text-fg'
+                      ? 'border-fg/40 bg-fg/5 text-fg'
                       : 'border-hairline text-fg-dim',
                   )}
                 >
                   {STATUS_LABEL[pub.status]}
                 </span>
                 {pub.award ? (
-                  <span className="rounded-full border border-gold/60 bg-gold/15 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.15em] text-fg">
+                  <span className="rounded-full border border-fg bg-fg px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.15em] text-surface">
                     {pub.award}
                   </span>
                 ) : null}
@@ -243,7 +243,7 @@ function BookPagePanel({
                 {pub.authors}
               </p>
               {pub.venue ? (
-                <p className="mt-3 border-l-2 border-gold/50 pl-3 font-mono text-[11px] leading-relaxed text-fg-faint">
+                <p className="mt-3 border-l-2 border-fg/30 pl-3 font-mono text-[11px] leading-relaxed text-fg-faint">
                   {pub.venue}
                 </p>
               ) : null}
@@ -254,7 +254,7 @@ function BookPagePanel({
                     href={pub.pdf}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 border border-fg px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.18em] text-fg transition-colors hover:border-gold hover:bg-gold/10"
+                    className="inline-flex items-center gap-2 border border-fg px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.18em] text-fg transition-colors hover:bg-fg hover:text-surface"
                   >
                     Open paper PDF
                     <span aria-hidden>↗</span>
@@ -378,7 +378,7 @@ export function BookShelf() {
               </ul>
               <div
                 aria-hidden
-                className="mt-2 h-[3px] w-full bg-gradient-to-r from-hairline via-[#c4b59a] to-hairline shadow-[0_6px_10px_rgba(0,0,0,0.08)]"
+                className="mt-2 h-[3px] w-full bg-gradient-to-r from-hairline via-fg-faint to-hairline shadow-[0_6px_10px_rgba(0,0,0,0.08)]"
               />
             </div>
           </section>

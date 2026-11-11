@@ -34,7 +34,7 @@ const CONTACTS: { label: string; href: string; display: string }[] = [
 ];
 
 const inlineLink =
-  'border-b border-gold/60 text-fg transition-colors hover:border-gold';
+  'border-b border-fg/30 text-fg transition-colors hover:border-fg';
 
 function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (

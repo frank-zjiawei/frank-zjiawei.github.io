@@ -19,7 +19,6 @@ const config: Config = {
         'fg-faint': 'rgb(var(--fg-faint) / <alpha-value>)',
         hairline: 'rgb(var(--hairline) / <alpha-value>)',
         accent: 'rgb(var(--accent) / <alpha-value>)',
-        gold: 'rgb(var(--gold) / <alpha-value>)',
       },
       fontFamily: {
         serif: ['var(--font-serif)', '"Libre Baskerville"', 'Georgia', 'serif'],
