@@ -29,7 +29,7 @@ const registry = {
   },
   hbs: {
     name: 'Harvard Business School',
-    short: 'HBS',
+    short: 'Harvard Business School',
     logo: '/images/logos/hbs.png',
   },
   'harvard-ilab': {
