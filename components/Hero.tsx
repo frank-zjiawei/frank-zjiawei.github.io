@@ -16,7 +16,7 @@ const noBreakHyphens = (text: string) =>
 export function Hero() {
   return (
     <section className="container-prose pt-14 pb-16 md:pt-24 md:pb-24">
-      <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-[minmax(0,1fr)_300px] md:gap-16">
+      <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-[minmax(0,1fr)_280px] md:gap-16">
         <div className="min-w-0">
           <p
             style={delay(0)}
@@ -99,14 +99,16 @@ export function Hero() {
           </div>
         </div>
 
-        <figure style={delay(120)} className="rise order-first md:order-last">
-          <div className="relative h-28 w-28 overflow-hidden rounded-full border border-hairline bg-surface-2 md:aspect-[4/5] md:h-auto md:w-full md:rounded-[22px] md:shadow-[0_28px_60px_-32px_rgba(var(--shadow),0.5)]">
+        {/* Comes after the text in source order, so on a phone the words
+            lead and the photo follows; on wide screens it sits to the right. */}
+        <figure style={delay(200)} className="rise">
+          <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl border border-hairline bg-surface-2 md:aspect-[4/5]">
             <Image
-              src="/images/profile-900.jpg"
-              alt="Portrait of Jiawei Zhang"
+              src="/images/portrait.jpg"
+              alt="Jiawei Zhang standing in front of green doors"
               fill
-              sizes="(min-width: 768px) 300px, 112px"
-              className="object-cover object-[50%_18%]"
+              sizes="(min-width: 768px) 280px, 100vw"
+              className="object-cover object-[52%_30%]"
               priority
             />
           </div>

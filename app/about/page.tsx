@@ -60,11 +60,11 @@ export default function AboutPage() {
           <figure className="md:sticky md:top-28 md:self-start">
             <div className="relative aspect-[4/5] w-full max-w-[260px] overflow-hidden rounded-[20px] border border-hairline bg-surface-2">
               <Image
-                src="/images/profile-900.jpg"
-                alt="Portrait of Jiawei Zhang"
+                src="/images/portrait.jpg"
+                alt="Jiawei Zhang standing in front of green doors"
                 fill
                 sizes="260px"
-                className="object-cover object-[50%_18%]"
+                className="object-cover object-[52%_30%]"
                 priority
               />
             </div>
@@ -72,6 +72,8 @@ export default function AboutPage() {
               {profile.name} · {profile.pronunciation}
               <br />
               {profile.location}
+              <br />
+              <span className="text-fg-faint">Photo: Evgenia Eliseeva</span>
             </figcaption>
           </figure>
 

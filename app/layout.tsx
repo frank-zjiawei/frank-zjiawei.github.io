@@ -50,10 +50,10 @@ export const metadata: Metadata = {
     title: 'Jiawei Zhang — AI in Education · Learning Analytics',
     description: profile.metaDescription,
     type: 'website',
-    images: [{ url: '/images/profile-900.jpg', width: 886, height: 900 }],
+    images: [{ url: '/images/portrait.jpg', width: 1600, height: 1067 }],
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
   },
 };
 
