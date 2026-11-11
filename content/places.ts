@@ -1,60 +1,59 @@
-/** Photo slots for Home / About — drop files into public/images/places/ */
+/**
+ * Photo slots for the Home and About pages.
+ *
+ * To fill a slot, drop a photo named after its `id` into
+ * public/images/places/ — for example `toronto.jpg`. JPG, PNG, and WebP all
+ * work. A slot only appears on the live site once its photo exists, so
+ * visitors never see an empty frame.
+ */
 export interface PlaceSlot {
   id: string;
   title: string;
   subtitle: string;
-  /** Path under /public — leave file missing until you drop the photo in */
-  image: string;
   href?: string;
 }
 
 export const placeSlots: PlaceSlot[] = [
   {
-    id: 'toronto',
-    title: 'Toronto',
-    subtitle: 'University of Toronto',
-    image: '/images/places/toronto.jpg',
-    href: '/about#uoft',
-  },
-  {
-    id: 'vancouver',
-    title: 'Vancouver',
-    subtitle: 'UBC Sauder · MBAN',
-    image: '/images/places/vancouver.jpg',
-    href: '/about#ubc',
-  },
-  {
-    id: 'tsinghua',
-    title: 'Tsinghua',
-    subtitle: 'Beijing',
-    image: '/images/places/tsinghua.jpg',
-  },
-  {
     id: 'harvard-gse',
     title: 'Harvard Graduate School of Education',
     subtitle: 'Cambridge, MA',
-    image: '/images/places/harvard-gse.jpg',
     href: '/about#harvard',
-  },
-  {
-    id: 'harvard-business-school',
-    title: 'Harvard Business School',
-    subtitle: 'Foundry · Boston',
-    image: '/images/places/harvard-business-school.jpg',
-    href: '/experience#hbs-foundry',
   },
   {
     id: 'mit',
     title: 'MIT',
     subtitle: 'Cambridge, MA',
-    image: '/images/places/mit.jpg',
     href: '/about#mit',
   },
   {
+    id: 'harvard-business-school',
+    title: 'Harvard Business School',
+    subtitle: 'Foundry · Boston, MA',
+    href: '/experience#hbs-foundry',
+  },
+  {
     id: 'innovation-lab',
-    title: 'Harvard Innovation Lab',
+    title: 'Harvard Innovation Labs',
     subtitle: 'President’s Innovation Challenge',
-    image: '/images/places/innovation-lab.jpg',
     href: '/experience#harvard-ilab',
+  },
+  {
+    id: 'tsinghua',
+    title: 'Tsinghua SIGS',
+    subtitle: 'Shenzhen, China',
+    href: '/experience#tsinghua-sigs',
+  },
+  {
+    id: 'vancouver',
+    title: 'Vancouver',
+    subtitle: 'UBC Sauder School of Business',
+    href: '/about#ubc',
+  },
+  {
+    id: 'toronto',
+    title: 'Toronto',
+    subtitle: 'University of Toronto',
+    href: '/about#uoft',
   },
 ];

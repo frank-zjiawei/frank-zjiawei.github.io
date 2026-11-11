@@ -1,11 +1,14 @@
 import Link from 'next/link';
 import type { Project } from '@/content/projects';
 
+const linkClass =
+  'border-b border-gold/50 font-mono text-[11px] uppercase tracking-[0.14em] text-fg transition-colors hover:border-gold';
+
 export function ProjectEntry({ project }: { project: Project }) {
   return (
     <article
       id={project.id}
-      className="group grid grid-cols-1 gap-6 border-t border-hairline py-10 md:grid-cols-[200px_1fr] md:gap-10"
+      className="group grid scroll-mt-28 grid-cols-1 gap-6 border-t border-hairline py-10 first:border-t-0 md:grid-cols-[200px_1fr] md:gap-10"
     >
       <div className="space-y-2 md:sticky md:top-24 md:self-start">
         <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-fg-dim">
@@ -15,18 +18,6 @@ export function ProjectEntry({ project }: { project: Project }) {
           {project.role}
         </p>
         <p className="font-mono text-[11px] text-fg-faint">{project.location}</p>
-        {project.link ? (
-          <p className="pt-2">
-            <Link
-              href={project.link.href}
-              target="_blank"
-              rel="noreferrer"
-              className="border-b border-gold/50 font-mono text-[11px] uppercase tracking-[0.14em] text-fg transition-colors hover:border-gold"
-            >
-              {project.link.label} ↗
-            </Link>
-          </p>
-        ) : null}
       </div>
 
       <div>
@@ -49,7 +40,7 @@ export function ProjectEntry({ project }: { project: Project }) {
               key={h}
               className="flex gap-3 text-sm leading-relaxed text-fg-muted"
             >
-              <span className="mt-2 h-px w-3 shrink-0 bg-fg-faint" />
+              <span className="mt-2.5 h-px w-3 shrink-0 bg-fg-faint" />
               <span>{h}</span>
             </li>
           ))}
@@ -65,6 +56,32 @@ export function ProjectEntry({ project }: { project: Project }) {
             </span>
           ))}
         </div>
+
+        {project.links?.length ? (
+          <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
+            {project.links.map((link) => {
+              const internal = link.href.startsWith('/');
+              return (
+                <li key={link.href}>
+                  {internal ? (
+                    <Link href={link.href} className={linkClass}>
+                      {link.label} →
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={linkClass}
+                    >
+                      {link.label} ↗
+                    </a>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        ) : null}
       </div>
     </article>
   );

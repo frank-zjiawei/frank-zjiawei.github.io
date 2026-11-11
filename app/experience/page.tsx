@@ -4,7 +4,7 @@ import { ExperienceTabs } from '@/components/ExperienceTabs';
 export const metadata = {
   title: 'Experience',
   description:
-    'Professional experience and projects — Harvard Graduate School of Education LIT Lab, Harvard Business School Foundry, AI ventures, and analytics roles.',
+    'Research, professional, and leadership experience — Harvard Graduate School of Education Learning Innovation and Technology Lab, Tsinghua Shenzhen International Graduate School, and Harvard Business School Foundry.',
 };
 
 export default function ExperiencePage() {
@@ -13,7 +13,7 @@ export default function ExperiencePage() {
       <PageHeader
         eyebrow="Experience"
         title="Experience"
-        description="Professional roles and selected projects — research, analytics, AI engineering, and ventures."
+        description="Research first, then the professional roles and team projects that shaped how I work."
       />
       <div className="container-prose pb-24">
         <ExperienceTabs />

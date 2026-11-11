@@ -1,96 +1,117 @@
-'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowRight, Download } from 'lucide-react';
+import { profile } from '@/content/profile';
 
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+/**
+ * Staggered entrance for elements with the `rise` class. Pure CSS, so the
+ * text is readable before (or without) any JavaScript.
+ */
+const delay = (ms: number) => ({ animationDelay: `${ms}ms` });
 
-const ROLES = [
-  'Researcher',
-  'Learning Designer',
-  'Analytics & BD',
-];
+/** Keep compounds like "hands-on" on one line in large display type. */
+const noBreakHyphens = (text: string) =>
+  text.replace(/(\w)-(\w)/g, '$1\u2011$2');
 
 export function Hero() {
-  const [index, setIndex] = useState(0);
-  const [display, setDisplay] = useState('');
-  const [phase, setPhase] = useState<'typing' | 'holding' | 'deleting'>('typing');
-
-  useEffect(() => {
-    const target = ROLES[index];
-    let timeout: ReturnType<typeof setTimeout>;
-
-    if (phase === 'typing') {
-      if (display.length < target.length) {
-        timeout = setTimeout(() => setDisplay(target.slice(0, display.length + 1)), 70);
-      } else {
-        timeout = setTimeout(() => setPhase('holding'), 1600);
-      }
-    } else if (phase === 'holding') {
-      timeout = setTimeout(() => setPhase('deleting'), 400);
-    } else {
-      if (display.length > 0) {
-        timeout = setTimeout(() => setDisplay(target.slice(0, display.length - 1)), 32);
-      } else {
-        setIndex((i) => (i + 1) % ROLES.length);
-        setPhase('typing');
-      }
-    }
-
-    return () => clearTimeout(timeout);
-  }, [display, phase, index]);
-
   return (
-    <section className="container-prose pt-24 pb-12 md:pt-32 md:pb-16">
-      <motion.p
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="section-eyebrow"
-      >
-        Portfolio · 2026
-      </motion.p>
+    <section className="container-prose pt-14 pb-16 md:pt-24 md:pb-24">
+      <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-[minmax(0,1fr)_300px] md:gap-16">
+        <div className="min-w-0">
+          <p
+            style={delay(0)}
+            className="rise flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-[0.22em] text-fg-dim md:text-[11px]"
+          >
+            {profile.interests.slice(0, 3).map((interest, i, shown) => (
+              <span key={interest} className="whitespace-nowrap">
+                {interest}
+                {i < shown.length - 1 ? (
+                  <span className="ml-3 text-gold">·</span>
+                ) : null}
+              </span>
+            ))}
+          </p>
 
-      <motion.h1
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.08 }}
-        className="mt-6 font-serif text-[clamp(2.5rem,7vw,5.25rem)] font-normal leading-[1.05] tracking-tight text-fg"
-      >
-        Jiawei Zhang
-      </motion.h1>
+          <h1
+            style={delay(60)}
+            className="rise mt-6 font-serif text-[clamp(2.6rem,6.4vw,4.75rem)] font-normal leading-[1.04] tracking-tight text-fg"
+          >
+            {profile.name}
+          </h1>
 
-      <motion.p
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.14 }}
-        className="mt-3 font-mono text-xs tracking-[0.15em] text-fg-dim md:text-[13px]"
-        aria-label="Name pronunciation: Jee-ah-way Jahng"
-      >
-        <span className="text-fg-muted">| Jee-ah-way |</span>{' '}
-        <span className="text-fg-muted">| Jahng |</span>
-      </motion.p>
+          <p
+            style={delay(110)}
+            className="rise mt-3 font-mono text-xs tracking-[0.12em] text-fg-dim md:text-[13px]"
+          >
+            <span aria-label={`Pronounced ${profile.pronunciation}`}>
+              {profile.pronunciation}
+            </span>
+            <span className="mx-2 text-fg-faint">·</span>
+            goes by {profile.preferredName}
+          </p>
 
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="mt-6 font-mono text-sm text-fg-muted md:text-base"
-      >
-        <span className="text-fg-dim">I am a </span>
-        <span className="text-fg">{display}</span>
-        <span className="ml-0.5 inline-block h-[1em] w-[1px] animate-pulse-slow bg-fg-muted align-middle" />
-      </motion.p>
+          <p
+            style={delay(170)}
+            className="rise mt-8 max-w-2xl text-pretty font-serif text-[1.35rem] leading-[1.45] text-fg md:text-[1.7rem] md:leading-[1.4]"
+          >
+            {noBreakHyphens(profile.statement)}
+          </p>
 
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        className="mt-8 max-w-2xl text-pretty text-base leading-relaxed text-fg-muted md:text-lg"
-      >
-        Researcher at the Harvard Graduate School of Education&apos;s Learning
-        Innovation and Technology Lab. Business Analytics &amp; BD member at
-        Harvard Business School Foundry. Working at the intersection of AI,
-        learning design, and analytics.
-      </motion.p>
+          <p
+            style={delay(230)}
+            className="rise mt-6 max-w-2xl text-pretty text-base leading-relaxed text-fg-muted md:text-[17px]"
+          >
+            {profile.intro}
+          </p>
+
+          <div style={delay(300)} className="rise mt-9 flex flex-wrap items-center gap-x-3 gap-y-4">
+            <Link
+              href="/research/"
+              className="group inline-flex items-center gap-2 rounded-full bg-fg px-5 py-2.5 text-sm font-medium text-surface transition-opacity hover:opacity-85"
+            >
+              Read the papers
+              <ArrowRight
+                className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                strokeWidth={1.75}
+              />
+            </Link>
+            <a
+              href={profile.cv.en}
+              download
+              className="inline-flex items-center gap-2 rounded-full border border-hairline px-5 py-2.5 text-sm font-medium text-fg transition-colors hover:border-gold"
+            >
+              <Download className="h-4 w-4 text-fg-dim" strokeWidth={1.75} />
+              CV
+            </a>
+            <span className="flex items-center gap-x-5 font-mono text-[11px] uppercase tracking-[0.16em] text-fg-muted sm:pl-2">
+              <a
+                href={profile.links.scholar}
+                target="_blank"
+                rel="noreferrer"
+                className="link-quiet"
+              >
+                Google Scholar
+              </a>
+              <a href={`mailto:${profile.email}`} className="link-quiet">
+                Email
+              </a>
+            </span>
+          </div>
+        </div>
+
+        <figure style={delay(120)} className="rise order-first md:order-last">
+          <div className="relative h-28 w-28 overflow-hidden rounded-full border border-hairline bg-surface-2 md:aspect-[4/5] md:h-auto md:w-full md:rounded-[22px] md:shadow-[0_28px_60px_-32px_rgba(var(--shadow),0.5)]">
+            <Image
+              src="/images/profile-900.jpg"
+              alt="Portrait of Jiawei Zhang"
+              fill
+              sizes="(min-width: 768px) 300px, 112px"
+              className="object-cover object-[50%_18%]"
+              priority
+            />
+          </div>
+        </figure>
+      </div>
     </section>
   );
 }

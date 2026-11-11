@@ -6,6 +6,7 @@ import { Footer } from '@/components/Footer';
 import { CommandMenu } from '@/components/CommandMenu';
 import { ConstructionBanner } from '@/components/ConstructionBanner';
 import { NebulaFab } from '@/components/NebulaFab';
+import { profile } from '@/content/profile';
 
 const serif = Libre_Baskerville({
   subsets: ['latin'],
@@ -30,30 +31,29 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://frank-zjiawei.github.io'),
   title: {
-    default: 'Jiawei Zhang — Researcher · Analytics · Learning Design',
+    default: 'Jiawei Zhang — AI in Education · Learning Analytics',
     template: '%s — Jiawei Zhang',
   },
-  description:
-    'Personal site of Jiawei Zhang. Researcher at the Harvard Graduate School of Education LIT Lab · Business Analytics & BD at Harvard Business School Foundry.',
+  description: profile.metaDescription,
   keywords: [
     'Jiawei Zhang',
     'Frank Zhang',
+    'AI in Education',
+    'Learning Sciences',
+    'Learning Analytics',
+    'Multimodal Learning Analytics',
     'Harvard Graduate School of Education',
-    'Harvard Business School Foundry',
-    'MIT',
-    'Learning Design',
-    'Business Analytics',
-    'Portfolio',
+    'Learning Innovation and Technology Lab',
   ],
   authors: [{ name: 'Jiawei Zhang' }],
   openGraph: {
-    title: 'Jiawei Zhang',
-    description:
-      'Researcher at the Harvard Graduate School of Education · Analytics & BD at Harvard Business School Foundry.',
+    title: 'Jiawei Zhang — AI in Education · Learning Analytics',
+    description: profile.metaDescription,
     type: 'website',
+    images: [{ url: '/images/profile-900.jpg', width: 886, height: 900 }],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
   },
 };
 

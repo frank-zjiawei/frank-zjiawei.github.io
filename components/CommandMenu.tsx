@@ -15,7 +15,9 @@ import {
   Github,
   FileDown,
   Dumbbell,
+  GraduationCap,
 } from 'lucide-react';
+import { profile } from '@/content/profile';
 
 const ITEMS = [
   { href: '/', label: 'Home', icon: Home, group: 'Navigate' },
@@ -23,7 +25,7 @@ const ITEMS = [
   { href: '/about/interests', label: 'Interests · Boxing', icon: Dumbbell, group: 'Navigate' },
   { href: '/experience', label: 'Experience', icon: Briefcase, group: 'Navigate' },
   { href: '/research', label: 'Papers', icon: BookOpen, group: 'Navigate' },
-  { href: '/graph', label: 'Nav Nebula (full graph)', icon: Network, group: 'Navigate' },
+  { href: '/graph', label: 'Site map (full graph)', icon: Network, group: 'Navigate' },
   {
     href: '/cv/Jiawei_Zhang_CV_EN.pdf',
     label: 'Download CV — English',
@@ -39,9 +41,16 @@ const ITEMS = [
     external: true,
   },
   {
-    href: 'mailto:frankwei312@gmail.com',
+    href: `mailto:${profile.email}`,
     label: 'Email Jiawei',
     icon: Mail,
+    group: 'Connect',
+    external: true,
+  },
+  {
+    href: profile.links.scholar,
+    label: 'Google Scholar',
+    icon: GraduationCap,
     group: 'Connect',
     external: true,
   },
