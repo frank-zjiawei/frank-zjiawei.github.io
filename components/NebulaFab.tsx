@@ -21,7 +21,7 @@ const KnowledgeGraph = dynamic(
 
 type Corner = 'tl' | 'tr' | 'bl' | 'br';
 
-const SIZE = 112; // ~3.5× theme toggle (32px)
+const SIZE = 96;
 const MARGIN = 24;
 const STORAGE_KEY = 'nebula-corner';
 const HINT_KEY = 'nebula-hint-seen';
@@ -173,20 +173,17 @@ export function NebulaFab() {
       {/* hint bubble */}
       {showHint && !open ? (
         <div
-          className="pointer-events-none fixed z-[45] w-[168px] rounded-2xl border border-hairline bg-surface/95 px-3 py-2 text-center shadow-lg backdrop-blur-md"
+          className="pointer-events-none fixed z-[45] w-[150px] rounded-xl border border-hairline bg-surface/95 px-3 py-2 text-center shadow-[0_8px_24px_rgba(var(--shadow),0.12)] backdrop-blur-md"
           style={{
             left:
               corner === 'tr' || corner === 'br'
-                ? Math.max(12, pos.x - 56)
+                ? Math.max(12, pos.x - 48)
                 : pos.x,
-            top: Math.max(12, pos.y - 62),
+            top: Math.max(12, pos.y - 56),
           }}
         >
-          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fg">
-            Look here · Nebula
-          </p>
-          <p className="mt-0.5 text-[11px] leading-snug text-fg-muted">
-            Tap to open · drag to any corner
+          <p className="text-[11px] leading-snug text-fg-muted">
+            Tap to open · drag to a corner
           </p>
         </div>
       ) : null}
@@ -197,8 +194,8 @@ export function NebulaFab() {
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
-        aria-label="Open Nav Nebula — drag to move"
-        title="Nav Nebula — drag to a corner"
+        aria-label="Open site map — drag to move"
+        title="Site map — drag to a corner"
         className={clsx(
           'nebula-orb fixed z-40 touch-none select-none',
           dragging ? 'cursor-grabbing' : 'cursor-grab',
@@ -214,37 +211,37 @@ export function NebulaFab() {
             : 'left 320ms cubic-bezier(0.22,1,0.36,1), top 320ms cubic-bezier(0.22,1,0.36,1)',
         }}
       >
-        <span className="nebula-orb__glow" aria-hidden />
-        <span className="nebula-orb__ring" aria-hidden />
+        <span className="nebula-orb__shadow" aria-hidden />
         <span className="nebula-orb__core" aria-hidden>
+          <span className="nebula-orb__grain" />
           <span className="nebula-orb__shine" />
-          <span className="nebula-orb__label">Nebula</span>
         </span>
+        <span className="nebula-orb__rim" aria-hidden />
       </button>
 
       {open ? (
         <div className="fixed inset-0 z-[70] flex items-end justify-center p-3 sm:p-6 md:items-center md:p-8">
           <button
             type="button"
-            aria-label="Close Nav Nebula"
-            className="absolute inset-0 bg-[#0b1020]/55 backdrop-blur-[3px]"
+            aria-label="Close site map"
+            className="absolute inset-0 bg-[rgb(var(--fg))]/35 backdrop-blur-[2px]"
             onClick={() => setOpen(false)}
           />
           <div
             role="dialog"
             aria-modal="true"
-            aria-label="Nav Nebula"
-            className="relative z-10 flex h-[min(88vh,820px)] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-white/20 bg-surface shadow-[0_24px_80px_rgba(10,16,40,0.35)] md:rounded-3xl"
+            aria-label="Site map"
+            className="relative z-10 flex h-[min(88vh,820px)] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-hairline bg-surface shadow-[0_24px_64px_rgba(var(--shadow),0.22)] md:rounded-3xl"
           >
             <header className="flex items-start justify-between gap-4 border-b border-hairline px-5 py-4 md:px-6">
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-fg-dim">
-                  Site map
+                  Navigation
                 </p>
-                <h2 className="mt-1 font-serif text-2xl text-fg">Nav Nebula</h2>
+                <h2 className="mt-1 font-serif text-2xl text-fg">Site map</h2>
                 <p className="mt-1 max-w-xl text-sm text-fg-muted">
-                  Three hubs: About · Experience · Papers. Drag a node, hover to
-                  see links, click to open.
+                  About · Experience · Papers. Drag a node, hover for links,
+                  click to open.
                 </p>
               </div>
               <div className="flex shrink-0 items-center gap-3">
