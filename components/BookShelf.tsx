@@ -234,7 +234,9 @@ function BookPagePanel({
                       : 'border-hairline text-fg-dim',
                   )}
                 >
-                  {STATUS_LABEL[pub.status]}
+                  {locale === 'zh'
+                    ? STATUS_LABEL_ZH[pub.status]
+                    : STATUS_LABEL[pub.status]}
                 </span>
                 {pub.award ? (
                   <span className="rounded-full border border-accent bg-accent px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.15em] text-accent-fg">
