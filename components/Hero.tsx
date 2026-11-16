@@ -51,7 +51,7 @@ export function Hero() {
             style={delay(60)}
             className="rise mt-6 font-serif text-[clamp(2.6rem,6.4vw,4.75rem)] font-normal leading-[1.04] tracking-tight text-fg"
           >
-            {locale === 'zh' ? '张嘉炜' : profile.name}
+            {locale === 'zh' ? '张家炜' : profile.name}
           </h1>
 
           <p

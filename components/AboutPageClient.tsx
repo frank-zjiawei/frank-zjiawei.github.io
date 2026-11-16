@@ -61,7 +61,7 @@ export function AboutPageClient() {
               />
             </div>
             <figcaption className="mt-4 font-mono text-[11px] leading-relaxed tracking-[0.06em] text-fg-dim">
-              {locale === 'zh' ? '张嘉炜' : profile.name} ·{' '}
+              {locale === 'zh' ? '张家炜' : profile.name} ·{' '}
               {profile.pronunciation}
               <br />
               {location}
@@ -80,7 +80,7 @@ export function AboutPageClient() {
             {locale === 'zh' ? (
               <>
                 <p>
-                  我是张嘉炜，也叫 {profile.preferredName}。我在
+                  我是张家炜，也叫 {profile.preferredName}。我在
                   <a
                     href="https://lit.gse.harvard.edu/"
                     target="_blank"

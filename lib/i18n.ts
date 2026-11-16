@@ -34,7 +34,7 @@ export const ui = {
     email: { en: 'Email', zh: '邮箱' },
     portraitAlt: {
       en: 'Jiawei Zhang standing in front of green doors',
-      zh: '张嘉炜站在绿色门前',
+      zh: '张家炜站在绿色门前',
     },
   },
   affiliations: {
@@ -118,7 +118,7 @@ export const ui = {
     graph: { en: 'Site map (full graph)', zh: '站点地图（完整图谱）' },
     cvEn: { en: 'Download CV — English', zh: '下载简历 — English' },
     cvZh: { en: '下载简历 — 中文', zh: '下载简历 — 中文' },
-    email: { en: 'Email Jiawei', zh: '给嘉炜发邮件' },
+    email: { en: 'Email Jiawei', zh: '给家炜发邮件' },
   },
   language: {
     switchToZh: { en: 'Switch to Chinese', zh: '切换到中文' },

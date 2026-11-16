@@ -9,7 +9,7 @@ export function Footer() {
   const { locale, pick } = useTx();
   const location =
     locale === 'zh' ? zhProfile.location : profile.location;
-  const name = locale === 'zh' ? '张嘉炜' : profile.name;
+  const name = locale === 'zh' ? '张家炜' : profile.name;
 
   const links = [
     { label: pick(ui.footer.email), href: `mailto:${profile.email}` },
