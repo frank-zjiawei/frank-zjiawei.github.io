@@ -3,6 +3,10 @@ import path from 'node:path';
 import Image from 'next/image';
 import Link from 'next/link';
 import { placeSlots, type PlaceSlot } from '@/content/places';
+import { zhPlaces } from '@/content/zh';
+import { LocaleText } from '@/components/LocaleText';
+import type { Bilingual } from '@/lib/i18n';
+import { ui } from '@/lib/i18n';
 
 const PHOTO_DIR = path.join(process.cwd(), 'public', 'images', 'places');
 const EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp'];
@@ -18,6 +22,14 @@ function findPhoto(id: string): string | null {
 }
 
 function Tile({ place, photo }: { place: PlaceSlot; photo: string | null }) {
+  const zh = zhPlaces[place.id];
+  const title = (
+    <LocaleText en={place.title} zh={zh?.title ?? place.title} />
+  );
+  const subtitle = (
+    <LocaleText en={place.subtitle} zh={zh?.subtitle ?? place.subtitle} />
+  );
+
   const body = (
     <div className="relative aspect-[4/3] overflow-hidden bg-surface-2">
       {photo ? (
@@ -30,27 +42,22 @@ function Tile({ place, photo }: { place: PlaceSlot; photo: string | null }) {
             className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
           />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent p-4 pt-16">
-            <p className="font-serif text-lg leading-snug text-white">
-              {place.title}
-            </p>
+            <p className="font-serif text-lg leading-snug text-white">{title}</p>
             <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.16em] text-white/85">
-              {place.subtitle}
+              {subtitle}
             </p>
           </div>
         </>
       ) : (
-        // Only rendered while developing locally: shows where a photo will go.
         <div className="absolute inset-0 flex flex-col justify-between border border-dashed border-hairline p-4">
           <p className="font-mono text-[11px] text-fg-dim">
             public/images/places/
             <span className="text-fg">{place.id}.jpg</span>
           </p>
           <div>
-            <p className="font-serif text-lg leading-snug text-fg">
-              {place.title}
-            </p>
+            <p className="font-serif text-lg leading-snug text-fg">{title}</p>
             <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.16em] text-fg-dim">
-              {place.subtitle}
+              {subtitle}
             </p>
           </div>
         </div>
@@ -73,11 +80,11 @@ function Tile({ place, photo }: { place: PlaceSlot; photo: string | null }) {
  * shows the empty slots, labelled with the file name each one is waiting for.
  */
 export function PlaceGallery({
-  eyebrow = 'Places',
-  title = 'Where I’ve been',
+  eyebrow = ui.places.places,
+  title = ui.places.places,
 }: {
-  eyebrow?: string;
-  title?: string;
+  eyebrow?: Bilingual | string;
+  title?: Bilingual | string;
 }) {
   const showEmptySlots = process.env.NODE_ENV === 'development';
   const tiles = placeSlots
@@ -86,11 +93,26 @@ export function PlaceGallery({
 
   if (tiles.length === 0) return null;
 
+  const eyebrowNode =
+    typeof eyebrow === 'string' ? (
+      eyebrow
+    ) : (
+      <LocaleText en={eyebrow.en} zh={eyebrow.zh} />
+    );
+  const titleNode =
+    typeof title === 'string' ? (
+      title
+    ) : (
+      <LocaleText en={title.en} zh={title.zh} />
+    );
+
   return (
     <section className="border-t border-hairline">
       <div className="container-prose py-16 md:py-20">
-        <p className="section-eyebrow">{eyebrow}</p>
-        <h2 className="mt-3 font-serif text-2xl text-fg md:text-3xl">{title}</h2>
+        <p className="section-eyebrow">{eyebrowNode}</p>
+        <h2 className="mt-3 font-serif text-2xl text-fg md:text-3xl">
+          {titleNode}
+        </h2>
         {showEmptySlots && tiles.some((t) => !t.photo) ? (
           <p className="mt-3 max-w-2xl font-mono text-[11px] leading-relaxed text-fg-dim">
             Local preview only: dashed slots are hidden on the live site until

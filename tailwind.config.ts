@@ -22,8 +22,8 @@ const config: Config = {
         'accent-fg': 'rgb(var(--accent-fg) / <alpha-value>)',
       },
       fontFamily: {
-        serif: ['var(--font-serif)', '"Libre Baskerville"', 'Georgia', 'serif'],
-        sans: ['var(--font-sans)', '"Libre Franklin"', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-serif)', '"Libre Baskerville"', 'Georgia', '"Songti SC"', '"Noto Serif SC"', 'serif'],
+        sans: ['var(--font-sans)', '"Libre Franklin"', '"PingFang SC"', '"Hiragino Sans GB"', '"Noto Sans SC"', 'system-ui', 'sans-serif'],
         mono: ['var(--font-mono)', 'ui-monospace', 'monospace'],
       },
       letterSpacing: {

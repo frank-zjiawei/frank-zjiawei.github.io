@@ -5,17 +5,20 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { ThemeToggle } from './ThemeToggle';
+import { LanguageToggle } from './LanguageToggle';
+import { useLocale } from '@/lib/locale';
 import { CvMenu } from './CvMenu';
 
 const NAV_ITEMS = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About Me' },
-  { href: '/experience', label: 'Experience' },
-  { href: '/research', label: 'Papers' },
+  { href: '/', label: { en: 'Home', zh: '首页' } },
+  { href: '/about', label: { en: 'About Me', zh: '关于我' } },
+  { href: '/experience', label: { en: 'Experience', zh: '经历' } },
+  { href: '/research', label: { en: 'Papers', zh: '论文' } },
 ];
 
 export function Nav() {
   const pathname = usePathname();
+  const { locale } = useLocale();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -64,7 +67,7 @@ export function Nav() {
                     isActive(item.href) && 'text-fg',
                   )}
                 >
-                  {item.label}
+                  {item.label[locale]}
                 </Link>
               </li>
             ))}
@@ -85,6 +88,7 @@ export function Nav() {
               <span>K</span>
             </button>
 
+            <LanguageToggle />
             <ThemeToggle />
           </div>
         </nav>
@@ -104,7 +108,7 @@ export function Nav() {
                   isActive(item.href) && 'text-fg',
                 )}
               >
-                {item.label}
+                {item.label[locale]}
               </Link>
             </li>
           ))}

@@ -3,11 +3,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { ProjectEntry } from '@/components/ProjectEntry';
-import {
-  CATEGORY_LABEL,
-  projects,
-  type ExperienceCategory,
-} from '@/content/projects';
+import { projects, type ExperienceCategory } from '@/content/projects';
+import { ui } from '@/lib/i18n';
+import { useTx } from '@/components/LocaleText';
 
 const TABS: ExperienceCategory[] = ['research', 'professional', 'leadership'];
 
@@ -18,6 +16,7 @@ function categoryForHash(hash: string): ExperienceCategory | null {
 }
 
 export function ExperienceTabs() {
+  const { pick } = useTx();
   const [tab, setTab] = useState<ExperienceCategory>('research');
 
   // Deep links from the site map land on entries in any tab, so the tab has
@@ -44,7 +43,7 @@ export function ExperienceTabs() {
     <div>
       <div
         role="tablist"
-        aria-label="Experience categories"
+        aria-label={pick(ui.experience.title)}
         className="flex flex-wrap gap-2 border-b border-hairline pb-4"
       >
         {TABS.map((id) => {
@@ -65,7 +64,7 @@ export function ExperienceTabs() {
                   : 'border-hairline text-fg-muted hover:border-fg-muted hover:text-fg',
               )}
             >
-              {CATEGORY_LABEL[id]}
+              {pick(ui.experience.categories[id])}
             </button>
           );
         })}

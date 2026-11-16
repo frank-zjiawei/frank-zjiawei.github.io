@@ -6,6 +6,7 @@ import { Footer } from '@/components/Footer';
 import { CommandMenu } from '@/components/CommandMenu';
 import { ConstructionBanner } from '@/components/ConstructionBanner';
 import { NebulaFab } from '@/components/NebulaFab';
+import { LocaleProvider } from '@/lib/locale';
 import { profile } from '@/content/profile';
 
 const serif = Libre_Baskerville({
@@ -71,19 +72,21 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark');}}catch(e){}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark');}var l=localStorage.getItem('locale');if(l==='zh'){document.documentElement.lang='zh-CN';document.documentElement.dataset.locale='zh';}else{document.documentElement.lang='en';document.documentElement.dataset.locale='en';}}catch(e){}})();`,
           }}
         />
       </head>
       <body className="font-sans">
-        <div className="relative z-10 flex min-h-screen flex-col">
-          <ConstructionBanner />
-          <Nav />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
-        <NebulaFab />
-        <CommandMenu />
+        <LocaleProvider>
+          <div className="relative z-10 flex min-h-screen flex-col">
+            <ConstructionBanner />
+            <Nav />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+          <NebulaFab />
+          <CommandMenu />
+        </LocaleProvider>
       </body>
     </html>
   );

@@ -1,4 +1,11 @@
+'use client';
+
+import { ui } from '@/lib/i18n';
+import { useTx } from '@/components/LocaleText';
+
 export function ConstructionBanner() {
+  const { pick } = useTx();
+
   return (
     <div
       role="status"
@@ -11,8 +18,7 @@ export function ConstructionBanner() {
           className="inline-block h-1.5 w-1.5 animate-pulse-slow rounded-full bg-fg"
         />
         <p className="text-center font-mono text-[11px] uppercase tracking-[0.22em] text-fg-muted md:text-[12px]">
-          Portfolio is currently under construction
-          <span className="ml-1 text-fg-dim">— check back soon</span>
+          {pick(ui.banner)}
         </p>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { PageHeader } from '@/components/PageHeader';
 import { ExperienceTabs } from '@/components/ExperienceTabs';
+import { ui } from '@/lib/i18n';
 
 export const metadata = {
   title: 'Experience',
@@ -11,9 +12,9 @@ export default function ExperiencePage() {
   return (
     <>
       <PageHeader
-        eyebrow="Experience"
-        title="Experience"
-        description="Research first, then the professional roles and team projects that shaped how I work."
+        eyebrow={ui.experience.eyebrow}
+        title={ui.experience.title}
+        description={ui.experience.description}
       />
       <div className="container-prose pb-24">
         <ExperienceTabs />

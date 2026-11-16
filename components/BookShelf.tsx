@@ -9,6 +9,14 @@ import {
   type Publication,
   type PublicationStatus,
 } from '@/content/publications';
+import { useTx } from '@/components/LocaleText';
+
+const STATUS_LABEL_ZH: Record<PublicationStatus, string> = {
+  published: '已发表',
+  'under-review': '审稿中',
+  'ready-to-submit': '待投稿',
+  'working-paper': '工作论文',
+};
 
 const STATUS_ORDER: PublicationStatus[] = [
   'published',
@@ -134,6 +142,8 @@ function BookPagePanel({
   open: boolean;
   onClose: () => void;
 }) {
+  const { locale, t } = useTx();
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -159,7 +169,7 @@ function BookPagePanel({
       {/* dimmed shelf behind the open page */}
       <button
         type="button"
-        aria-label="Close paper"
+        aria-label={t('Close paper', '关闭论文')}
         onClick={onClose}
         className={clsx(
           'absolute inset-0 bg-black/40 backdrop-blur-[2px] transition-opacity duration-300',
@@ -256,12 +266,12 @@ function BookPagePanel({
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.18em] text-accent-fg transition-opacity hover:opacity-85"
                   >
-                    Open paper PDF
+                    {t('Open paper PDF', '打开论文 PDF')}
                     <span aria-hidden>↗</span>
                   </a>
                 ) : (
                   <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-fg-faint">
-                    Full text not public yet
+                    {t('Full text not public yet', '全文尚未公开')}
                   </p>
                 )}
                 {pub.awardImage ? (
@@ -271,7 +281,7 @@ function BookPagePanel({
                     rel="noreferrer"
                     className="font-mono text-[11px] uppercase tracking-[0.18em] text-fg-muted transition-colors hover:text-fg"
                   >
-                    Certificate ↗
+                    {t('Certificate ↗', '证书 ↗')}
                   </a>
                 ) : null}
               </div>
@@ -320,6 +330,7 @@ function BookPagePanel({
 }
 
 export function BookShelf() {
+  const { locale } = useTx();
   const groups = groupByStatus(publications);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const selected = publications.find((p) => p.id === selectedId) ?? null;
@@ -356,7 +367,9 @@ export function BookShelf() {
                 id={`shelf-${status}`}
                 className="font-mono text-[11px] uppercase tracking-[0.25em] text-fg-dim"
               >
-                {STATUS_LABEL[status]}
+                {locale === 'zh'
+                  ? STATUS_LABEL_ZH[status]
+                  : STATUS_LABEL[status]}
                 <span className="ml-2 text-fg-faint">· {items.length}</span>
               </p>
             </div>

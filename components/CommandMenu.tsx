@@ -18,68 +18,13 @@ import {
   GraduationCap,
 } from 'lucide-react';
 import { profile } from '@/content/profile';
-
-const ITEMS = [
-  { href: '/', label: 'Home', icon: Home, group: 'Navigate' },
-  { href: '/about', label: 'About Me', icon: User, group: 'Navigate' },
-  { href: '/about/interests', label: 'Interests · Boxing', icon: Dumbbell, group: 'Navigate' },
-  { href: '/experience', label: 'Experience', icon: Briefcase, group: 'Navigate' },
-  { href: '/research', label: 'Papers', icon: BookOpen, group: 'Navigate' },
-  { href: '/graph', label: 'Site map (full graph)', icon: Network, group: 'Navigate' },
-  {
-    href: '/cv/Jiawei_Zhang_CV_EN.pdf',
-    label: 'Download CV — English',
-    icon: FileDown,
-    group: 'Downloads',
-    external: true,
-  },
-  {
-    href: '/cv/Jiawei_Zhang_CV_CN.pdf',
-    label: '下载简历 — 中文',
-    icon: FileDown,
-    group: 'Downloads',
-    external: true,
-  },
-  {
-    href: `mailto:${profile.email}`,
-    label: 'Email Jiawei',
-    icon: Mail,
-    group: 'Connect',
-    external: true,
-  },
-  {
-    href: profile.links.scholar,
-    label: 'Google Scholar',
-    icon: GraduationCap,
-    group: 'Connect',
-    external: true,
-  },
-  {
-    href: 'https://www.instagram.com/frankjiaweizhang/',
-    label: 'Instagram',
-    icon: Instagram,
-    group: 'Connect',
-    external: true,
-  },
-  {
-    href: 'https://www.linkedin.com/in/frank-zhang-7a8944198/',
-    label: 'LinkedIn',
-    icon: Linkedin,
-    group: 'Connect',
-    external: true,
-  },
-  {
-    href: 'https://github.com/frank-zjiawei',
-    label: 'GitHub',
-    icon: Github,
-    group: 'Connect',
-    external: true,
-  },
-];
+import { ui } from '@/lib/i18n';
+import { useTx } from '@/components/LocaleText';
 
 export function CommandMenu() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const { pick } = useTx();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -109,7 +54,95 @@ export function CommandMenu() {
 
   if (!open) return null;
 
-  const groups = Array.from(new Set(ITEMS.map((i) => i.group)));
+  const items = [
+    {
+      href: '/',
+      label: pick(ui.command.home),
+      icon: Home,
+      group: pick(ui.command.navigate),
+    },
+    {
+      href: '/about',
+      label: pick(ui.command.about),
+      icon: User,
+      group: pick(ui.command.navigate),
+    },
+    {
+      href: '/about/interests',
+      label: pick(ui.command.interests),
+      icon: Dumbbell,
+      group: pick(ui.command.navigate),
+    },
+    {
+      href: '/experience',
+      label: pick(ui.command.experience),
+      icon: Briefcase,
+      group: pick(ui.command.navigate),
+    },
+    {
+      href: '/research',
+      label: pick(ui.command.papers),
+      icon: BookOpen,
+      group: pick(ui.command.navigate),
+    },
+    {
+      href: '/graph',
+      label: pick(ui.command.graph),
+      icon: Network,
+      group: pick(ui.command.navigate),
+    },
+    {
+      href: '/cv/Jiawei_Zhang_CV_EN.pdf',
+      label: pick(ui.command.cvEn),
+      icon: FileDown,
+      group: pick(ui.command.downloads),
+      external: true,
+    },
+    {
+      href: '/cv/Jiawei_Zhang_CV_CN.pdf',
+      label: pick(ui.command.cvZh),
+      icon: FileDown,
+      group: pick(ui.command.downloads),
+      external: true,
+    },
+    {
+      href: `mailto:${profile.email}`,
+      label: pick(ui.command.email),
+      icon: Mail,
+      group: pick(ui.command.connect),
+      external: true,
+    },
+    {
+      href: profile.links.scholar,
+      label: 'Google Scholar',
+      icon: GraduationCap,
+      group: pick(ui.command.connect),
+      external: true,
+    },
+    {
+      href: profile.links.instagram,
+      label: 'Instagram',
+      icon: Instagram,
+      group: pick(ui.command.connect),
+      external: true,
+    },
+    {
+      href: profile.links.linkedin,
+      label: 'LinkedIn',
+      icon: Linkedin,
+      group: pick(ui.command.connect),
+      external: true,
+    },
+    {
+      href: profile.links.github,
+      label: 'GitHub',
+      icon: Github,
+      group: pick(ui.command.connect),
+      external: true,
+    },
+  ];
+
+  const groups = Array.from(new Set(items.map((i) => i.group)));
 
   return (
     <div
@@ -126,12 +159,17 @@ export function CommandMenu() {
         onClick={(e) => e.stopPropagation()}
       >
         <Command.Input
-          placeholder="Type a command or search..."
+          placeholder={
+            pick({
+              en: 'Type a command or search...',
+              zh: '输入命令或搜索…',
+            })
+          }
           className="w-full border-b border-hairline bg-transparent px-4 py-3.5 text-sm text-fg outline-none placeholder:text-fg-dim"
         />
         <Command.List className="max-h-80 overflow-y-auto px-2 py-2">
           <Command.Empty className="px-3 py-8 text-center font-mono text-xs text-fg-dim">
-            No results found.
+            {pick({ en: 'No results found.', zh: '没有找到结果。' })}
           </Command.Empty>
           {groups.map((group) => (
             <Command.Group
@@ -139,26 +177,28 @@ export function CommandMenu() {
               heading={group}
               className="[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-mono [&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-[0.2em] [&_[cmdk-group-heading]]:text-fg-dim"
             >
-              {ITEMS.filter((i) => i.group === group).map((item) => {
-                const Icon = item.icon;
-                return (
-                  <Command.Item
-                    key={item.href}
-                    value={item.label}
-                    onSelect={() => go(item.href, item.external)}
-                    className="flex cursor-pointer items-center gap-3 rounded-sm px-3 py-2.5 text-sm text-fg aria-selected:bg-hairline/60 aria-selected:text-fg"
-                  >
-                    <Icon className="h-4 w-4 text-fg-dim" strokeWidth={1.5} />
-                    <span>{item.label}</span>
-                  </Command.Item>
-                );
-              })}
+              {items
+                .filter((i) => i.group === group)
+                .map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Command.Item
+                      key={item.href}
+                      value={item.label}
+                      onSelect={() => go(item.href, item.external)}
+                      className="flex cursor-pointer items-center gap-3 rounded-sm px-3 py-2.5 text-sm text-fg aria-selected:bg-hairline/60 aria-selected:text-fg"
+                    >
+                      <Icon className="h-4 w-4 text-fg-dim" strokeWidth={1.5} />
+                      <span>{item.label}</span>
+                    </Command.Item>
+                  );
+                })}
             </Command.Group>
           ))}
         </Command.List>
         <div className="flex items-center justify-between border-t border-hairline px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-fg-dim">
-          <span>Navigate</span>
-          <span>Esc to close</span>
+          <span>{pick(ui.command.navigate)}</span>
+          <span>{pick({ en: 'Esc to close', zh: 'Esc 关闭' })}</span>
         </div>
       </Command>
     </div>

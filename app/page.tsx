@@ -3,6 +3,7 @@ import { ResearchFocus } from '@/components/ResearchFocus';
 import { SelectedPublications } from '@/components/SelectedPublications';
 import { AffiliationBar } from '@/components/AffiliationBar';
 import { PlaceGallery } from '@/components/PlaceGallery';
+import { ui } from '@/lib/i18n';
 
 export default function HomePage() {
   return (
@@ -11,7 +12,7 @@ export default function HomePage() {
       <AffiliationBar />
       <ResearchFocus />
       <SelectedPublications />
-      <PlaceGallery eyebrow="Along the way" title="Places" />
+      <PlaceGallery eyebrow={ui.places.alongTheWay} title={ui.places.places} />
     </>
   );
 }
