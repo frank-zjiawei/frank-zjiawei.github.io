@@ -36,7 +36,7 @@ export const zhOrgs: Record<
   },
   mit: {
     name: '麻省理工学院',
-    short: 'AI Venture Studio',
+    short: 'MIT',
   },
   'mit-media-lab': {
     name: 'MIT 媒体实验室',
@@ -77,7 +77,7 @@ export const zhAffiliations: Record<
   },
   mit: {
     role: '媒体实验室 · AI Venture Studio\nSloan 管理学院',
-    detail: 'MIT 媒体实验室 AI Venture Studio 与 Sloan 管理学院。',
+    detail: '麻省理工学院（MIT）媒体实验室 AI Venture Studio 与 Sloan 管理学院。',
     cta: '教育经历',
     period: '2025 – 26',
   },

@@ -40,7 +40,7 @@ const registry = {
   },
   mit: {
     name: 'Massachusetts Institute of Technology',
-    short: 'AI Venture Studio',
+    short: 'MIT',
     logo: '/images/logos/mit.svg',
   },
   'mit-media-lab': {
