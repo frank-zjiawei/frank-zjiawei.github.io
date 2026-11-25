@@ -155,16 +155,16 @@ export const publications: Publication[] = [
   },
   {
     id: 8,
-    year: 2027,
+    year: 2026,
     authors: 'Anonymous ACL submission',
     title:
-      'Probability-Augmented Flowchart Prompting: A Bayesian Approach to Uncertainty-Aware Agent Workflows',
-    shortTitle: 'PAFP',
-    venue: 'Manuscript ready to submit · ACL',
-    status: 'ready-to-submit',
-    pdf: '/papers/PAFP_ACL_Ready.pdf',
+      'Probabilities Belong in the Compiler: Uncertainty-Aware Flowcharts for LLM Agents',
+    shortTitle: 'Probabilities in the Compiler',
+    venue: 'Working paper · targeting ACL',
+    status: 'working-paper',
+    pdf: '/papers/PAFP_UncertaintyAwareFlowcharts.pdf',
     cover: '/images/papers/pafp-cover.jpg',
-    tags: ['Agents', 'Bayesian', 'Prompting'],
+    tags: ['Agents', 'Bayesian', 'Flowcharts', 'LLMs'],
     coverTone: 'navy',
   },
   {
